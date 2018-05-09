@@ -1,10 +1,7 @@
 using System;
 using ReportEngine;
-using ReportEngine.Base.Data.Provider;
 using ReportEngine.Interfaces;
-using ReportEngine.Base.Security;
 using ReportEngine.Base.Interfaces;
-using ReportEngine.Provider.WebService;
 using System.Data;
 using ReportEngine.IO;
 using ReportEngine.Data;
@@ -22,25 +19,9 @@ namespace Unit4
 
         public void RunReport(string inputFile, string outputFile)
         {
-            var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = SecureStringHelper.ToSecureString(m_Credentials.Password);
-            
-            var authenticators = new BaseAuthenticator[1]
-            {
-                agressoAuthenticator
-            };
-            var connector = new WebProviderConnector() 
-            { 
-                Name = "WebService",
-                Authenticators = authenticators,
-                Authenticator = agressoAuthenticator,
-                Datasource = m_Credentials.SoapService
-            };
-            
-            agressoAuthenticator.Name = m_Credentials.Username;
-            agressoAuthenticator.Client = m_Credentials.Client;
+            var webProvider = new Unit4WebProvider(m_Credentials).Create();
 
-            var engine = new Engine(new WebProvider(connector), ClientType.External);
+            var engine = new Engine(webProvider, ClientType.External);
             engine.InProcess = true;
             using (engine)
             {
