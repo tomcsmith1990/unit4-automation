@@ -17,16 +17,13 @@ namespace Unit4
         static void Main(string[] args)
         {
             try {
-                var username = "";
-                var password = "";
-                var soapService = "";
-                var client = "";
+                var credentials = new Credentials();
 
                 var inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.rerx");
                 var outputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.xlsx");
 
                 var agressoAuthenticator = new AgressoAuthenticator();
-                agressoAuthenticator.Password = SecureStringHelper.ToSecureString(password);
+                agressoAuthenticator.Password = SecureStringHelper.ToSecureString(credentials.Password);
                 
                 var authenticators = new BaseAuthenticator[1]
                 {
@@ -37,11 +34,11 @@ namespace Unit4
                     Name = "WebService",
                     Authenticators = authenticators,
                     Authenticator = agressoAuthenticator,
-                    Datasource = soapService
+                    Datasource = credentials.SoapService
                 };
                 
-                agressoAuthenticator.Name = username;
-                agressoAuthenticator.Client = client;
+                agressoAuthenticator.Name = credentials.Username;
+                agressoAuthenticator.Client = credentials.Client;
 
                 var engine = new Engine(new WebProvider(connector), ClientType.External);
                 engine.InProcess = true;
