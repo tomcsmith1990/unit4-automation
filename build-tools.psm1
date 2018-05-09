@@ -1,5 +1,9 @@
-function Build {
+function Restore {
     nuget.exe restore .\Unit4\
+}
+
+function Build {
+    Restore
     msbuild.exe .\Unit4\Unit4.sln
 }
 
@@ -11,6 +15,7 @@ function Run {
     & ".\Unit4\Unit4\bin\Debug\Unit4.exe"
 }
 
+export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
 export-modulemember -function Run
