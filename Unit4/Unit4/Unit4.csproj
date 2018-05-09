@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Credentials.cs" />
+    <Compile Include="RerxPackage.cs" />
     <Compile Include="Unit4Engine.cs" />
     <Compile Include="Unit4WebProvider.cs" />
     <Compile Include="ReportRunner.cs" />

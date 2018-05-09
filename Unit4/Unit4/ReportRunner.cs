@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Unit4
@@ -10,7 +9,7 @@ namespace Unit4
         {
             try
             {
-                var task = Task.Factory.StartNew(() => RunReport());
+                var task = Task.Factory.StartNew(() => RunReport(new RerxPackage()));
                 Task.WaitAll(task);
             }
             catch (Exception e) {
@@ -21,15 +20,12 @@ namespace Unit4
             }
         }
 
-        private void RunReport()
+        private void RunReport(RerxPackage rerxPackage)
         {
             var credentials = new Credentials();
 
-            var inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.rerx");
-            var outputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.xlsx");
-
             var engine = new Unit4Engine(credentials);
-            engine.RunReport(inputFile, outputFile);
+            engine.RunReport(rerxPackage.InputPath, rerxPackage.OutputPath);
             
             Console.WriteLine("Success");
         }
