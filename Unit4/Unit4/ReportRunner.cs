@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Unit4
 {
@@ -9,15 +10,8 @@ namespace Unit4
         {
             try
             {
-                var credentials = new Credentials();
-
-                var inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.rerx");
-                var outputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.xlsx");
-
-                var engine = new Unit4Engine(credentials);
-                engine.RunReport(inputFile, outputFile);
-                
-                Console.WriteLine("Success");
+                var task = Task.Factory.StartNew(() => RunReport());
+                Task.WaitAll(task);
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
@@ -25,6 +19,19 @@ namespace Unit4
                 Console.WriteLine(e.GetType());
                 Console.WriteLine(e.StackTrace);
             }
+        }
+
+        private void RunReport()
+        {
+            var credentials = new Credentials();
+
+            var inputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.rerx");
+            var outputFile = Path.Combine(Directory.GetCurrentDirectory(), "Vol Orgs BCR.xlsx");
+
+            var engine = new Unit4Engine(credentials);
+            engine.RunReport(inputFile, outputFile);
+            
+            Console.WriteLine("Success");
         }
     }
 }
