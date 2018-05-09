@@ -49,14 +49,8 @@
     <Reference Include="ReportEngine.Interface">
       <HintPath>..\lib\ReportEngine.Interface.dll</HintPath>
     </Reference>
-    <Reference Include="ReportEngine.Provider.WebApi">
-      <HintPath>..\lib\ReportEngine.Provider.WebApi.dll</HintPath>
-    </Reference>
     <Reference Include="ReportEngine.Provider.WebService">
       <HintPath>..\lib\ReportEngine.Provider.WebService.dll</HintPath>
-    </Reference>
-    <Reference Include="ReportEngine.Provider.SQLite">
-      <HintPath>..\lib\ReportEngine.Provider.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="ReportEngine.Reporter.SpreadSheetML">
       <HintPath>..\lib\ReportEngine.Reporter.SpreadSheetML.dll</HintPath>
