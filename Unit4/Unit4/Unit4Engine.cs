@@ -44,7 +44,6 @@ namespace Unit4
             engine.InProcess = true;
             using (engine)
             {
-                DataSet dataset = null;
                 engine.RunReportEx(inputFile, outputFile, false);
             }
         }
