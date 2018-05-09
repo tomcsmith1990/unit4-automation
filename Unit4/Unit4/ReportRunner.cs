@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Unit4
 {
@@ -9,8 +11,14 @@ namespace Unit4
         {
             try
             {
-                var task = Task.Factory.StartNew(() => RunReport(new RerxPackage()));
-                Task.WaitAll(task);
+                var packages = new List<RerxPackage>() {
+                    new RerxPackage("Vol Orgs BCR.rerx", "Vol Orgs BCR.xlsx"),
+                    new RerxPackage("Transport BCR.rerx", "Transport BCR.xlsx")
+                };
+
+                var tasks = packages.Select(p => Task.Factory.StartNew(() => RunReport(p))).ToArray();
+
+                Task.WaitAll(tasks);
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
@@ -27,7 +35,7 @@ namespace Unit4
             var engine = new Unit4Engine(credentials);
             engine.RunReport(rerxPackage.InputPath, rerxPackage.OutputPath);
             
-            Console.WriteLine("Success");
+            Console.WriteLine(string.Format("Success - {0}", rerxPackage.OutputPath));
         }
     }
 }
