@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System.Data;
 using System.Diagnostics;
+using System.Collections.Concurrent;
 
 namespace Unit4
 {
@@ -30,17 +31,22 @@ namespace Unit4
 
                 Console.WriteLine("Getting BCRs");
 
-                var tasks = tier3s.Select(RunBCRTask).ToArray();
+                var bag = new ConcurrentBag<BCRLine>();
 
-                Task.WaitAll(tasks);
+                Parallel.ForEach(tier3s, new ParallelOptions { MaxDegreeOfParallelism = 2 }, t =>
+                {
+                    var bcrLines = RunBCRTask(t);
+                    foreach (var line in bcrLines)
+                    {
+                        bag.Add(line);
+                    }
+                });
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
                 elapsed = current;
                 
                 Console.WriteLine("Combining rows");
-
-                var lines = tasks.SelectMany(x => x.Result);
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
@@ -49,7 +55,7 @@ namespace Unit4
                 Console.WriteLine("Writing to Excel");
 
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
-                new Excel().WriteToExcel(outputPath, lines);
+                new Excel().WriteToExcel(outputPath, bag);
 
                 stopwatch.Stop();
 
@@ -66,22 +72,20 @@ namespace Unit4
             }
         }
 
-        private Task<IEnumerable<BCRLine>> RunBCRTask(string tier3)
+        private IEnumerable<BCRLine> RunBCRTask(string tier3)
         {
-            return Task.Factory.StartNew(() => {
-                try
-                {
-                    var bcr = RunBCR(tier3);
-                    Console.WriteLine(string.Format("Got BCR for {0}", tier3));
-                    return BCRLine.FromDataSet(bcr);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(string.Format("Error on {0}", tier3));
-                    _log.Error(e);
-                    return new List<BCRLine>();
-                }
-            });
+            try
+            {
+                var bcr = RunBCR(tier3);
+                Console.WriteLine(string.Format("Got BCR for {0}", tier3));
+                return BCRLine.FromDataSet(bcr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error on {0}", tier3));
+                _log.Error(e);
+                return new List<BCRLine>();
+            }
         }
 
         private DataSet RunBCR(string tier3)
