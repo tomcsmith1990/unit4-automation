@@ -13,12 +13,9 @@ namespace Unit4
         {
             try
             {
-                var costCentres = new List<string>() {
-                    "30001976",
-                    "30002006"
-                };
+                var costCentres = GetCostCentres();
 
-                var tasks = costCentres.Select(x => Task.Factory.StartNew(() => RunBCR(x))).ToArray();
+                var tasks = costCentres.Select(RunBCRTask).ToArray();
 
                 Task.WaitAll(tasks);
 
@@ -42,6 +39,15 @@ namespace Unit4
             }
         }
 
+        private Task<DataSet> RunBCRTask(string costCentre)
+        {
+            return Task.Factory.StartNew(() => {
+                var bcr = RunBCR(costCentre);
+                Console.WriteLine(string.Format("Got BCR for {0}", costCentre));
+                return bcr;
+            });
+        }
+
         private DataSet RunBCR(string costCentre)
         {
             return RunReport(string.Format(Resql.BcrByCostCentre, costCentre));
@@ -53,6 +59,20 @@ namespace Unit4
 
             var engine = new Unit4Engine(credentials);
             return engine.RunReport(resql);
+        }
+
+        private IEnumerable<string> GetCostCentres()
+        {
+            var data = RunReport(Resql.GetCostCentreList);
+            foreach (DataRow row in data.Tables[0].Rows)
+            {
+                var costCentre = row["dim_value"] as string;
+                var costCentreName = row["xdim_value"] as string;
+                if (costCentre.StartsWith("3000"))
+                {
+                    yield return costCentre;
+                }
+            }
         }
     }
 }

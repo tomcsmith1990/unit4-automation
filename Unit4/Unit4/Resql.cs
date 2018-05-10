@@ -27,5 +27,21 @@ namespace Unit4
 .endQuery";
             }
         }
+
+        public static string GetCostCentreList
+        {
+            get
+            {
+                return @".name [GL-COA-004 : Listing - Cost Centres]
+
+.declare [Budget Group (Tier4)] String ''
+
+.declare [Cost Centre] String ''
+
+.query [GL-COA-004 : Listing - Cost Centres] 
+    agr_getBrowser 'GL-COA-004 : Listing - Cost Centres', r4dim_value_eq='$?[Budget Group (Tier4)]', dim_value_eq='$?[Cost Centre]'
+.endQuery";
+            }
+        }
     }
 }
