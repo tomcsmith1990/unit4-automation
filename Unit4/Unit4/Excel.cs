@@ -60,8 +60,6 @@ namespace Unit4
 
             sheet.Range[sheet.Cells[2, 13], sheet.Cells[i - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
 
-            sheet.Range[sheet.Cells[1,1], sheet.Cells[i - 1, 18]].AutoFilter();
-
             sheet.Columns.AutoFit();
 
             excelWorkBook.SaveAs(path);
