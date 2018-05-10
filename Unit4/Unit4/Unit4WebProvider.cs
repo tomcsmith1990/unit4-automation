@@ -4,20 +4,27 @@ using Unit4.Interfaces;
 
 namespace Unit4
 {
-    internal class Unit4WebProvider
+    internal class Unit4WebProvider : IDisposable
     {
         private readonly ICredentials m_Credentials;
+        private readonly WebProvider m_Provider;
 
         public Unit4WebProvider(ICredentials credentials)
         {
             m_Credentials = credentials;
+
+            var connector = new Unit4WebConnector(credentials).Create();
+            m_Provider = new WebProvider(connector);
         }
 
         public WebProvider Create()
         {
-            var connector = new Unit4WebConnector(m_Credentials).Create();
+            return m_Provider;
+        }
 
-            return new WebProvider(connector);
+        public void Dispose()
+        {
+            m_Provider.Dispose();
         }
     }
 }

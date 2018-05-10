@@ -22,16 +22,17 @@ namespace Unit4
 
         public DataSet RunReport(string resql)
         {
-            var webProvider = new Unit4WebProvider(m_Credentials).Create();
-
-            var engine = new Engine(webProvider, ClientType.External);
-            engine.InProcess = true;
-
-            using (engine)
+            using (var webProvider = new Unit4WebProvider(m_Credentials).Create())
             {
-                var resqlProcessor = new ReSqlProcessor(engine);
+                var engine = new Engine(webProvider, ClientType.External);
+                engine.InProcess = true;
 
-                return engine.RunReSql(resqlProcessor, resql);
+                using (engine)
+                {
+                    var resqlProcessor = new ReSqlProcessor(engine);
+
+                    return engine.RunReSql(resqlProcessor, resql);
+                }
             }
         }
     }
