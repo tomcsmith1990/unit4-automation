@@ -70,6 +70,7 @@
     <Compile Include="RerxPackage.cs" />
     <Compile Include="Unit4Engine.cs" />
     <Compile Include="Unit4WebProvider.cs" />
+    <Compile Include="Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="Tests\SimpleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

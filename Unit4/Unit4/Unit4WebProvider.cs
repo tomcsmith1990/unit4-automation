@@ -1,7 +1,5 @@
 using System;
 using ReportEngine.Provider.WebService;
-using ReportEngine.Base.Security;
-using ReportEngine.Base.Data.Provider;
 
 namespace Unit4
 {
@@ -16,23 +14,7 @@ namespace Unit4
 
         public WebProvider Create()
         {
-            var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = SecureStringHelper.ToSecureString(m_Credentials.Password);
-            
-            var authenticators = new BaseAuthenticator[1]
-            {
-                agressoAuthenticator
-            };
-            var connector = new WebProviderConnector() 
-            { 
-                Name = "WebService",
-                Authenticators = authenticators,
-                Authenticator = agressoAuthenticator,
-                Datasource = m_Credentials.SoapService
-            };
-            
-            agressoAuthenticator.Name = m_Credentials.Username;
-            agressoAuthenticator.Client = m_Credentials.Client;
+            var connector = new Unit4WebConnector(m_Credentials).Create();
 
             return new WebProvider(connector);
         }
