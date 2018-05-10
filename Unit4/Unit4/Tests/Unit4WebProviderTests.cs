@@ -1,6 +1,8 @@
 using System;
 using NUnit.Framework;
 using Unit4.Interfaces;
+using ReportEngine.Base.Data.Provider;
+using ReportEngine.Base.Security;
 
 namespace Unit4.Tests
 {
@@ -17,9 +19,32 @@ namespace Unit4.Tests
         }
 
         [Test]
-        public void ShouldFail()
+        public void TheConnector_ShouldHavePassword()
         {
-            Assert.That(true, Is.False);
+            var credentials = new FakeCredentials();
+            var connector = new Unit4WebConnector(credentials).Create();
+            var authenticator = connector.Authenticator as AgressoAuthenticator;
+
+            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(credentials.Password));
+        }
+
+        [Test]
+        public void TheConnector_ShouldHaveClient()
+        {
+            var credentials = new FakeCredentials();
+            var connector = new Unit4WebConnector(credentials).Create();
+            var authenticator = connector.Authenticator as AgressoAuthenticator;
+
+            Assert.That(authenticator.Client, Is.EqualTo(credentials.Client));
+        }
+
+        [Test]
+        public void TheConnector_ShouldHaveSoapService()
+        {
+            var credentials = new FakeCredentials();
+            var connector = new Unit4WebConnector(credentials).Create();
+
+            Assert.That(connector.Datasource, Is.EqualTo(credentials.SoapService));
         }
 
         private class FakeCredentials : ICredentials
