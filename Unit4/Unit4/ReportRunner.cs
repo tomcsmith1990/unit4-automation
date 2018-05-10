@@ -18,26 +18,46 @@ namespace Unit4
             {
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
+                long elapsed = 0, current = 0;
+
+                Console.WriteLine("Getting cost centre hierarchy");
 
                 var tier3s = new CostCentreHierarchy().GetTier3List();
+
+                current = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
+                elapsed = current;
+
+                Console.WriteLine("Getting BCRs");
 
                 var tasks = tier3s.Select(RunBCRTask).ToArray();
 
                 Task.WaitAll(tasks);
 
-                Console.WriteLine("Merging data");
+                current = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
+                elapsed = current;
                 
+                Console.WriteLine("Combining rows");
+
                 var lines = tasks.SelectMany(x => x.Result);
 
+                current = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
+                elapsed = current;
+
                 Console.WriteLine("Writing to Excel");
+
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
                 new Excel().WriteToExcel(outputPath, lines);
 
                 stopwatch.Stop();
 
-                Console.WriteLine(string.Format("Success - {0}", outputPath));
+                current = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
+                elapsed = current;
 
-                Console.WriteLine(string.Format("Time: {0}ms", stopwatch.ElapsedMilliseconds));
+                Console.WriteLine(string.Format("Success - {0}", outputPath));
             }
             catch (Exception e)
             {    
