@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Data;
 
 namespace Unit4
 {
@@ -11,14 +13,26 @@ namespace Unit4
         {
             try
             {
-                var packages = new List<RerxPackage>() {
-                    new RerxPackage("Vol Orgs BCR.rerx", "Vol Orgs BCR.xlsx"),
-                    new RerxPackage("Transport BCR.rerx", "Transport BCR.xlsx")
+                var costCentres = new List<string>() {
+                    "30001976",
+                    "30002006"
                 };
 
-                var tasks = packages.Select(p => Task.Factory.StartNew(() => RunReport(p))).ToArray();
+                var tasks = costCentres.Select(x => Task.Factory.StartNew(() => RunReport(x))).ToArray();
 
                 Task.WaitAll(tasks);
+
+                var mergedData = new DataSet();
+
+                foreach (var t in tasks)
+                {
+                    mergedData.Merge(t.Result);
+                }
+
+                var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
+                new Excel().WriteToExcel(outputPath, mergedData);
+
+                Console.WriteLine(string.Format("Success - {0}", outputPath));
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
@@ -28,14 +42,12 @@ namespace Unit4
             }
         }
 
-        private void RunReport(RerxPackage rerxPackage)
+        private DataSet RunReport(string costCentre)
         {
             var credentials = new Credentials();
 
             var engine = new Unit4Engine(credentials);
-            engine.RunReport(rerxPackage.InputPath, rerxPackage.OutputPath);
-            
-            Console.WriteLine(string.Format("Success - {0}", rerxPackage.OutputPath));
+            return engine.RunReport(costCentre);
         }
     }
 }
