@@ -1,14 +1,15 @@
 using System;
 using ReportEngine.Base.Security;
 using ReportEngine.Base.Data.Provider;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
     internal class Unit4WebConnector
     {
-        private readonly Credentials m_Credentials;
+        private readonly ICredentials m_Credentials;
 
-        public Unit4WebConnector(Credentials credentials)
+        public Unit4WebConnector(ICredentials credentials)
         {
             m_Credentials = credentials;
         }

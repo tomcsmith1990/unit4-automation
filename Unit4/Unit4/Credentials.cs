@@ -1,8 +1,9 @@
 using System;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
-    internal class Credentials
+    internal class Credentials : ICredentials
     {
         public string Username
         { 

@@ -1,13 +1,14 @@
 using System;
 using ReportEngine.Provider.WebService;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
     internal class Unit4WebProvider
     {
-        private readonly Credentials m_Credentials;
+        private readonly ICredentials m_Credentials;
 
-        public Unit4WebProvider(Credentials credentials)
+        public Unit4WebProvider(ICredentials credentials)
         {
             m_Credentials = credentials;
         }

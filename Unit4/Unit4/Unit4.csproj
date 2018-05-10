@@ -72,7 +72,8 @@
     <Compile Include="Unit4WebProvider.cs" />
     <Compile Include="Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
-    <Compile Include="Tests\SimpleTest.cs" />
+    <Compile Include="Interfaces\ICredentials.cs" />
+    <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,14 +5,15 @@ using ReportEngine.Base.Interfaces;
 using System.Data;
 using ReportEngine.IO;
 using ReportEngine.Data;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
     internal class Unit4Engine
     {
-        private readonly Credentials m_Credentials;
+        private readonly ICredentials m_Credentials;
 
-        public Unit4Engine(Credentials credentials)
+        public Unit4Engine(ICredentials credentials)
         {
             m_Credentials = credentials;
         }
