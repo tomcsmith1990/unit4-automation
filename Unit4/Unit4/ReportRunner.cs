@@ -77,7 +77,8 @@ namespace Unit4
             try
             {
                 var bcr = RunBCR(tier3);
-                Console.WriteLine(string.Format("Got BCR for {0}", tier3));
+                _log.Info(string.Format("Got BCR for {0}", tier3));
+                
                 return BCRLine.FromDataSet(bcr);
             }
             catch (Exception e)
