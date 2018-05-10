@@ -5,25 +5,17 @@ using System.Linq;
 using System.IO;
 using System.Data;
 using System.Diagnostics;
-using Log = ReportEngine.Diagnostics.Log;
 
 namespace Unit4
 {
     internal class ReportRunner
     {
-        string logFilePath;
+        private readonly Logging _log = new Logging();
+
         public void Run()
         {
             try
             {
-                logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
-                var logFile = new ReportEngine.Diagnostics.LogFileListener(logFilePath, true);
-                ReportEngine.Diagnostics.Log.Level = TraceLevel.Verbose;
-
-                Console.WriteLine(logFilePath);
-
-                ReportEngine.Diagnostics.Log.Open(logFile);
-
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
@@ -49,31 +41,9 @@ namespace Unit4
             }
             catch (Exception e)
             {    
-                WriteException(e);
-
-                var aggregateException = e as AggregateException;
-                if (aggregateException != null)
-                {
-                    foreach (var exception in aggregateException.InnerExceptions)
-                    {
-                        WriteException(exception);
-                    }
-                }
-
-                Console.WriteLine(logFilePath);          
+                _log.Error(e);                
+                Console.WriteLine(_log.Path);          
             }
-        }
-
-        private void WriteException(Exception exception)
-        {
-            if (exception is ReportEngine.Data.Sql.LineException)
-            {
-                Log.Error(((ReportEngine.Data.Sql.LineException)exception).FullLine);
-            }
-
-            Log.Error(exception.Message);
-            Log.Error(exception.GetType().ToString());
-            Log.Error(exception.StackTrace);
         }
 
         private Task<IEnumerable<BCRLine>> RunBCRTask(string tier3)
@@ -88,7 +58,7 @@ namespace Unit4
                 catch (Exception e)
                 {
                     Console.WriteLine(string.Format("Error on {0}", tier3));
-                    WriteException(e);
+                    _log.Error(e);
                     return new List<BCRLine>();
                 }
             });

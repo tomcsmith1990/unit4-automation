@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="BCRLine.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Unit4Engine.cs" />
     <Compile Include="Unit4WebProvider.cs" />
