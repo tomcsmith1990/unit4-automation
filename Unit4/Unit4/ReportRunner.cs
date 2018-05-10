@@ -18,7 +18,7 @@ namespace Unit4
                     "30002006"
                 };
 
-                var tasks = costCentres.Select(x => Task.Factory.StartNew(() => RunReport(x))).ToArray();
+                var tasks = costCentres.Select(x => Task.Factory.StartNew(() => RunBCR(x))).ToArray();
 
                 Task.WaitAll(tasks);
 
@@ -42,12 +42,17 @@ namespace Unit4
             }
         }
 
-        private DataSet RunReport(string costCentre)
+        private DataSet RunBCR(string costCentre)
+        {
+            return RunReport(string.Format(Resql.BcrByCostCentre, costCentre));
+        }
+
+        private DataSet RunReport(string resql)
         {
             var credentials = new Credentials();
 
             var engine = new Unit4Engine(credentials);
-            return engine.RunReport(costCentre);
+            return engine.RunReport(resql);
         }
     }
 }

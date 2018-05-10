@@ -20,7 +20,7 @@ namespace Unit4
             m_Credentials = credentials;
         }
 
-        public DataSet RunReport(string costCentre)
+        public DataSet RunReport(string resql)
         {
             var webProvider = new Unit4WebProvider(m_Credentials).Create();
 
@@ -31,7 +31,7 @@ namespace Unit4
             {
                 var resqlProcessor = new ReSqlProcessor(engine);
 
-                return engine.RunReSql(resqlProcessor, string.Format(Resql.BcrByCostCentre, costCentre));
+                return engine.RunReSql(resqlProcessor, resql);
             }
         }
     }
