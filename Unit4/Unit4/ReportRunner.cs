@@ -17,6 +17,8 @@ namespace Unit4
         {
             try
             {
+                _log.Start();
+
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
                 long elapsed = 0, current = 0;
@@ -63,8 +65,8 @@ namespace Unit4
             }
             catch (Exception e)
             {    
-                _log.Error(e);         
-                Console.WriteLine(_log.Path);
+                _log.Error(e);
+                Console.WriteLine(_log.Path);        
             }
             finally
             {
