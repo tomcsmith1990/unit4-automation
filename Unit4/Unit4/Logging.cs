@@ -22,6 +22,11 @@ namespace Unit4
             Log.Open(logFile);
         }
 
+        public void Close()
+        {
+            Log.Close();
+        }
+
         public void Info(string message)
         {
             Log.Info(message);

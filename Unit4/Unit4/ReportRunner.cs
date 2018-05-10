@@ -45,12 +45,6 @@ namespace Unit4
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
                 elapsed = current;
-                
-                Console.WriteLine("Combining rows");
-
-                current = stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
-                elapsed = current;
 
                 Console.WriteLine("Writing to Excel");
 
@@ -64,11 +58,17 @@ namespace Unit4
                 elapsed = current;
 
                 Console.WriteLine(string.Format("Success - {0}", outputPath));
+
+                Console.WriteLine(string.Format("Total time elapsed: {0}ms", elapsed));
             }
             catch (Exception e)
             {    
-                _log.Error(e);                
-                Console.WriteLine(_log.Path);          
+                _log.Error(e);         
+                Console.WriteLine(_log.Path);
+            }
+            finally
+            {
+                _log.Close();
             }
         }
 
@@ -78,7 +78,7 @@ namespace Unit4
             {
                 var bcr = RunBCR(tier3);
                 _log.Info(string.Format("Got BCR for {0}", tier3));
-                
+
                 return BCRLine.FromDataSet(bcr);
             }
             catch (Exception e)
