@@ -4,7 +4,7 @@ namespace Unit4
 {
     internal static class Resql
     {
-        public static string BcrByCostCentre
+        public static string BcrByTier3
         {
             get
             {
@@ -16,9 +16,9 @@ namespace Unit4
 
 .declare [Budget Group (Tier4)] String ''
 
-.declare [Cost Centre] String '{0}'
+.declare [Cost Centre] String ''
 
-.declare [Service (Tier3)] String ''
+.declare [Service (Tier3)] String '{0}'
 
 .declare [Account] String ''
 
@@ -32,14 +32,22 @@ namespace Unit4
         {
             get
             {
-                return @".name [GL-COA-004 : Listing - Cost Centres]
-
-.declare [Budget Group (Tier4)] String ''
+                return @".name [GL-COA-001 Revenue Cost Centre Hierarchy Report]
 
 .declare [Cost Centre] String ''
 
-.query [GL-COA-004 : Listing - Cost Centres] 
-    agr_getBrowser 'GL-COA-004 : Listing - Cost Centres', r4dim_value_eq='$?[Budget Group (Tier4)]', dim_value_eq='$?[Cost Centre]'
+.declare [Company] String '$CLIENT'
+
+.declare [Directorate] String ''
+
+.declare [Service Group (Tier2)] String ''
+
+.declare [Service (Tier3)] String ''
+
+.declare [Budget Group (Tier4)] String ''
+
+.query [GL-COA-001 Revenue Cost Centre Hierarchy Report] 
+    agr_getBrowser 'GL-COA-001 Revenue Cost Centre Hierarchy Report', dim_value_eq='$?[Cost Centre]', client_eq='$?[Company]', r0r0r0r1dim_value_eq='$?[Directorate]', r0r0r1dim_value_eq='$?[Service Group (Tier2)]', r0r1dim_value_eq='$?[Service (Tier3)]', r1dim_value_eq='$?[Budget Group (Tier4)]'
 .endQuery";
             }
         }
