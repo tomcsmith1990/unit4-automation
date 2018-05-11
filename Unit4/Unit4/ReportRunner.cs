@@ -13,7 +13,7 @@ namespace Unit4
     {
         private readonly Logging _log = new Logging();
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
-        private readonly CostCentreHierarchy _codeHierarchy = new CostCentreHierarchy();
+        private readonly CostCentreList _codeList = new CostCentreList();
 
         public void Run()
         {
@@ -27,7 +27,7 @@ namespace Unit4
 
                 Console.WriteLine("Getting cost centre hierarchy");
 
-                var costCentres = _codeHierarchy.GetCostCentres();
+                var costCentres = _codeList.GetCostCentres();
                 var costCentreByTier3 = costCentres.GroupBy(x => x.Tier3, x => x.Tier4);
 
                 current = stopwatch.ElapsedMilliseconds;

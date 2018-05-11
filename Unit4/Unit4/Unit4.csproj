@@ -70,7 +70,7 @@
     <Compile Include="BCRLine.cs" />
     <Compile Include="BCRLineBuilder.cs" />
     <Compile Include="Logging.cs" />
-    <Compile Include="CostCentreHierarchy.cs" />
+    <Compile Include="CostCentreList.cs" />
     <Compile Include="CostCentre.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Unit4Engine.cs" />

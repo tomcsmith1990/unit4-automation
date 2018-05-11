@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Unit4
 {
-    internal class CostCentreHierarchy
+    internal class CostCentreList
     {
         private DataSet RunReport(string resql)
         {
