@@ -23,26 +23,8 @@ namespace Unit4
 
             Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
-                var row = data.ElementAt(i);
-
-                sheet.Cells[i + rowToStartData, 1] = row.Tier1;
-                sheet.Cells[i + rowToStartData, 2] = row.Tier1Name;
-                sheet.Cells[i + rowToStartData, 3] = row.Tier2;
-                sheet.Cells[i + rowToStartData, 4] = row.Tier2Name;
-                sheet.Cells[i + rowToStartData, 5] = row.Tier3;
-                sheet.Cells[i + rowToStartData, 6] = row.Tier3Name;
-                sheet.Cells[i + rowToStartData, 7] = row.Tier4;
-                sheet.Cells[i + rowToStartData, 8] = row.Tier4Name;
-                sheet.Cells[i + rowToStartData, 9] = row.CostCentre;
-                sheet.Cells[i + rowToStartData, 10] = row.CostCentreName;
-                sheet.Cells[i + rowToStartData, 11] = row.Account;
-                sheet.Cells[i + rowToStartData, 12] = row.AccountName;
-                sheet.Cells[i + rowToStartData, 13] = row.Budget;
-                sheet.Cells[i + rowToStartData, 14] = row.Profile;
-                sheet.Cells[i + rowToStartData, 15] = row.Actuals;
-                sheet.Cells[i + rowToStartData, 16] = row.Variance;
-                sheet.Cells[i + rowToStartData, 17] = row.Forecast;
-                sheet.Cells[i + rowToStartData, 18] = row.OutturnVariance;
+                var rowNumber = i + rowToStartData;
+                AddRow(sheet, rowNumber, data.ElementAt(i));
             });
 
             sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
@@ -75,6 +57,28 @@ namespace Unit4
             sheet.Cells[headerRow, 16] = "Variance";
             sheet.Cells[headerRow, 17] = "Forecast";
             sheet.Cells[headerRow, 18] = "Outturn Variance";
+        }
+
+        private void AddRow(MSExcel.Worksheet sheet, int rowNumber, BCRLine line)
+        {
+            sheet.Cells[rowNumber, 1] = line.Tier1;
+            sheet.Cells[rowNumber, 2] = line.Tier1Name;
+            sheet.Cells[rowNumber, 3] = line.Tier2;
+            sheet.Cells[rowNumber, 4] = line.Tier2Name;
+            sheet.Cells[rowNumber, 5] = line.Tier3;
+            sheet.Cells[rowNumber, 6] = line.Tier3Name;
+            sheet.Cells[rowNumber, 7] = line.Tier4;
+            sheet.Cells[rowNumber, 8] = line.Tier4Name;
+            sheet.Cells[rowNumber, 9] = line.CostCentre;
+            sheet.Cells[rowNumber, 10] = line.CostCentreName;
+            sheet.Cells[rowNumber, 11] = line.Account;
+            sheet.Cells[rowNumber, 12] = line.AccountName;
+            sheet.Cells[rowNumber, 13] = line.Budget;
+            sheet.Cells[rowNumber, 14] = line.Profile;
+            sheet.Cells[rowNumber, 15] = line.Actuals;
+            sheet.Cells[rowNumber, 16] = line.Variance;
+            sheet.Cells[rowNumber, 17] = line.Forecast;
+            sheet.Cells[rowNumber, 18] = line.OutturnVariance;
         }
     }
 }
