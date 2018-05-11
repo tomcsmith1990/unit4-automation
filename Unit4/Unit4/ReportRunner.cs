@@ -76,7 +76,7 @@ namespace Unit4
             }
         }
 
-        private IEnumerable<BCRLine> RunBCR(IGrouping<string, string> hierarchy)
+        private IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Unit4
             {
                 _log.Error(string.Format("Error getting BCR for {0}, falling back to tier 4", hierarchy.Key));
                 _log.Error(e);
-                return hierarchy.Distinct().SelectMany(x => RunBCRTier4(x));
+                return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x));
             }
         }
 

@@ -14,10 +14,10 @@ namespace Unit4
             _costCentres = costCentres;
         }
 
-        public IEnumerable<IGrouping<string, string>> GetHierarchyByTier3()
+        public IEnumerable<IGrouping<string, CostCentre>> GetHierarchyByTier3()
         {
             var costCentres = _costCentres.GetCostCentres();
-            return costCentres.GroupBy(x => x.Tier3, x => x.Tier4);
+            return costCentres.GroupBy(x => x.Tier3, x => x);
         }
     }
 }
