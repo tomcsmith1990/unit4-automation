@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="BCRLine.cs" />
+    <Compile Include="BCRLineBuilder.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
     <Compile Include="CostCentre.cs" />

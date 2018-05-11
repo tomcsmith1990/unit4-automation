@@ -12,6 +12,7 @@ namespace Unit4
     internal class ReportRunner
     {
         private readonly Logging _log = new Logging();
+        private readonly BCRLineBuilder _builder = new BCRLineBuilder();
 
         public void Run()
         {
@@ -82,7 +83,7 @@ namespace Unit4
                 var bcr = RunBCRTier3(hierarchy.Key);
                 _log.Info(string.Format("Got BCR for {0}", hierarchy.Key));
 
-                return BCRLine.FromDataSet(bcr);
+                return _builder.Build(bcr);
             }
             catch (Exception e)
             {
@@ -104,7 +105,7 @@ namespace Unit4
                 var bcr = RunReport(string.Format(Resql.BcrByTier4, tier4));
                 _log.Info(string.Format("Got BCR for {0}", tier4));
 
-                return BCRLine.FromDataSet(bcr);
+                return _builder.Build(bcr);
             }
             catch (Exception e)
             {
