@@ -17,21 +17,31 @@ namespace Unit4
 
         public IEnumerable<string> GetTier3List()
         {
-            var tier3List = new List<string>();
-
             var data = RunReport(Resql.GetCostCentreList);
-            foreach (DataRow row in data.Tables[0].Rows)
+            return data.Tables[0].Rows.Cast<DataRow>()
+                        .Select(CreateCostCentre)
+                        .Where(x => x.Code.StartsWith("3000"))
+                        .Distinct()
+                        .Where(x => x.Tier3.StartsWith("30T3"))
+                        .Select(x => x.Tier3);
+        }
+
+        private CostCentre CreateCostCentre(DataRow row)
+        {
+            return new CostCentre()
             {
-                var tier3 = row["r0r1dim_value"] as string;
-                var tier3Name = row["xr0r1dim_value"] as string;
-                var costCentre = row["dim_value"] as string;
-                var costCentreName = row["xdim_value"] as string;
-                if (costCentre.StartsWith("3000"))
-                {
-                    tier3List.Add(tier3);
-                }
-            }
-            return tier3List.Distinct().Where(x => x.StartsWith("30T3"));
+                Tier1 = row["r0r0r0r1dim_value"] as string,
+                Tier2 = row["r0r0r1dim_value"] as string,
+                Tier3 = row["r0r1dim_value"] as string,
+                Tier4 = row["r1dim_value"] as string,
+                Code = row["dim_value"] as string,
+
+                Tier1Name = row["xr0r0r0r1dim_value"] as string,
+                Tier2Name = row["xr0r0r1dim_value"] as string,
+                Tier3Name = row["xr0r1dim_value"] as string,
+                Tier4Name = row["xr1dim_value"] as string,
+                CostCentreName = row["xdim_value"] as string
+            };
         }
     }
 }
