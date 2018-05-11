@@ -29,7 +29,7 @@ namespace Unit4
 
             SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
 
-            sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowToStartData + data.Count() - 1, 18]].AutoFilter(1);
+            AutoFilter(sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
             sheet.Columns.AutoFit();
 
             workbook.SaveAs(path);
@@ -84,6 +84,11 @@ namespace Unit4
         private void SetNumberFormat(MSExcel.Range range)
         {
             range.NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
+        }
+
+        private void AutoFilter(MSExcel.Range range)
+        {
+            range.AutoFilter(1);
         }
     }
 }
