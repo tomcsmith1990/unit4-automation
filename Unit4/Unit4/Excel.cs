@@ -14,7 +14,7 @@ namespace Unit4
             var excelApp = new MSExcel.Application();
             var workbook = excelApp.Workbooks.Add();
 
-            MSExcel.Worksheet sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
+            var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
             sheet.Cells[1, 1] = "Tier1";
