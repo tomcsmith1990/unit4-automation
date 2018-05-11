@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using MSExcel = Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Unit4
 {
@@ -34,31 +36,33 @@ namespace Unit4
             sheet.Cells[1, 17] = "Forecast";
             sheet.Cells[1, 18] = "Outturn Variance";
 
-            var i = 2;
-            foreach (var row in data)
-            {
-                sheet.Cells[i, 1] = row.Tier1;
-                sheet.Cells[i, 2] = row.Tier1Name;
-                sheet.Cells[i, 3] = row.Tier2;
-                sheet.Cells[i, 4] = row.Tier2Name;
-                sheet.Cells[i, 5] = row.Tier3;
-                sheet.Cells[i, 6] = row.Tier3Name;
-                sheet.Cells[i, 7] = row.Tier4;
-                sheet.Cells[i, 8] = row.Tier4Name;
-                sheet.Cells[i, 9] = row.CostCentre;
-                sheet.Cells[i, 10] = row.CostCentreName;
-                sheet.Cells[i, 11] = row.Account;
-                sheet.Cells[i, 12] = row.AccountName;
-                sheet.Cells[i, 13] = row.Budget;
-                sheet.Cells[i, 14] = row.Profile;
-                sheet.Cells[i, 15] = row.Actuals;
-                sheet.Cells[i, 16] = row.Variance;
-                sheet.Cells[i, 17] = row.Forecast;
-                sheet.Cells[i, 18] = row.OutturnVariance;
-                i++;
-            }
+            var rowToStartData = 2;
 
-            sheet.Range[sheet.Cells[2, 13], sheet.Cells[i - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
+            Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
+            {
+                var row = data.ElementAt(i);
+
+                sheet.Cells[i + rowToStartData, 1] = row.Tier1;
+                sheet.Cells[i + rowToStartData, 2] = row.Tier1Name;
+                sheet.Cells[i + rowToStartData, 3] = row.Tier2;
+                sheet.Cells[i + rowToStartData, 4] = row.Tier2Name;
+                sheet.Cells[i + rowToStartData, 5] = row.Tier3;
+                sheet.Cells[i + rowToStartData, 6] = row.Tier3Name;
+                sheet.Cells[i + rowToStartData, 7] = row.Tier4;
+                sheet.Cells[i + rowToStartData, 8] = row.Tier4Name;
+                sheet.Cells[i + rowToStartData, 9] = row.CostCentre;
+                sheet.Cells[i + rowToStartData, 10] = row.CostCentreName;
+                sheet.Cells[i + rowToStartData, 11] = row.Account;
+                sheet.Cells[i + rowToStartData, 12] = row.AccountName;
+                sheet.Cells[i + rowToStartData, 13] = row.Budget;
+                sheet.Cells[i + rowToStartData, 14] = row.Profile;
+                sheet.Cells[i + rowToStartData, 15] = row.Actuals;
+                sheet.Cells[i + rowToStartData, 16] = row.Variance;
+                sheet.Cells[i + rowToStartData, 17] = row.Forecast;
+                sheet.Cells[i + rowToStartData, 18] = row.OutturnVariance;
+            });
+
+            sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
 
             sheet.Columns.AutoFit();
 
