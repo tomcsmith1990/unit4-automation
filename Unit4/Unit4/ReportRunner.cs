@@ -13,7 +13,7 @@ namespace Unit4
     {
         private readonly Logging _log = new Logging();
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
-        private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy();
+        private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy(new CostCentreList());
 
         public void Run()
         {

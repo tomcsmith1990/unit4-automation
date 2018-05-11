@@ -81,6 +81,7 @@
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
+    <Compile Include="Interfaces\ICostCentres.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

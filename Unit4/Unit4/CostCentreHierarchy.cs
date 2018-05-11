@@ -7,11 +7,16 @@ namespace Unit4
 {
     internal class CostCentreHierarchy
     {
-        private readonly CostCentreList _codeList = new CostCentreList();
+        private readonly ICostCentres _costCentres = new CostCentreList();
+
+        public CostCentreHierarchy(ICostCentres costCentres)
+        {
+            _costCentres = costCentres;
+        }
 
         public IEnumerable<IGrouping<string, string>> GetHierarchyByTier3()
         {
-            var costCentres = _codeList.GetCostCentres();
+            var costCentres = _costCentres.GetCostCentres();
             return costCentres.GroupBy(x => x.Tier3, x => x.Tier4);
         }
     }
