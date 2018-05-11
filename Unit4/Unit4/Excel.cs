@@ -17,24 +17,26 @@ namespace Unit4
             var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
-            sheet.Cells[1, 1] = "Tier1";
-            sheet.Cells[1, 2] = "Tier1";
-            sheet.Cells[1, 3] = "Tier2";
-            sheet.Cells[1, 4] = "Tier2";
-            sheet.Cells[1, 5] = "Tier3";
-            sheet.Cells[1, 6] = "Tier3";
-            sheet.Cells[1, 7] = "Tier4";
-            sheet.Cells[1, 8] = "Tier4";
-            sheet.Cells[1, 9] = "Cost Centre";
-            sheet.Cells[1, 10] = "Cost Centre";
-            sheet.Cells[1, 11] = "Account";
-            sheet.Cells[1, 12] = "Account";
-            sheet.Cells[1, 13] = "Budget";
-            sheet.Cells[1, 14] = "Profile";
-            sheet.Cells[1, 15] = "Actuals";
-            sheet.Cells[1, 16] = "Variance";
-            sheet.Cells[1, 17] = "Forecast";
-            sheet.Cells[1, 18] = "Outturn Variance";
+            var headerRow = 1;
+
+            sheet.Cells[headerRow, 1] = "Tier1";
+            sheet.Cells[headerRow, 2] = "Tier1";
+            sheet.Cells[headerRow, 3] = "Tier2";
+            sheet.Cells[headerRow, 4] = "Tier2";
+            sheet.Cells[headerRow, 5] = "Tier3";
+            sheet.Cells[headerRow, 6] = "Tier3";
+            sheet.Cells[headerRow, 7] = "Tier4";
+            sheet.Cells[headerRow, 8] = "Tier4";
+            sheet.Cells[headerRow, 9] = "Cost Centre";
+            sheet.Cells[headerRow, 10] = "Cost Centre";
+            sheet.Cells[headerRow, 11] = "Account";
+            sheet.Cells[headerRow, 12] = "Account";
+            sheet.Cells[headerRow, 13] = "Budget";
+            sheet.Cells[headerRow, 14] = "Profile";
+            sheet.Cells[headerRow, 15] = "Actuals";
+            sheet.Cells[headerRow, 16] = "Variance";
+            sheet.Cells[headerRow, 17] = "Forecast";
+            sheet.Cells[headerRow, 18] = "Outturn Variance";
 
             var rowToStartData = 2;
 
