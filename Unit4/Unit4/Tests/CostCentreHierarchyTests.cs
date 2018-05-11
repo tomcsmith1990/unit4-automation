@@ -34,6 +34,20 @@ namespace Unit4.Tests
             Assert.That(tier3Hierarchy.Count(), Is.EqualTo(1));
         }
 
+        [Test]
+        public void GivenTwoTier3s_ThenThereShouldBeTwoGroups()
+        {
+            var hierarchy = new CostCentreHierarchy(
+                                new DummyCostCentres(
+                                    new CostCentre() { Tier3 = "A", Tier4 = "B" },
+                                    new CostCentre() { Tier3 = "C", Tier4 = "D" }
+                                ));
+            
+            var tier3Hierarchy = hierarchy.GetHierarchyByTier3();
+
+            Assert.That(tier3Hierarchy.Count(), Is.EqualTo(2));
+        }
+
         private class DummyCostCentres : ICostCentres
         {
             private readonly CostCentre[] _costCentres;
