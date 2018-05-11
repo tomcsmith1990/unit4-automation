@@ -27,7 +27,7 @@ namespace Unit4
 
                 Console.WriteLine("Getting cost centre hierarchy");
 
-                var costCentreByTier3 = _hierarchy.GetHierarchyByTier3();
+                var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
@@ -37,7 +37,7 @@ namespace Unit4
 
                 var bag = new ConcurrentBag<BCRLine>();
 
-                Parallel.ForEach(costCentreByTier3, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
+                Parallel.ForEach(tier3Hierarchy, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
                 {
                     var bcrLines = RunBCR(t);
                     foreach (var line in bcrLines)
