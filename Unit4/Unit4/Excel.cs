@@ -27,7 +27,7 @@ namespace Unit4
                 AddRow(sheet, rowNumber, data.ElementAt(i));
             });
 
-            sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
+            SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
 
             sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowToStartData + data.Count() - 1, 18]].AutoFilter(1);
             sheet.Columns.AutoFit();
@@ -79,6 +79,11 @@ namespace Unit4
             sheet.Cells[rowNumber, 16] = line.Variance;
             sheet.Cells[rowNumber, 17] = line.Forecast;
             sheet.Cells[rowNumber, 18] = line.OutturnVariance;
+        }
+
+        private void SetNumberFormat(MSExcel.Range range)
+        {
+            range.NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
         }
     }
 }
