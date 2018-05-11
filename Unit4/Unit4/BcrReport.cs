@@ -6,6 +6,7 @@ using System.IO;
 using System.Data;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
@@ -13,9 +14,9 @@ namespace Unit4
     {
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
         private readonly Logging _log;
-        private readonly Unit4EngineFactory _factory;
+        private readonly IUnit4EngineFactory _factory;
 
-        public BcrReport(Unit4EngineFactory factory, Logging log)
+        public BcrReport(IUnit4EngineFactory factory, Logging log)
         {
             _factory = factory;
             _log = log;

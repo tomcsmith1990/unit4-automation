@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Unit4
 {
-    internal class Unit4Engine
+    internal class Unit4Engine : IUnit4Engine
     {
         private readonly ICredentials m_Credentials;
 
