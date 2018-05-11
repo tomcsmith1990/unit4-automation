@@ -21,7 +21,6 @@ namespace Unit4
             return data.Tables[0].Rows.Cast<DataRow>()
                         .Select(CreateCostCentre)
                         .Where(x => x.Code.StartsWith("3000"))
-                        .Distinct()
                         .Where(x => x.Tier3.StartsWith("30T3"));
         }
 

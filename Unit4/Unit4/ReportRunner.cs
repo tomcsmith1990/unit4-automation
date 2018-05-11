@@ -25,7 +25,7 @@ namespace Unit4
 
                 Console.WriteLine("Getting cost centre hierarchy");
 
-                var tier3s = new CostCentreHierarchy().GetCostCentres().Select(x => x.Tier3);
+                var tier3s = new CostCentreHierarchy().GetCostCentres().Select(x => x.Tier3).Distinct();
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
