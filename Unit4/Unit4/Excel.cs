@@ -17,9 +17,10 @@ namespace Unit4
             var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
-            AddHeader(sheet, 1);
+            var headerRow = 2;
+            AddHeader(sheet, headerRow);
 
-            var rowToStartData = 2;
+            var rowToStartData = headerRow + 1;
 
             Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
@@ -29,12 +30,28 @@ namespace Unit4
 
             SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
 
-            AutoFilter(sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
+            var lastRow = rowToStartData + data.Count() - 1;
+            AutoFilter(sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[lastRow, 18]]);
+
+            AddSubtotals(sheet, 1, rowToStartData, lastRow);
+
             sheet.Columns.AutoFit();
 
             workbook.SaveAs(path);
             workbook.Close();
             app.Quit();
+        }
+
+        private void AddSubtotals(MSExcel.Worksheet sheet, int totalRow, int startRow, int endRow)
+        {
+            ((MSExcel.Range)sheet.Cells[totalRow, 13]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 14]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 15]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 16]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 17]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 18]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+
+            SetNumberFormat(sheet.Range[sheet.Cells[totalRow, 13], sheet.Cells[totalRow, 18]]);
         }
 
         private void AddHeader(MSExcel.Worksheet sheet, int headerRow)
