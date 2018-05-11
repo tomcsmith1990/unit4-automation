@@ -57,6 +57,9 @@ namespace Unit4
             sheet.Cells[headerRow, 16] = "Variance";
             sheet.Cells[headerRow, 17] = "Forecast";
             sheet.Cells[headerRow, 18] = "Outturn Variance";
+
+            sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Interior.Color = MSExcel.XlRgbColor.rgbCornflowerBlue;
+            sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Font.Bold = true;
         }
 
         private void AddRow(MSExcel.Worksheet sheet, int rowNumber, BCRLine line)
