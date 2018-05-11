@@ -35,7 +35,7 @@ namespace Unit4
 
                 var bag = new ConcurrentBag<BCRLine>();
 
-                Parallel.ForEach(tier3s, new ParallelOptions { MaxDegreeOfParallelism = 2 }, t =>
+                Parallel.ForEach(tier3s, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
                 {
                     var bcrLines = RunBCRTask(t);
                     foreach (var line in bcrLines)
