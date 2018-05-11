@@ -12,9 +12,9 @@ namespace Unit4
         public void WriteToExcel(string path, IEnumerable<BCRLine> data)
         {
             var excelApp = new MSExcel.Application();
-            var excelWorkBook = excelApp.Workbooks.Add();
+            var workbook = excelApp.Workbooks.Add();
 
-            MSExcel.Worksheet sheet = excelWorkBook.Sheets.Add() as MSExcel.Worksheet;
+            MSExcel.Worksheet sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
             sheet.Cells[1, 1] = "Tier1";
@@ -66,8 +66,8 @@ namespace Unit4
 
             sheet.Columns.AutoFit();
 
-            excelWorkBook.SaveAs(path);
-            excelWorkBook.Close();
+            workbook.SaveAs(path);
+            workbook.Close();
             excelApp.Quit();
         }
     }
