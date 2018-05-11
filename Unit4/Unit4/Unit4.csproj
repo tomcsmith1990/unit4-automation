@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\ICostCentres.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
+    <Compile Include="Tests\CostCentreHierarchyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
