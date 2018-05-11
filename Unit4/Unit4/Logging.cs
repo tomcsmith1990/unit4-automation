@@ -32,6 +32,11 @@ namespace Unit4
             Log.Info(message);
         }
 
+        public void Error(string message)
+        {
+            Log.Error(message);
+        }
+
         public void Error(Exception exception)
         {
             if (exception is ReportEngine.Data.Sql.LineException)
