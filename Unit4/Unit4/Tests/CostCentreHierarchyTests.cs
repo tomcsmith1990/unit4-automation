@@ -48,6 +48,21 @@ namespace Unit4.Tests
             Assert.That(tier3Hierarchy.Count(), Is.EqualTo(2));
         }
 
+        [Test]
+        public void GivenSomeCostCentresInTheTier_ThenThereShouldBeAllCostCentresInThatGroup()
+        {
+            var costCentres = new CostCentre[] {
+                new CostCentre() { Tier3 = "A", Tier4 = "B" },
+                new CostCentre() { Tier3 = "A", Tier4 = "C" },
+                new CostCentre() { Tier3 = "A", Tier4 = "D" }
+            };
+            var hierarchy = new CostCentreHierarchy(new DummyCostCentres(costCentres));
+            
+            var actualCostCentres = hierarchy.GetHierarchyByTier3().Single().ToList();
+
+            Assert.That(actualCostCentres, Is.EquivalentTo(costCentres));
+        }
+
         private class DummyCostCentres : ICostCentres
         {
             private readonly CostCentre[] _costCentres;
