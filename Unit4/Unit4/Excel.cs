@@ -11,8 +11,8 @@ namespace Unit4
     {
         public void WriteToExcel(string path, IEnumerable<BCRLine> data)
         {
-            var excelApp = new MSExcel.Application();
-            var workbook = excelApp.Workbooks.Add();
+            var app = new MSExcel.Application();
+            var workbook = app.Workbooks.Add();
 
             var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
@@ -68,7 +68,7 @@ namespace Unit4
 
             workbook.SaveAs(path);
             workbook.Close();
-            excelApp.Quit();
+            app.Quit();
         }
     }
 }
