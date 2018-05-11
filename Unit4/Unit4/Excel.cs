@@ -64,6 +64,7 @@ namespace Unit4
 
             sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]].NumberFormat = "#,##0.00_ ;[Red]-#,##0.00";
 
+            sheet.Range[sheet.Cells[1, 1], sheet.Cells[rowToStartData + data.Count() - 1, 18]].AutoFilter(1);
             sheet.Columns.AutoFit();
 
             workbook.SaveAs(path);
