@@ -75,9 +75,11 @@
     <Compile Include="CostCentre.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Unit4Engine.cs" />
+    <Compile Include="Unit4EngineFactory.cs" />
     <Compile Include="Unit4WebProvider.cs" />
     <Compile Include="Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
+    <Compile Include="BcrReport.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />

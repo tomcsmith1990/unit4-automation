@@ -37,9 +37,12 @@ namespace Unit4
 
                 var bag = new ConcurrentBag<BCRLine>();
 
+                var factory = new Unit4EngineFactory();
+                var bcrReport = new BcrReport(factory, _log);
+
                 Parallel.ForEach(tier3Hierarchy, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
                 {
-                    var bcrLines = RunBCR(t);
+                    var bcrLines = bcrReport.RunBCR(t);
                     foreach (var line in bcrLines)
                     {
                         bag.Add(line);
@@ -74,53 +77,6 @@ namespace Unit4
             {
                 _log.Close();
             }
-        }
-
-        private IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
-        {
-            try
-            {
-                var bcr = RunBCRTier3(hierarchy.Key);
-                _log.Info(string.Format("Got BCR for {0}", hierarchy.Key));
-
-                return _builder.Build(bcr);
-            }
-            catch (Exception e)
-            {
-                _log.Error(string.Format("Error getting BCR for {0}, falling back to tier 4", hierarchy.Key));
-                _log.Error(e);
-                return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x));
-            }
-        }
-
-        private DataSet RunBCRTier3(string tier3)
-        {
-            return RunReport(string.Format(Resql.BcrByTier3, tier3));
-        }
-
-        private IEnumerable<BCRLine> RunBCRTier4(string tier4)
-        {
-            try
-            {
-                var bcr = RunReport(string.Format(Resql.BcrByTier4, tier4));
-                _log.Info(string.Format("Got BCR for {0}", tier4));
-
-                return _builder.Build(bcr);
-            }
-            catch (Exception e)
-            {
-                _log.Error(string.Format("Error getting BCR for {0}", tier4));
-                _log.Error(e);
-                return Enumerable.Empty<BCRLine>();
-            }
-        }
-
-        private DataSet RunReport(string resql)
-        {
-            var credentials = new Credentials();
-
-            var engine = new Unit4Engine(credentials);
-            return engine.RunReport(resql);
         }
     }
 }
