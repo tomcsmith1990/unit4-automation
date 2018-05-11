@@ -17,26 +17,7 @@ namespace Unit4
             var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
-            var headerRow = 1;
-
-            sheet.Cells[headerRow, 1] = "Tier1";
-            sheet.Cells[headerRow, 2] = "Tier1";
-            sheet.Cells[headerRow, 3] = "Tier2";
-            sheet.Cells[headerRow, 4] = "Tier2";
-            sheet.Cells[headerRow, 5] = "Tier3";
-            sheet.Cells[headerRow, 6] = "Tier3";
-            sheet.Cells[headerRow, 7] = "Tier4";
-            sheet.Cells[headerRow, 8] = "Tier4";
-            sheet.Cells[headerRow, 9] = "Cost Centre";
-            sheet.Cells[headerRow, 10] = "Cost Centre";
-            sheet.Cells[headerRow, 11] = "Account";
-            sheet.Cells[headerRow, 12] = "Account";
-            sheet.Cells[headerRow, 13] = "Budget";
-            sheet.Cells[headerRow, 14] = "Profile";
-            sheet.Cells[headerRow, 15] = "Actuals";
-            sheet.Cells[headerRow, 16] = "Variance";
-            sheet.Cells[headerRow, 17] = "Forecast";
-            sheet.Cells[headerRow, 18] = "Outturn Variance";
+            AddHeader(sheet, 1);
 
             var rowToStartData = 2;
 
@@ -72,6 +53,28 @@ namespace Unit4
             workbook.SaveAs(path);
             workbook.Close();
             app.Quit();
+        }
+
+        private void AddHeader(MSExcel.Worksheet sheet, int headerRow)
+        {
+            sheet.Cells[headerRow, 1] = "Tier1";
+            sheet.Cells[headerRow, 2] = "Tier1";
+            sheet.Cells[headerRow, 3] = "Tier2";
+            sheet.Cells[headerRow, 4] = "Tier2";
+            sheet.Cells[headerRow, 5] = "Tier3";
+            sheet.Cells[headerRow, 6] = "Tier3";
+            sheet.Cells[headerRow, 7] = "Tier4";
+            sheet.Cells[headerRow, 8] = "Tier4";
+            sheet.Cells[headerRow, 9] = "Cost Centre";
+            sheet.Cells[headerRow, 10] = "Cost Centre";
+            sheet.Cells[headerRow, 11] = "Account";
+            sheet.Cells[headerRow, 12] = "Account";
+            sheet.Cells[headerRow, 13] = "Budget";
+            sheet.Cells[headerRow, 14] = "Profile";
+            sheet.Cells[headerRow, 15] = "Actuals";
+            sheet.Cells[headerRow, 16] = "Variance";
+            sheet.Cells[headerRow, 17] = "Forecast";
+            sheet.Cells[headerRow, 18] = "Outturn Variance";
         }
     }
 }
