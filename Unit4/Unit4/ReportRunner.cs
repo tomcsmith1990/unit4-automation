@@ -38,7 +38,7 @@ namespace Unit4
 
                 Parallel.ForEach(costCentreByTier3, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
                 {
-                    var bcrLines = RunBCRTask(t);
+                    var bcrLines = RunBCR(t);
                     foreach (var line in bcrLines)
                     {
                         bag.Add(line);
@@ -75,7 +75,7 @@ namespace Unit4
             }
         }
 
-        private IEnumerable<BCRLine> RunBCRTask(IGrouping<string, string> hierarchy)
+        private IEnumerable<BCRLine> RunBCR(IGrouping<string, string> hierarchy)
         {
             try
             {
