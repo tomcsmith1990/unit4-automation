@@ -13,10 +13,10 @@ namespace Unit4
     internal class BcrReport
     {
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
-        private readonly Logging _log;
+        private readonly ILogging _log;
         private readonly IUnit4EngineFactory _factory;
 
-        public BcrReport(IUnit4EngineFactory factory, Logging log)
+        public BcrReport(IUnit4EngineFactory factory, ILogging log)
         {
             _factory = factory;
             _log = log;

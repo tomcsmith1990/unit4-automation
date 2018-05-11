@@ -2,10 +2,11 @@ using System;
 using System.Diagnostics;
 using Log = ReportEngine.Diagnostics.Log;
 using System.IO;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
-    internal class Logging
+    internal class Logging : ILogging
     {
         private readonly string m_LogFilePath;
 

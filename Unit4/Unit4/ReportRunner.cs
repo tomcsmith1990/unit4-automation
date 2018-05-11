@@ -6,12 +6,13 @@ using System.IO;
 using System.Data;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+using Unit4.Interfaces;
 
 namespace Unit4
 {
     internal class ReportRunner
     {
-        private readonly Logging _log = new Logging();
+        private readonly ILogging _log = new Logging();
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
         private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy(new CostCentreList());
 
