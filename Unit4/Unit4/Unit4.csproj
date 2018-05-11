@@ -79,6 +79,7 @@
     <Compile Include="Resql.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
+    <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
