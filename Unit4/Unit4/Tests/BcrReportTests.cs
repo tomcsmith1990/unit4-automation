@@ -20,7 +20,7 @@ namespace Unit4.Tests
 
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A" } }.GroupBy(x => x.Tier3, x => x).Single();
 
-            Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier4))).Returns(EmptyDataSet());
+            ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier3, hierarchy.Single().Tier4));
 
             bcrReport.RunBCR(hierarchy);
 
@@ -34,7 +34,7 @@ namespace Unit4.Tests
 
             var mockEngine = Mock.Of<IUnit4Engine>();
             Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3))).Throws(new Exception());
-            Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4))).Returns(EmptyDataSet());
+            ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4));
 
             var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
 
@@ -52,7 +52,7 @@ namespace Unit4.Tests
             Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Key))).Throws(new Exception());
             
             hierarchy.ToList().ForEach(c => {
-                Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier4, c.Tier4))).Returns(EmptyDataSet());
+                ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier4, c.Tier4));
             });
             
 
@@ -63,6 +63,11 @@ namespace Unit4.Tests
             hierarchy.ToList().ForEach(c => {
                 Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, c.Tier4)), Times.Once);
             });            
+        }
+
+        private void ReturnEmptyDataSet(Mock<IUnit4Engine> mock, string query)
+        {
+                mock.Setup(x => x.RunReport(query)).Returns(EmptyDataSet());
         }
 
         private DataSet EmptyDataSet()
