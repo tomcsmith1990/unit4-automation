@@ -59,10 +59,10 @@ namespace Unit4
             switch (tier)
             {
                 case Tier.Tier3:
-                    resql = string.Format(Resql.BcrByTier3, value);
+                    resql = Resql.Bcr(tier3: value);
                     break;
                 case Tier.Tier4:
-                    resql = string.Format(Resql.BcrByTier4, value);
+                    resql = Resql.Bcr(tier4: value);
                     break;
                 default:
                     throw new InvalidOperationException("Cannot run a report for this tier") ;
