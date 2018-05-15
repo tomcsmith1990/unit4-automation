@@ -13,7 +13,7 @@ namespace Unit4.Tests
     public class BcrReportTests
     {
         [Test]
-        public void GivenNoTier4_ThenThereShouldBeNoReport()
+        public void GivenOneTier4_ThenTheReportShouldBeRanForThatTier4()
         {
             var mockEngine = Mock.Of<IUnit4Engine>();
             var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
