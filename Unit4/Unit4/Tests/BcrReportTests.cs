@@ -67,6 +67,24 @@ namespace Unit4.Tests
             });            
         }
 
+        [Test]
+        public void GivenTier4ThatFails_ThenTheReportShouldBeRanForTheCostCentre()
+        {
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B", Code = "C" } }.GroupBy(x => x.Tier3, x => x).Single();
+
+            var engineFactory =
+                new DummyEngineFactory(
+                    returnEmpty: new string[] { Resql.Bcr(costCentre: hierarchy.Single().Code) },
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key), Resql.Bcr(tier4: hierarchy.Single().Tier4) }
+                );
+
+            var bcrReport = new BcrReport(engineFactory, new NullLogging());
+
+            bcrReport.RunBCR(hierarchy);
+
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrCostCentre(hierarchy.Single().Code)), Times.Once);
+        }
+
         private class DummyEngineFactory : IUnit4EngineFactory
         {
             private readonly Mock<IUnit4Engine> _mock;

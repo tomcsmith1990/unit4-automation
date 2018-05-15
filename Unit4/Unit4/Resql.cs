@@ -58,5 +58,10 @@ namespace Unit4
         {
             return Bcr(tier4: tier4);
         }
+
+        public static string BcrCostCentre(string costCentre)
+        {
+            return Bcr(costCentre: costCentre);
+        }
     }
 }
