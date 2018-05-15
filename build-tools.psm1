@@ -5,6 +5,8 @@ function Restore {
 function Build {
     Restore
     msbuild.exe .\Unit4\Unit4.sln
+
+    & ".\Unit4\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\Unit4\bin\Debug\Unit4.exe --where="cat == RequiresExcelInstall"
 }
 
 function Test {

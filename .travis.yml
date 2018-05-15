@@ -4,4 +4,4 @@ install:
   - nuget restore ./Unit4/Unit4.sln
 script:
   - msbuild /p:Configuration=Debug ./Unit4/Unit4.sln
-  - mono ./Unit4/packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./Unit4/Unit4/bin/Debug/Unit4.exe
+  - mono ./Unit4/packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./Unit4/Unit4/bin/Debug/Unit4.exe --where="cat != RequiresExcelInstall"

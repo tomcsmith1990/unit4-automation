@@ -10,6 +10,7 @@ namespace Unit4.Tests
     public class ExcelTests
     {
         [Test]
+        [Category("RequiresExcelInstall")]
         public void GivenNoRows_ItShouldNotThrow()
         {
             using (var tempFile = new TempFile())
