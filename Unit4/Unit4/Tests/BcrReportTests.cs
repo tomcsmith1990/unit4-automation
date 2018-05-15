@@ -13,7 +13,7 @@ namespace Unit4.Tests
     public class BcrReportTests
     {
         [Test]
-        public void GivenOneTier4_ThenTheReportShouldBeRanForThatTier4()
+        public void GivenOneTier3_ThenTheReportShouldBeRanForThatTier3()
         {
             var mockEngine = Mock.Of<IUnit4Engine>();
             var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
@@ -28,7 +28,7 @@ namespace Unit4.Tests
         }
 
         [Test]
-        public void GivenTier4ThatFails_ThenTheReportShouldBeRanForTheTier3()
+        public void GivenTier3ThatFails_ThenTheReportShouldBeRanForTheTier4()
         {
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" } }.GroupBy(x => x.Tier3, x => x).Single();
 
@@ -44,7 +44,7 @@ namespace Unit4.Tests
         }
 
         [Test]
-        public void GivenTier4ThatFails_ThenTheReportShouldBeRanForEachTier3()
+        public void GivenTier3ThatFails_ThenTheReportShouldBeRanForEachTier4()
         {
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" }, new CostCentre { Tier3 = "A", Tier4 = "C" }  }.GroupBy(x => x.Tier3, x => x).Single();
 
