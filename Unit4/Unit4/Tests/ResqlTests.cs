@@ -22,5 +22,13 @@ namespace Unit4.Tests
 
             Assert.That(report.Contains(".declare [Budget Group (Tier4)] String 'aTier4'"), Is.True);
         }
+
+        [Test]
+        public void GivenCostCentreParameter_TheReportShouldUseItAsCostCentre()
+        {
+            var report = Resql.Bcr(costCentre: "aCostCentre");
+
+            Assert.That(report.Contains(".declare [Cost Centre] String 'aCostCentre'"), Is.True);
+        }
     }
 }

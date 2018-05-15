@@ -28,7 +28,7 @@ namespace Unit4
             }
         }
 
-        public static string Bcr(string tier3 = "", string tier4 = "")
+        public static string Bcr(string tier3 = "", string tier4 = "", string costCentre = "")
         {
             return string.Format(@".name [GL-BAL-001 : General Balances Monitoring Report]
 
