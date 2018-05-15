@@ -29,13 +29,13 @@ namespace Unit4
                 var bcr = RunBCRTier3(hierarchy.Key);
                 _log.Info(string.Format("Got BCR for {0}", hierarchy.Key));
 
-                return _builder.Build(bcr);
+                return _builder.Build(bcr).ToList();
             }
             catch (Exception e)
             {
                 _log.Error(string.Format("Error getting BCR for {0}, falling back to tier 4", hierarchy.Key));
                 _log.Error(e);
-                return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x));
+                return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x)).ToList();
             }
         }
 
