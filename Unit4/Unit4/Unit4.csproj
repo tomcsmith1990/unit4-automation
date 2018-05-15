@@ -106,6 +106,7 @@
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
     <Compile Include="Tests\BcrReportTests.cs" />
+    <Compile Include="Tests\ResqlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
