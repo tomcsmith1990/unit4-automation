@@ -8,7 +8,6 @@ using ReportEngine.Data;
 using Unit4.Interfaces;
 using ReportEngine.Data.Sql;
 using System.IO;
-using Unit4.Interfaces;
 
 namespace Unit4
 {
