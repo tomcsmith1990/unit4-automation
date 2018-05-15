@@ -26,38 +26,31 @@ namespace Unit4
 
         public IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
         {
-            try
-            {
-                return RunBCR(Tier.Tier3, hierarchy.Key);            
-            }
-            catch (Exception e)
-            {
-                _log.Error(string.Format("Error getting BCR for {0}, falling back to tier 4", hierarchy.Key));
-                _log.Error(e);
-                return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x)).ToList();
-            }
+            return RunBCR(Tier.Tier3, hierarchy.Key, hierarchy.Select(x => x.Tier4).Distinct());
         }
 
-        private IEnumerable<BCRLine> RunBCRTier4(string tier4)
+        private IEnumerable<BCRLine> RunBCR(Tier tier, string value, IEnumerable<string> fallback)
         {
             try
             {
-                return RunBCR(Tier.Tier4, tier4);
+                var bcr = RunReport(tier, value);
+                _log.Info(string.Format("Got BCR for {0}", value));
+
+                return _builder.Build(bcr).ToList();
             }
             catch (Exception e)
             {
-                _log.Error(string.Format("Error getting BCR for {0}", tier4));
+                _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
+
+                if (fallback.Any()) 
+                {
+                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallback.ToArray())));
+                    return fallback.SelectMany(x => RunBCR(Tier.Tier4, x, Enumerable.Empty<string>())).ToList();
+                }
+
                 return Enumerable.Empty<BCRLine>();
             }
-        }
-
-        private IEnumerable<BCRLine> RunBCR(Tier tier, string value)
-        {
-            var bcr = RunReport(tier, value);
-            _log.Info(string.Format("Got BCR for {0}", value));
-
-            return _builder.Build(bcr).ToList();
         }
 
         private DataSet RunReport(Tier tier, string value)
