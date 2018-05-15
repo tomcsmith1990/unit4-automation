@@ -15,16 +15,18 @@ namespace Unit4.Tests
         [Test]
         public void GivenOneTier3_ThenTheReportShouldBeRanForThatTier3()
         {
-            var mockEngine = Mock.Of<IUnit4Engine>();
-            var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
-
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A" } }.GroupBy(x => x.Tier3, x => x).Single();
 
-            ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier3, hierarchy.Single().Tier4));
+            var engineFactory = 
+                new DummyEngineFactory(
+                    new string[] { string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3) }
+                );
+
+            var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Key)), Times.Once);
         }
 
         [Test]
@@ -32,15 +34,17 @@ namespace Unit4.Tests
         {
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" } }.GroupBy(x => x.Tier3, x => x).Single();
 
-            var mockEngine = Mock.Of<IUnit4Engine>();
-            Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3))).Throws(new Exception());
-            ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4));
+            var engineFactory =
+                new DummyEngineFactory(
+                    returnEmpty: new string[] { string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4) },
+                    throws: new string[] { string.Format(Resql.BcrByTier3, hierarchy.Key) }
+                );
 
-            var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
+            var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4)), Times.Once);
         }
 
         [Test]
@@ -48,47 +52,47 @@ namespace Unit4.Tests
         {
             var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" }, new CostCentre { Tier3 = "A", Tier4 = "C" }  }.GroupBy(x => x.Tier3, x => x).Single();
 
-            var mockEngine = Mock.Of<IUnit4Engine>();
-            Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Key))).Throws(new Exception());
-            
-            hierarchy.ToList().ForEach(c => {
-                ReturnEmptyDataSet(Mock.Get(mockEngine), string.Format(Resql.BcrByTier4, c.Tier4));
-            });
-            
+            var engineFactory =
+                new DummyEngineFactory(
+                    returnEmpty: hierarchy.Select(x => string.Format(Resql.BcrByTier4, x.Tier4)),
+                    throws: new string[] { string.Format(Resql.BcrByTier3, hierarchy.Key) }
+                );
 
-            var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
+            var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
             hierarchy.ToList().ForEach(c => {
-                Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, c.Tier4)), Times.Once);
+                engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, c.Tier4)), Times.Once);
             });            
-        }
-
-        private void ReturnEmptyDataSet(Mock<IUnit4Engine> mock, string query)
-        {
-                mock.Setup(x => x.RunReport(query)).Returns(EmptyDataSet());
-        }
-
-        private DataSet EmptyDataSet()
-        {
-            var dataset = new DataSet();
-            dataset.Tables.Add("foo");
-            return dataset;
         }
 
         private class DummyEngineFactory : IUnit4EngineFactory
         {
-            private readonly IUnit4Engine _engine;
+            private readonly Mock<IUnit4Engine> _mock;
 
-            public DummyEngineFactory(IUnit4Engine engine)
+            public Mock<IUnit4Engine> Mock { get { return _mock; } }
+
+            public DummyEngineFactory(IEnumerable<string> returnEmpty, IEnumerable<string> throws = null)
             {
-                _engine = engine;
+                throws = throws ?? new string[0];
+
+                var mockEngine = new Mock<IUnit4Engine>();
+                returnEmpty.ToList().ForEach(x => mockEngine.Setup(y => y.RunReport(x)).Returns(EmptyDataSet()));
+                throws.ToList().ForEach(x => mockEngine.Setup(y => y.RunReport(x)).Throws(new Exception()));
+                _mock = mockEngine;
+            }
+
+            private DataSet EmptyDataSet()
+            {
+                var dataset = new DataSet();
+                dataset.Tables.Add("foo");
+                return dataset;
             }
 
             public IUnit4Engine Create()
             {
-                return _engine;
+                return _mock.Object;
             }
         }
 
