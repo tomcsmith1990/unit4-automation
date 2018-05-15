@@ -28,10 +28,7 @@ namespace Unit4
         {
             try
             {
-                var bcr = RunReport(Tier.Tier3, hierarchy.Key);
-                _log.Info(string.Format("Got BCR for {0}", hierarchy.Key));
-
-                return _builder.Build(bcr).ToList();
+                return RunBCR(Tier.Tier3, hierarchy.Key);            
             }
             catch (Exception e)
             {
@@ -45,10 +42,7 @@ namespace Unit4
         {
             try
             {
-                var bcr = RunReport(Tier.Tier4, tier4);
-                _log.Info(string.Format("Got BCR for {0}", tier4));
-
-                return _builder.Build(bcr);
+                return RunBCR(Tier.Tier4, tier4);
             }
             catch (Exception e)
             {
@@ -56,6 +50,14 @@ namespace Unit4
                 _log.Error(e);
                 return Enumerable.Empty<BCRLine>();
             }
+        }
+
+        private IEnumerable<BCRLine> RunBCR(Tier tier, string value)
+        {
+            var bcr = RunReport(tier, value);
+            _log.Info(string.Format("Got BCR for {0}", value));
+
+            return _builder.Build(bcr).ToList();
         }
 
         private DataSet RunReport(Tier tier, string value)
