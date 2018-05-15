@@ -19,14 +19,14 @@ namespace Unit4.Tests
 
             var engineFactory = 
                 new DummyEngineFactory(
-                    new string[] { string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3) }
+                    new string[] { Resql.Bcr(tier3: hierarchy.Single().Tier3) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Key)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier3(hierarchy.Key)), Times.Once);
         }
 
         [Test]
@@ -36,15 +36,15 @@ namespace Unit4.Tests
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: new string[] { string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4) },
-                    throws: new string[] { string.Format(Resql.BcrByTier3, hierarchy.Key) }
+                    returnEmpty: new string[] { Resql.Bcr(tier4: hierarchy.Single().Tier4) },
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(hierarchy.Single().Tier4)), Times.Once);
         }
 
         [Test]
@@ -54,8 +54,8 @@ namespace Unit4.Tests
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: hierarchy.Select(x => string.Format(Resql.BcrByTier4, x.Tier4)),
-                    throws: new string[] { string.Format(Resql.BcrByTier3, hierarchy.Key) }
+                    returnEmpty: hierarchy.Select(x => Resql.Bcr(tier4: x.Tier4)),
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
@@ -63,7 +63,7 @@ namespace Unit4.Tests
             bcrReport.RunBCR(hierarchy);
 
             hierarchy.ToList().ForEach(c => {
-                engineFactory.Mock.Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, c.Tier4)), Times.Once);
+                engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(c.Tier4)), Times.Once);
             });            
         }
 
