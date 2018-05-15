@@ -12,6 +12,8 @@ namespace Unit4
 {
     internal class BcrReport
     {
+        private enum Tier { Tier3, Tier4 };
+
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
         private readonly ILogging _log;
         private readonly IUnit4EngineFactory _factory;
@@ -41,14 +43,14 @@ namespace Unit4
 
         private DataSet RunBCRTier3(string tier3)
         {
-            return RunReport(string.Format(Resql.BcrByTier3, tier3));
+            return RunReport(Tier.Tier3, tier3);
         }
 
         private IEnumerable<BCRLine> RunBCRTier4(string tier4)
         {
             try
             {
-                var bcr = RunReport(string.Format(Resql.BcrByTier4, tier4));
+                var bcr = RunReport(Tier.Tier4, tier4);
                 _log.Info(string.Format("Got BCR for {0}", tier4));
 
                 return _builder.Build(bcr);
@@ -59,6 +61,24 @@ namespace Unit4
                 _log.Error(e);
                 return Enumerable.Empty<BCRLine>();
             }
+        }
+
+        private DataSet RunReport(Tier tier, string value)
+        {
+            string resql;
+            switch (tier)
+            {
+                case Tier.Tier3:
+                    resql = string.Format(Resql.BcrByTier3, value);
+                    break;
+                case Tier.Tier4:
+                    resql = string.Format(Resql.BcrByTier4, value);
+                    break;
+                default:
+                    throw new InvalidOperationException("Cannot run a report for this tier") ;
+            }
+
+            return RunReport(resql);
         }
 
         private DataSet RunReport(string resql)
