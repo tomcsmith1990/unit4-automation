@@ -12,7 +12,7 @@ namespace Unit4
 {
     internal class BcrReport
     {
-        private enum Tier { Tier3, Tier4 };
+        private enum Tier { Tier3, Tier4, CostCentre };
 
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
         private readonly ILogging _log;
@@ -26,10 +26,10 @@ namespace Unit4
 
         public IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
         {
-            return RunBCR(Tier.Tier3, hierarchy.Key, hierarchy.Select(x => x.Tier4).Distinct());
+            return RunBCR(Tier.Tier3, hierarchy.Key, hierarchy);
         }
 
-        private IEnumerable<BCRLine> RunBCR(Tier tier, string value, IEnumerable<string> fallback)
+        private IEnumerable<BCRLine> RunBCR(Tier tier, string value, IEnumerable<CostCentre> fallback)
         {
             try
             {
@@ -43,13 +43,40 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (fallback.Any()) 
+                if (ShouldFallBack(tier) && fallback.Any()) 
                 {
-                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallback.ToArray())));
-                    return fallback.SelectMany(x => RunBCR(Tier.Tier4, x, Enumerable.Empty<string>())).ToList();
+                    var fallbackGroups = fallback.GroupBy(FallBackGroupingFunction(tier), x => x);
+                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
+
+                    return fallbackGroups.SelectMany(x => RunBCR(FallBackTier(tier), x.Key, x)).ToList();
                 }
 
                 return Enumerable.Empty<BCRLine>();
+            }
+        }
+
+        private bool ShouldFallBack(Tier current)
+        {
+            return current == Tier.Tier3 || current == Tier.Tier4;
+        }
+
+        private Tier FallBackTier(Tier current)
+        {
+            switch (current)
+            {
+                case Tier.Tier3: return Tier.Tier4;
+                case Tier.Tier4: return Tier.CostCentre;
+                default: throw new InvalidOperationException("Should not fall back");
+            }
+        }
+
+        private Func<CostCentre, string> FallBackGroupingFunction(Tier current)
+        {
+            switch (current)
+            {
+                case Tier.Tier3: return x => x.Tier4;
+                case Tier.Tier4: return x => x.Code;
+                default: throw new InvalidOperationException("Should not fall back");
             }
         }
 
@@ -63,6 +90,9 @@ namespace Unit4
                     break;
                 case Tier.Tier4:
                     resql = Resql.Bcr(tier4: value);
+                    break;
+                case Tier.CostCentre:
+                    resql = Resql.Bcr(costCentre: value);
                     break;
                 default:
                     throw new InvalidOperationException("Cannot run a report for this tier") ;
