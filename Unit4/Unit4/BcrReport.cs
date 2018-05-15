@@ -28,7 +28,7 @@ namespace Unit4
         {
             try
             {
-                var bcr = RunBCRTier3(hierarchy.Key);
+                var bcr = RunReport(Tier.Tier3, hierarchy.Key);
                 _log.Info(string.Format("Got BCR for {0}", hierarchy.Key));
 
                 return _builder.Build(bcr).ToList();
@@ -39,11 +39,6 @@ namespace Unit4
                 _log.Error(e);
                 return hierarchy.Select(x => x.Tier4).Distinct().SelectMany(x => RunBCRTier4(x)).ToList();
             }
-        }
-
-        private DataSet RunBCRTier3(string tier3)
-        {
-            return RunReport(Tier.Tier3, tier3);
         }
 
         private IEnumerable<BCRLine> RunBCRTier4(string tier4)
