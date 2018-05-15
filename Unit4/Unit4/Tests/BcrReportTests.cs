@@ -24,6 +24,21 @@ namespace Unit4.Tests
             Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3)), Times.Once);
         }
 
+        [Test]
+        public void GivenTier4ThatFails_ThenTheReportShouldBeRanForTheTier3()
+        {
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" } }.GroupBy(x => x.Tier3, x => x).Single();
+
+            var mockEngine = Mock.Of<IUnit4Engine>();
+            Mock.Get(mockEngine).Setup(x => x.RunReport(string.Format(Resql.BcrByTier3, hierarchy.Single().Tier3))).Throws(new Exception());
+
+            var bcrReport = new BcrReport(new DummyEngineFactory(mockEngine), new NullLogging());
+
+            bcrReport.RunBCR(hierarchy);
+
+            Mock.Get(mockEngine).Verify(x => x.RunReport(string.Format(Resql.BcrByTier4, hierarchy.Single().Tier4)), Times.Once);
+        }
+
         private class DummyEngineFactory : IUnit4EngineFactory
         {
             private readonly IUnit4Engine _engine;
