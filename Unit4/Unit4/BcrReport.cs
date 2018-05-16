@@ -26,11 +26,12 @@ namespace Unit4
 
         public IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
         {
-            return RunBCR(Tier.Tier3, hierarchy.Key, hierarchy);
+            return RunBCR(Tier.Tier3, hierarchy);
         }
 
-        private IEnumerable<BCRLine> RunBCR(Tier tier, string value, IEnumerable<CostCentre> fallback)
+        private IEnumerable<BCRLine> RunBCR(Tier tier, IGrouping<string, CostCentre> hierarchy)
         {
+            string value = hierarchy.Key;
             try
             {
                 var bcr = RunReport(tier, value);
@@ -43,12 +44,12 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (ShouldFallBack(tier) && fallback.Any()) 
+                if (ShouldFallBack(tier) && hierarchy.Any()) 
                 {
-                    var fallbackGroups = fallback.GroupBy(FallBackGroupingFunction(tier), x => x);
+                    var fallbackGroups = hierarchy.GroupBy(FallBackGroupingFunction(tier), x => x);
                     _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
 
-                    return fallbackGroups.SelectMany(x => RunBCR(FallBackTier(tier), x.Key, x)).ToList();
+                    return fallbackGroups.SelectMany(x => RunBCR(FallBackTier(tier), x)).ToList();
                 }
 
                 return Enumerable.Empty<BCRLine>();
