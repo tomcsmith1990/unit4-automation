@@ -49,12 +49,10 @@ namespace Unit4
 
         private IEnumerable<BCRLine> RunBCR(Report report)
         {
-            var tier = report.Tier;
-            var hierarchy = report.Parameter;
-            string value = hierarchy.Key;
+            string value = report.Parameter.Key;
             try
             {
-                var bcr = RunReport(tier, value);
+                var bcr = RunReport(report.Tier, value);
                 _log.Info(string.Format("Got BCR for {0}", value));
 
                 return _builder.Build(bcr).ToList();
@@ -64,12 +62,12 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (ShouldFallBack(tier) && hierarchy.Any()) 
+                if (ShouldFallBack(report.Tier) && report.Parameter.Any()) 
                 {
-                    var fallbackGroups = hierarchy.GroupBy(FallBackGroupingFunction(tier), x => x);
+                    var fallbackGroups = report.Parameter.GroupBy(FallBackGroupingFunction(report.Tier), x => x);
                     _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
 
-                    var fallbackReports = fallbackGroups.Select(x => new Report() { Tier = FallBackTier(tier), Parameter = x });
+                    var fallbackReports = fallbackGroups.Select(x => new Report() { Tier = FallBackTier(report.Tier), Parameter = x });
                     return fallbackReports.SelectMany(RunBCR).ToList();
                 }
 
