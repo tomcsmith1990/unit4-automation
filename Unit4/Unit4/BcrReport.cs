@@ -67,7 +67,8 @@ namespace Unit4
                     var fallbackGroups = hierarchy.GroupBy(FallBackGroupingFunction(tier), x => x);
                     _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
 
-                    return fallbackGroups.SelectMany(x => RunBCR(FallBackTier(tier), x)).ToList();
+                    var fallbackReports = fallbackGroups.Select(x => new Report() { Tier = FallBackTier(tier), Parameter = x });
+                    return fallbackReports.SelectMany(x => RunBCR(x.Tier, x.Parameter)).ToList();
                 }
 
                 return Enumerable.Empty<BCRLine>();
