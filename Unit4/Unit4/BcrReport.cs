@@ -24,9 +24,20 @@ namespace Unit4
             _log = log;
         }
 
-        public IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
+        public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
-            return RunBCR(Tier.Tier3, hierarchy);
+            var bag = new ConcurrentBag<BCRLine>();
+
+            Parallel.ForEach(hierarchy, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
+            {
+                var bcrLines = RunBCR(Tier.Tier3, t);
+                foreach (var line in bcrLines)
+                {
+                    bag.Add(line);
+                }
+            });
+
+            return bag;
         }
 
         private IEnumerable<BCRLine> RunBCR(Tier tier, IGrouping<string, CostCentre> hierarchy)

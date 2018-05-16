@@ -15,54 +15,54 @@ namespace Unit4.Tests
         [Test]
         public void GivenOneTier3_ThenTheReportShouldBeRanForThatTier3()
         {
-            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A" } }.GroupBy(x => x.Tier3, x => x).Single();
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A" } }.GroupBy(x => x.Tier3, x => x);
 
             var engineFactory = 
                 new DummyEngineFactory(
-                    new string[] { Resql.Bcr(tier3: hierarchy.Single().Tier3) }
+                    new string[] { Resql.Bcr(tier3: hierarchy.Single().Single().Tier3) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier3(hierarchy.Key)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier3(hierarchy.Single().Key)), Times.Once);
         }
 
         [Test]
         public void GivenTier3ThatFails_ThenTheReportShouldBeRanForTheTier4()
         {
-            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" } }.GroupBy(x => x.Tier3, x => x).Single();
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" } }.GroupBy(x => x.Tier3, x => x);
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: new string[] { Resql.Bcr(tier4: hierarchy.Single().Tier4) },
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key) }
+                    returnEmpty: new string[] { Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) },
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(hierarchy.Single().Tier4)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(hierarchy.Single().Single().Tier4)), Times.Once);
         }
 
         [Test]
         public void GivenTier3ThatFails_ThenTheReportShouldBeRanForEachTier4()
         {
-            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" }, new CostCentre { Tier3 = "A", Tier4 = "C" }  }.GroupBy(x => x.Tier3, x => x).Single();
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B" }, new CostCentre { Tier3 = "A", Tier4 = "C" }  }.GroupBy(x => x.Tier3, x => x);
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: hierarchy.Select(x => Resql.Bcr(tier4: x.Tier4)),
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key) }
+                    returnEmpty: hierarchy.Single().Select(x => Resql.Bcr(tier4: x.Tier4)),
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            hierarchy.ToList().ForEach(c => {
+            hierarchy.Single().ToList().ForEach(c => {
                 engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(c.Tier4)), Times.Once);
             });            
         }
@@ -70,19 +70,19 @@ namespace Unit4.Tests
         [Test]
         public void GivenTier4ThatFails_ThenTheReportShouldBeRanForTheCostCentre()
         {
-            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B", Code = "C" } }.GroupBy(x => x.Tier3, x => x).Single();
+            var hierarchy = new List<CostCentre>() { new CostCentre { Tier3 = "A", Tier4 = "B", Code = "C" } }.GroupBy(x => x.Tier3, x => x);
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: new string[] { Resql.Bcr(costCentre: hierarchy.Single().Code) },
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Key), Resql.Bcr(tier4: hierarchy.Single().Tier4) }
+                    returnEmpty: new string[] { Resql.Bcr(costCentre: hierarchy.Single().Single().Code) },
+                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key), Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
             bcrReport.RunBCR(hierarchy);
 
-            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrCostCentre(hierarchy.Single().Code)), Times.Once);
+            engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrCostCentre(hierarchy.Single().Single().Code)), Times.Once);
         }
 
         private class DummyEngineFactory : IUnit4EngineFactory
