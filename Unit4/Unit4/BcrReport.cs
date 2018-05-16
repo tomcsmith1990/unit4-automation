@@ -27,16 +27,41 @@ namespace Unit4
         public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
             var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
+            
+            return RunBCR(reportsToRun).ToList();
+        }
+
+        private IEnumerable<BCRLine> RunBCR(IEnumerable<Report> reports)
+        {
             var bag = new ConcurrentBag<BCRLine>();
 
-            Parallel.ForEach(reportsToRun, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
+            var extraReportsToRun = new ConcurrentBag<Report>();
+
+            Parallel.ForEach(reports, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
             {
-                var bcrLines = RunBCR(t);
-                foreach (var line in bcrLines)
+                try
                 {
-                    bag.Add(line);
+                    var bcrLines = RunBCR(t);
+                    foreach (var line in bcrLines)
+                    {
+                        bag.Add(line);
+                    }
+                }
+                catch (Exception)
+                {
+                    if (t.ShouldFallBack)
+                    {
+                        var fallbackReports = t.FallbackReports().ToList();
+                        _log.Info(string.Format("Will fallback to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter).ToArray())));
+                        fallbackReports.ForEach(r => extraReportsToRun.Add(r));
+                    }
                 }
             });
+
+            if (extraReportsToRun.Any())
+            {
+                return bag.Concat(RunBCR(extraReportsToRun));
+            }
 
             return bag;
         }
@@ -93,14 +118,7 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (report.ShouldFallBack) 
-                {
-                    var fallbackReports = report.FallbackReports();
-                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter).ToArray())));
-                    return fallbackReports.SelectMany(RunBCR).ToList();
-                }
-
-                return Enumerable.Empty<BCRLine>();
+                throw;
             }
         }
 
