@@ -31,7 +31,7 @@ namespace Unit4
 
             Parallel.ForEach(reportsToRun, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
             {
-                var bcrLines = RunBCR(t.Tier, t.Parameter);
+                var bcrLines = RunBCR(t);
                 foreach (var line in bcrLines)
                 {
                     bag.Add(line);
@@ -47,8 +47,10 @@ namespace Unit4
             public IGrouping<string, CostCentre> Parameter { get; set; }
         }
 
-        private IEnumerable<BCRLine> RunBCR(Tier tier, IGrouping<string, CostCentre> hierarchy)
+        private IEnumerable<BCRLine> RunBCR(Report report)
         {
+            var tier = report.Tier;
+            var hierarchy = report.Parameter;
             string value = hierarchy.Key;
             try
             {
@@ -68,7 +70,7 @@ namespace Unit4
                     _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
 
                     var fallbackReports = fallbackGroups.Select(x => new Report() { Tier = FallBackTier(tier), Parameter = x });
-                    return fallbackReports.SelectMany(x => RunBCR(x.Tier, x.Parameter)).ToList();
+                    return fallbackReports.SelectMany(RunBCR).ToList();
                 }
 
                 return Enumerable.Empty<BCRLine>();
