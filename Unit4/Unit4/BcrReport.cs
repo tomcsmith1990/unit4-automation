@@ -48,6 +48,8 @@ namespace Unit4
 
             public string Parameter { get { return Hierarchy.Key; } }
 
+            public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && Hierarchy.Any(); } }
+
             public IEnumerable<Report> FallbackReports()
             {
                 var fallbackGroups = Hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
@@ -91,7 +93,7 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (ShouldFallBack(report.Tier) && report.Hierarchy.Any()) 
+                if (report.ShouldFallBack) 
                 {
                     var fallbackReports = report.FallbackReports();
                     _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter).ToArray())));
@@ -100,11 +102,6 @@ namespace Unit4
 
                 return Enumerable.Empty<BCRLine>();
             }
-        }
-
-        private bool ShouldFallBack(Tier current)
-        {
-            return current == Tier.Tier3 || current == Tier.Tier4;
         }
 
         private DataSet RunReport(Tier tier, string value)
