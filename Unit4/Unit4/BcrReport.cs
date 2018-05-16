@@ -26,11 +26,12 @@ namespace Unit4
 
         public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
+            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Parameter = x });
             var bag = new ConcurrentBag<BCRLine>();
 
-            Parallel.ForEach(hierarchy, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
+            Parallel.ForEach(reportsToRun, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
             {
-                var bcrLines = RunBCR(Tier.Tier3, t);
+                var bcrLines = RunBCR(t.Tier, t.Parameter);
                 foreach (var line in bcrLines)
                 {
                     bag.Add(line);
@@ -38,6 +39,12 @@ namespace Unit4
             });
 
             return bag;
+        }
+
+        private class Report
+        {
+            public Tier Tier { get; set; }
+            public IGrouping<string, CostCentre> Parameter { get; set; }
         }
 
         private IEnumerable<BCRLine> RunBCR(Tier tier, IGrouping<string, CostCentre> hierarchy)
