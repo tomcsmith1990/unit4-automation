@@ -26,7 +26,7 @@ namespace Unit4
 
         public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
-            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Parameter = x });
+            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
             var bag = new ConcurrentBag<BCRLine>();
 
             Parallel.ForEach(reportsToRun, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
@@ -44,13 +44,15 @@ namespace Unit4
         private class Report
         {
             public Tier Tier { get; set; }
-            public IGrouping<string, CostCentre> Parameter { get; set; }
+            public IGrouping<string, CostCentre> Hierarchy { get; set; }
+
+            public string Parameter { get { return Hierarchy.Key; } }
 
             public IEnumerable<Report> FallbackReports()
             {
-                var fallbackGroups = Parameter.GroupBy(FallBackGroupingFunction(Tier), x => x);
+                var fallbackGroups = Hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
 
-                return fallbackGroups.Select(x => new Report() { Tier = FallBackTier(Tier), Parameter = x });
+                return fallbackGroups.Select(x => new Report() { Tier = FallBackTier(Tier), Hierarchy = x });
             }
 
             private Tier FallBackTier(Tier current)
@@ -76,7 +78,7 @@ namespace Unit4
 
         private IEnumerable<BCRLine> RunBCR(Report report)
         {
-            string value = report.Parameter.Key;
+            string value = report.Parameter;
             try
             {
                 var bcr = RunReport(report.Tier, value);
@@ -89,10 +91,10 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (ShouldFallBack(report.Tier) && report.Parameter.Any()) 
+                if (ShouldFallBack(report.Tier) && report.Hierarchy.Any()) 
                 {
                     var fallbackReports = report.FallbackReports();
-                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter.Key).ToArray())));
+                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter).ToArray())));
                     return fallbackReports.SelectMany(RunBCR).ToList();
                 }
 
