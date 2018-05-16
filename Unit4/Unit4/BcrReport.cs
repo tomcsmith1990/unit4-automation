@@ -45,6 +45,33 @@ namespace Unit4
         {
             public Tier Tier { get; set; }
             public IGrouping<string, CostCentre> Parameter { get; set; }
+
+            public IEnumerable<Report> FallbackReports()
+            {
+                var fallbackGroups = Parameter.GroupBy(FallBackGroupingFunction(Tier), x => x);
+
+                return fallbackGroups.Select(x => new Report() { Tier = FallBackTier(Tier), Parameter = x });
+            }
+
+            private Tier FallBackTier(Tier current)
+            {
+                switch (current)
+                {
+                    case Tier.Tier3: return Tier.Tier4;
+                    case Tier.Tier4: return Tier.CostCentre;
+                    default: throw new InvalidOperationException("Should not fall back");
+                }
+            }
+
+            private Func<CostCentre, string> FallBackGroupingFunction(Tier current)
+            {
+                switch (current)
+                {
+                    case Tier.Tier3: return x => x.Tier4;
+                    case Tier.Tier4: return x => x.Code;
+                    default: throw new InvalidOperationException("Should not fall back");
+                }
+            }
         }
 
         private IEnumerable<BCRLine> RunBCR(Report report)
@@ -64,10 +91,8 @@ namespace Unit4
 
                 if (ShouldFallBack(report.Tier) && report.Parameter.Any()) 
                 {
-                    var fallbackGroups = report.Parameter.GroupBy(FallBackGroupingFunction(report.Tier), x => x);
-                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackGroups.Select(x => x.Key).ToArray())));
-
-                    var fallbackReports = fallbackGroups.Select(x => new Report() { Tier = FallBackTier(report.Tier), Parameter = x });
+                    var fallbackReports = report.FallbackReports();
+                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallbackReports.Select(x => x.Parameter.Key).ToArray())));
                     return fallbackReports.SelectMany(RunBCR).ToList();
                 }
 
@@ -78,26 +103,6 @@ namespace Unit4
         private bool ShouldFallBack(Tier current)
         {
             return current == Tier.Tier3 || current == Tier.Tier4;
-        }
-
-        private Tier FallBackTier(Tier current)
-        {
-            switch (current)
-            {
-                case Tier.Tier3: return Tier.Tier4;
-                case Tier.Tier4: return Tier.CostCentre;
-                default: throw new InvalidOperationException("Should not fall back");
-            }
-        }
-
-        private Func<CostCentre, string> FallBackGroupingFunction(Tier current)
-        {
-            switch (current)
-            {
-                case Tier.Tier3: return x => x.Tier4;
-                case Tier.Tier4: return x => x.Code;
-                default: throw new InvalidOperationException("Should not fall back");
-            }
         }
 
         private DataSet RunReport(Tier tier, string value)
