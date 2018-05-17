@@ -31,5 +31,13 @@ namespace Unit4.Automation.Tests
 
             Assert.That(commandParser.GetCommand("bcr"), Is.EqualTo(Command.Bcr));
         }
+
+        [Test]
+        public void GivenTheBcrCommandInADifferentCase_ThenTheCommandShouldBeBcr()
+        {
+            var commandParser = new CommandParser();
+
+            Assert.That(commandParser.GetCommand("BcR"), Is.EqualTo(Command.Bcr));
+        }
     }
 }
