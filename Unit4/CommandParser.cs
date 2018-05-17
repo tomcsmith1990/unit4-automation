@@ -16,6 +16,7 @@ namespace Unit4.Automation
 
             switch (args.First())
             {
+                case "bcr": return Command.Bcr;
                 default:    return Command.Help;
             }
         }
