@@ -13,7 +13,11 @@ namespace Unit4.Automation
             {
                 return Command.Help;
             }
-            throw new NotImplementedException();
+
+            switch (args.First())
+            {
+                default:    return Command.Help;
+            }
         }
     }
 }
