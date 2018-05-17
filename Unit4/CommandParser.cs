@@ -14,7 +14,7 @@ namespace Unit4.Automation
                 return Command.Help;
             }
 
-            switch (args.First())
+            switch (args.First().ToLowerInvariant())
             {
                 case "bcr": return Command.Bcr;
                 default:    return Command.Help;
