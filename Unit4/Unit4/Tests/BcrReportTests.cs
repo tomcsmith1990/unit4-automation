@@ -1,5 +1,5 @@
 using System;
-using Unit4;
+using Unit4.Automation;
 using NUnit.Framework;
 using Unit4.Automation.Interfaces;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Model;
 
-namespace Unit4.Tests
+namespace Unit4.Automation.Tests
 {
     [TestFixture]
     public class BcrReportTests

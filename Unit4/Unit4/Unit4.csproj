@@ -7,7 +7,7 @@
     <ProjectGuid>{4ef7f564-2a65-4222-81d6-26fce555f301}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Unit4</RootNamespace>
+    <RootNamespace>Unit4.Automation</RootNamespace>
     <AssemblyName>Unit4</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -5,7 +5,7 @@ using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
 using Unit4.Automation.ReportEngine;
 
-namespace Unit4.Tests
+namespace Unit4.Automation.Tests
 {
     [TestFixture]
     public class Unit4WebProviderTests
