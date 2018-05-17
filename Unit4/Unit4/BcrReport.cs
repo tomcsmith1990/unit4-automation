@@ -52,7 +52,7 @@ namespace Unit4
                     if (t.ShouldFallBack)
                     {
                         var fallbackReports = t.FallbackReports().ToList();
-                        _log.Info(string.Format("Will fallback to {0}: ", string.Join(Environment.NewLine, fallbackReports.Select(x => x.Parameter).ToArray())));
+                        _log.Info(string.Format("Error getting BCR for {0}. Will fallback to {1}:{2}", t.Parameter, string.Join(Environment.NewLine, fallbackReports.Select(x => x.Parameter).ToArray()), Environment.NewLine));
                         fallbackReports.ForEach(r => extraReportsToRun.Add(r));
                     }
                 }
