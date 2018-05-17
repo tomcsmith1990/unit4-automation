@@ -1,10 +1,11 @@
 using System;
-using Unit4;
+using Unit4.Automation;
 using System.IO;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unit4.Automation.Model;
 
-namespace Unit4.Tests
+namespace Unit4.Automation.Tests
 {
     [TestFixture]
     public class ExcelTests
@@ -17,7 +18,7 @@ namespace Unit4.Tests
             {
                 var excel = new Excel();
 
-                Assert.That(() => excel.WriteToExcel(tempFile.Path, new List<BCRLine>()), Throws.Nothing);
+                Assert.That(() => excel.WriteToExcel(tempFile.Path, new List<BcrLine>()), Throws.Nothing);
             }
         }
 

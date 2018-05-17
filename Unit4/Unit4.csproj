@@ -7,8 +7,8 @@
     <ProjectGuid>{4ef7f564-2a65-4222-81d6-26fce555f301}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Unit4</RootNamespace>
-    <AssemblyName>Unit4</AssemblyName>
+    <RootNamespace>Unit4.Automation</RootNamespace>
+    <AssemblyName>unit4-automation</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -82,17 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="BCRLine.cs" />
-    <Compile Include="BCRLineBuilder.cs" />
-    <Compile Include="Logging.cs" />
+    <Compile Include="Model\BcrLine.cs" />
+    <Compile Include="BcrLineBuilder.cs" />
+    <Compile Include="ReportEngine\Logging.cs" />
     <Compile Include="CostCentreList.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
-    <Compile Include="CostCentre.cs" />
+    <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Credentials.cs" />
-    <Compile Include="Unit4Engine.cs" />
-    <Compile Include="Unit4EngineFactory.cs" />
-    <Compile Include="Unit4WebProvider.cs" />
-    <Compile Include="Unit4WebConnector.cs" />
+    <Compile Include="ReportEngine\Unit4Engine.cs" />
+    <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
+    <Compile Include="ReportEngine\Unit4WebProvider.cs" />
+    <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
     <Compile Include="Report.cs" />

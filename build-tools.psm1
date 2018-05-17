@@ -1,20 +1,20 @@
 function Restore {
-    nuget.exe restore .\Unit4\
+    nuget.exe restore .
 }
 
 function Build {
     Restore
-    msbuild.exe .\Unit4\Unit4.sln
+    msbuild.exe .\Unit4.sln
 
-    & ".\Unit4\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\Unit4\bin\Debug\Unit4.exe --where="cat == RequiresExcelInstall"
+    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\bin\Debug\unit4-automation.exe --where="cat == RequiresExcelInstall"
 }
 
 function Test {
-    & ".\Unit4\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\Unit4\bin\Debug\Unit4.exe
+    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\bin\Debug\unit4-automation.exe
 }
 
 function Run {
-    & ".\Unit4\Unit4\bin\Debug\Unit4.exe"
+    & ".\Unit4\bin\Debug\unit4-automation.exe"
 }
 
 export-modulemember -function Restore

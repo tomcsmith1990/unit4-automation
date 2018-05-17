@@ -1,16 +1,17 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using Unit4.Automation.Model;
 
-namespace Unit4
+namespace Unit4.Automation
 {
-    internal class BCRLineBuilder
+    internal class BcrLineBuilder
     {
-        public IEnumerable<BCRLine> Build(DataSet data)
+        public IEnumerable<BcrLine> Build(DataSet data)
         {
             foreach (DataRow row in data.Tables[0].Rows)
             {
-                yield return new BCRLine() {
+                yield return new BcrLine() {
                     Tier1 = row["r0r0r0r3dim2"] as string,
                     Tier2 = row["r0r0r3dim2"] as string,
                     Tier3 = row["r0r3dim2"] as string,

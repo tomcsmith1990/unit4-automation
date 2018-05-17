@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Tier = Unit4.BcrReport.Tier;
+using Tier = Unit4.Automation.BcrReport.Tier;
+using Unit4.Automation.Model;
 
-namespace Unit4
+namespace Unit4.Automation
 {
     internal class Report
     {

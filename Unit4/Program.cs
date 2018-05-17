@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Unit4
+namespace Unit4.Automation
 {
     class Program
     {

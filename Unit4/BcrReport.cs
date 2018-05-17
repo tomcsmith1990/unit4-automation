@@ -6,15 +6,16 @@ using System.IO;
 using System.Data;
 using System.Diagnostics;
 using System.Collections.Concurrent;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
-namespace Unit4
+namespace Unit4.Automation
 {
     internal class BcrReport
     {
         public enum Tier { Tier3, Tier4, CostCentre };
 
-        private readonly BCRLineBuilder _builder = new BCRLineBuilder();
+        private readonly BcrLineBuilder _builder = new BcrLineBuilder();
         private readonly ILogging _log;
         private readonly IUnit4EngineFactory _factory;
 
@@ -24,16 +25,16 @@ namespace Unit4
             _log = log;
         }
 
-        public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
+        public IEnumerable<BcrLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
             var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
             
             return RunBCR(reportsToRun).ToList();
         }
 
-        private IEnumerable<BCRLine> RunBCR(IEnumerable<Report> reports)
+        private IEnumerable<BcrLine> RunBCR(IEnumerable<Report> reports)
         {
-            var bag = new ConcurrentBag<BCRLine>();
+            var bag = new ConcurrentBag<BcrLine>();
 
             var extraReportsToRun = new ConcurrentBag<Report>();
 
@@ -66,7 +67,7 @@ namespace Unit4
             return bag;
         }
 
-        private IEnumerable<BCRLine> RunBCR(Report report)
+        private IEnumerable<BcrLine> RunBCR(Report report)
         {
             string value = report.Parameter;
             try

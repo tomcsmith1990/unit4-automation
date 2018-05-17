@@ -4,12 +4,13 @@ using MSExcel = Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Unit4.Automation.Model;
 
-namespace Unit4
+namespace Unit4.Automation
 {
     internal class Excel
     {
-        public void WriteToExcel(string path, IEnumerable<BCRLine> data)
+        public void WriteToExcel(string path, IEnumerable<BcrLine> data)
         {
             var app = new MSExcel.Application();
             var workbook = app.Workbooks.Add();
@@ -79,7 +80,7 @@ namespace Unit4
             sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Font.Bold = true;
         }
 
-        private void AddRow(MSExcel.Worksheet sheet, int rowNumber, BCRLine line)
+        private void AddRow(MSExcel.Worksheet sheet, int rowNumber, BcrLine line)
         {
             sheet.Cells[rowNumber, 1] = line.Tier1;
             sheet.Cells[rowNumber, 2] = line.Tier1Name;

@@ -1,8 +1,8 @@
 using System;
-using Unit4;
+using Unit4.Automation;
 using NUnit.Framework;
 
-namespace Unit4.Tests
+namespace Unit4.Automation.Tests
 {
     [TestFixture]
     public class ResqlTests

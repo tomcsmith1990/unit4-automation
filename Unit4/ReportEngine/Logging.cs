@@ -2,9 +2,11 @@ using System;
 using System.Diagnostics;
 using Log = ReportEngine.Diagnostics.Log;
 using System.IO;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
+using ReportEngine.Diagnostics;
+using ReportEngine.Data.Sql;
 
-namespace Unit4
+namespace Unit4.Automation.ReportEngine
 {
     internal class Logging : ILogging
     {
@@ -18,7 +20,7 @@ namespace Unit4
         }
         public void Start()
         {
-            var logFile = new ReportEngine.Diagnostics.LogFileListener(m_LogFilePath, true);
+            var logFile = new LogFileListener(m_LogFilePath, true);
             Log.Level = TraceLevel.Verbose;
             Log.Open(logFile);
         }
@@ -40,9 +42,9 @@ namespace Unit4
 
         public void Error(Exception exception)
         {
-            if (exception is ReportEngine.Data.Sql.LineException)
+            if (exception is LineException)
             {
-                Log.Error(((ReportEngine.Data.Sql.LineException)exception).FullLine);
+                Log.Error(((LineException)exception).FullLine);
             }
 
             Log.Error(exception.Message);

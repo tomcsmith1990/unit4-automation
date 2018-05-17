@@ -1,9 +1,9 @@
 using System;
 using ReportEngine.Base.Security;
 using ReportEngine.Base.Data.Provider;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 
-namespace Unit4
+namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4WebConnector
     {
