@@ -2,9 +2,9 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 
-namespace Unit4
+namespace Unit4.Automation.Model
 {
-    internal class BCRLine
+    internal class BcrLine
     {
         public string Tier1 { get; set; }
         public string Tier2 { get; set; }

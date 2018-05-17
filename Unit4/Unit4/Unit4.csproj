@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="BCRLine.cs" />
+    <Compile Include="Model\BcrLine.cs" />
     <Compile Include="BCRLineBuilder.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="CostCentreList.cs" />
