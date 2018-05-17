@@ -5,7 +5,7 @@ namespace Unit4.Automation
 {
     internal class CommandParser
     {
-        public enum Command { Help };
+        public enum Command { Help, Bcr };
 
         public Command GetCommand(params string[] args)
         {

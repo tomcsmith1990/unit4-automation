@@ -1,6 +1,7 @@
 using System;
 using Unit4.Automation;
 using NUnit.Framework;
+using Command = Unit4.Automation.CommandParser.Command;
 
 namespace Unit4.Automation.Tests
 {
@@ -12,7 +13,7 @@ namespace Unit4.Automation.Tests
         {
             var commandParser = new CommandParser();
 
-            Assert.That(commandParser.GetCommand(), Is.EqualTo(CommandParser.Command.Help));
+            Assert.That(commandParser.GetCommand(), Is.EqualTo(Command.Help));
         }
 
         [Test]
@@ -20,7 +21,15 @@ namespace Unit4.Automation.Tests
         {
             var commandParser = new CommandParser();
 
-            Assert.That(commandParser.GetCommand("unknown"), Is.EqualTo(CommandParser.Command.Help));
+            Assert.That(commandParser.GetCommand("unknown"), Is.EqualTo(Command.Help));
+        }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheCommandShouldBeBcr()
+        {
+            var commandParser = new CommandParser();
+
+            Assert.That(commandParser.GetCommand("bcr"), Is.EqualTo(Command.Bcr));
         }
     }
 }
