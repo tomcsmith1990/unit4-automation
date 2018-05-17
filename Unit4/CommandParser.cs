@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Unit4.Automation
 {
@@ -8,6 +9,10 @@ namespace Unit4.Automation
 
         public Command GetCommand(params string[] args)
         {
+            if (!args.Any())
+            {
+                return Command.Help;
+            }
             throw new NotImplementedException();
         }
     }
