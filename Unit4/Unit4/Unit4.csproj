@@ -95,6 +95,7 @@
     <Compile Include="Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />

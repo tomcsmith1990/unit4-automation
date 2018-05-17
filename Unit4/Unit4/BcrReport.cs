@@ -12,7 +12,7 @@ namespace Unit4
 {
     internal class BcrReport
     {
-        private enum Tier { Tier3, Tier4 };
+        public enum Tier { Tier3, Tier4, CostCentre };
 
         private readonly BCRLineBuilder _builder = new BCRLineBuilder();
         private readonly ILogging _log;
@@ -24,17 +24,55 @@ namespace Unit4
             _log = log;
         }
 
-        public IEnumerable<BCRLine> RunBCR(IGrouping<string, CostCentre> hierarchy)
+        public IEnumerable<BCRLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
-            return RunBCR(Tier.Tier3, hierarchy.Key, hierarchy.Select(x => x.Tier4).Distinct());
+            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
+            
+            return RunBCR(reportsToRun).ToList();
         }
 
-        private IEnumerable<BCRLine> RunBCR(Tier tier, string value, IEnumerable<string> fallback)
+        private IEnumerable<BCRLine> RunBCR(IEnumerable<Report> reports)
         {
+            var bag = new ConcurrentBag<BCRLine>();
+
+            var extraReportsToRun = new ConcurrentBag<Report>();
+
+            Parallel.ForEach(reports, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
+            {
+                try
+                {
+                    var bcrLines = RunBCR(t);
+                    foreach (var line in bcrLines)
+                    {
+                        bag.Add(line);
+                    }
+                }
+                catch (Exception)
+                {
+                    if (t.ShouldFallBack)
+                    {
+                        var fallbackReports = t.FallbackReports().ToList();
+                        _log.Info(string.Format("Error getting BCR for {0}. Will fallback to {1}:{2}", t.Parameter, string.Join(Environment.NewLine, fallbackReports.Select(x => x.Parameter).ToArray()), Environment.NewLine));
+                        fallbackReports.ForEach(r => extraReportsToRun.Add(r));
+                    }
+                }
+            });
+
+            if (extraReportsToRun.Any())
+            {
+                return bag.Concat(RunBCR(extraReportsToRun));
+            }
+
+            return bag;
+        }
+
+        private IEnumerable<BCRLine> RunBCR(Report report)
+        {
+            string value = report.Parameter;
             try
             {
-                var bcr = RunReport(tier, value);
-                _log.Info(string.Format("Got BCR for {0}", value));
+                var bcr = RunReport(report.Tier, value);
+                _log.Info(string.Format("Got BCR for {0}, contains {1} rows", value, bcr.Tables[0].Rows.Count));
 
                 return _builder.Build(bcr).ToList();
             }
@@ -43,13 +81,7 @@ namespace Unit4
                 _log.Error(string.Format("Error getting BCR for {0}", value));
                 _log.Error(e);
 
-                if (fallback.Any()) 
-                {
-                    _log.Info(string.Format("Falling back to {0}: ", string.Join(",", fallback.ToArray())));
-                    return fallback.SelectMany(x => RunBCR(Tier.Tier4, x, Enumerable.Empty<string>())).ToList();
-                }
-
-                return Enumerable.Empty<BCRLine>();
+                throw;
             }
         }
 
@@ -63,6 +95,9 @@ namespace Unit4
                     break;
                 case Tier.Tier4:
                     resql = Resql.Bcr(tier4: value);
+                    break;
+                case Tier.CostCentre:
+                    resql = Resql.Bcr(costCentre: value);
                     break;
                 default:
                     throw new InvalidOperationException("Cannot run a report for this tier") ;

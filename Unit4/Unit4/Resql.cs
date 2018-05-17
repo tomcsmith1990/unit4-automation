@@ -28,7 +28,7 @@ namespace Unit4
             }
         }
 
-        public static string Bcr(string tier3 = "", string tier4 = "")
+        public static string Bcr(string tier3 = "", string tier4 = "", string costCentre = "")
         {
             return string.Format(@".name [GL-BAL-001 : General Balances Monitoring Report]
 
@@ -38,7 +38,7 @@ namespace Unit4
 
 .declare [Budget Group (Tier4)] String '{1}'
 
-.declare [Cost Centre] String ''
+.declare [Cost Centre] String '{2}'
 
 .declare [Service (Tier3)] String '{0}'
 
@@ -46,7 +46,7 @@ namespace Unit4
 
 .query [GL-BAL-001 : General Balances Monitoring Report] 
     agr_getBrowser 'GL-BAL-001 : General Balances Monitoring Report', r0r0r0r3dim2_eq='$?[Directorate (Tier1)]', r0r0r3dim2_eq='$?[Service Group (Tier2)]', r3dim2_eq='$?[Budget Group (Tier4)]', dim2_eq='$?[Cost Centre]', r0r3dim2_eq='$?[Service (Tier3)]', dim1_eq='$?[Account]'
-.endQuery", tier3, tier4);
+.endQuery", tier3, tier4, costCentre);
         }
 
         public static string BcrTier3(string tier3)
@@ -57,6 +57,11 @@ namespace Unit4
         public static string BcrTier4(string tier4)
         {
             return Bcr(tier4: tier4);
+        }
+
+        public static string BcrCostCentre(string costCentre)
+        {
+            return Bcr(costCentre: costCentre);
         }
     }
 }
