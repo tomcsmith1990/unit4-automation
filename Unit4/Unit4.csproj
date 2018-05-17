@@ -98,6 +98,7 @@
     <Compile Include="Report.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
+    <Compile Include="CommandParser.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
     <Compile Include="Interfaces\ICostCentres.cs" />
     <Compile Include="Interfaces\IUnit4Engine.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
     <Compile Include="Tests\BcrReportTests.cs" />
     <Compile Include="Tests\ResqlTests.cs" />
+    <Compile Include="Tests\CommandParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
