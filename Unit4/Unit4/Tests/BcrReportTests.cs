@@ -6,6 +6,7 @@ using System.Data;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using Unit4.Automation.Model;
 
 namespace Unit4.Tests
 {

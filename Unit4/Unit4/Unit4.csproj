@@ -87,7 +87,7 @@
     <Compile Include="Logging.cs" />
     <Compile Include="CostCentreList.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
-    <Compile Include="CostCentre.cs" />
+    <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="Unit4Engine.cs" />
     <Compile Include="Unit4EngineFactory.cs" />
