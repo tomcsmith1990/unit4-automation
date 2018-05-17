@@ -1,4 +1,5 @@
 ﻿using System;
+using Command = Unit4.Automation.CommandParser.Command;
 
 namespace Unit4.Automation
 {
@@ -6,7 +7,17 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            new ReportRunner().Run();
+            var command = new CommandParser().GetCommand(args);
+
+            switch (command)
+            {
+                case Command.Bcr:
+                    new ReportRunner().Run();
+                    break;
+                case Command.Help:
+                default:
+                    break;
+            }
         }
     }
 }

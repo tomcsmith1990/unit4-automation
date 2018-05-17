@@ -14,7 +14,7 @@ function Test {
 }
 
 function Run {
-    & ".\Unit4\bin\Debug\unit4-automation.exe"
+    & ".\Unit4\bin\Debug\unit4-automation.exe" bcr
 }
 
 export-modulemember -function Restore
