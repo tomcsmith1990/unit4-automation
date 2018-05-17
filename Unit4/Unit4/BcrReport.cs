@@ -72,7 +72,7 @@ namespace Unit4
             try
             {
                 var bcr = RunReport(report.Tier, value);
-                _log.Info(string.Format("Got BCR for {0}, contains {1} rows", value, bcr.Tables[0].Rows));
+                _log.Info(string.Format("Got BCR for {0}, contains {1} rows", value, bcr.Tables[0].Rows.Count));
 
                 return _builder.Build(bcr).ToList();
             }
