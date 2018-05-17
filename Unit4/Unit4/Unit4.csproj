@@ -84,7 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Model\BcrLine.cs" />
     <Compile Include="BcrLineBuilder.cs" />
-    <Compile Include="Logging.cs" />
+    <Compile Include="ReportEngine\Logging.cs" />
     <Compile Include="CostCentreList.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
     <Compile Include="Model\CostCentre.cs" />
