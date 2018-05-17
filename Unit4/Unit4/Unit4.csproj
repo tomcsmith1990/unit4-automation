@@ -89,10 +89,10 @@
     <Compile Include="CostCentreHierarchy.cs" />
     <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Credentials.cs" />
-    <Compile Include="Unit4Engine.cs" />
-    <Compile Include="Unit4EngineFactory.cs" />
-    <Compile Include="Unit4WebProvider.cs" />
-    <Compile Include="Unit4WebConnector.cs" />
+    <Compile Include="ReportEngine\Unit4Engine.cs" />
+    <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
+    <Compile Include="ReportEngine\Unit4WebProvider.cs" />
+    <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
     <Compile Include="Report.cs" />

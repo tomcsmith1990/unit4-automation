@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Collections.Concurrent;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.ReportEngine;
 
 namespace Unit4
 {

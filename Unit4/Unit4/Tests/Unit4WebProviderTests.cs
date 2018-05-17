@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Unit4.Automation.Interfaces;
 using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
+using Unit4.Automation.ReportEngine;
 
 namespace Unit4.Tests
 {

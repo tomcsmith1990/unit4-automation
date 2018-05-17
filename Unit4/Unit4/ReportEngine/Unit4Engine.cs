@@ -9,7 +9,7 @@ using Unit4.Automation.Interfaces;
 using ReportEngine.Data.Sql;
 using System.IO;
 
-namespace Unit4
+namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4Engine : IUnit4Engine
     {

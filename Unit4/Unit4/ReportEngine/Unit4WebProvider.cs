@@ -2,7 +2,7 @@ using System;
 using ReportEngine.Provider.WebService;
 using Unit4.Automation.Interfaces;
 
-namespace Unit4
+namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4WebProvider : IDisposable
     {
