@@ -15,7 +15,7 @@ namespace Unit4
     {
         public enum Tier { Tier3, Tier4, CostCentre };
 
-        private readonly BCRLineBuilder _builder = new BCRLineBuilder();
+        private readonly BcrLineBuilder _builder = new BcrLineBuilder();
         private readonly ILogging _log;
         private readonly IUnit4EngineFactory _factory;
 

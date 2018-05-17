@@ -5,7 +5,7 @@ using Unit4.Automation.Model;
 
 namespace Unit4
 {
-    internal class BCRLineBuilder
+    internal class BcrLineBuilder
     {
         public IEnumerable<BcrLine> Build(DataSet data)
         {

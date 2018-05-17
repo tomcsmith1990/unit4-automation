@@ -14,7 +14,7 @@ namespace Unit4
     internal class ReportRunner
     {
         private readonly ILogging _log = new Logging();
-        private readonly BCRLineBuilder _builder = new BCRLineBuilder();
+        private readonly BcrLineBuilder _builder = new BcrLineBuilder();
         private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy(new CostCentreList());
 
         public void Run()
