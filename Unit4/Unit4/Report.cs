@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Tier = BcrReport.Tier;
+using Tier = Unit4.BcrReport.Tier;
 
 namespace Unit4
 {
