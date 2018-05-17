@@ -17,7 +17,12 @@ function Run {
     & ".\Unit4\bin\Debug\unit4-automation.exe" bcr
 }
 
+function Help {
+    & ".\Unit4\bin\Debug\unit4-automation.exe" help
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
 export-modulemember -function Run
+export-modulemember -function Help
