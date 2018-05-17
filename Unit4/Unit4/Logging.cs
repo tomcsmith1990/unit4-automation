@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Log = ReportEngine.Diagnostics.Log;
 using System.IO;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4
 {

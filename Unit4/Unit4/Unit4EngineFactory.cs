@@ -1,5 +1,5 @@
 using System;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4
 {

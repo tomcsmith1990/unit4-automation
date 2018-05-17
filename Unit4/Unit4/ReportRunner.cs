@@ -6,7 +6,7 @@ using System.IO;
 using System.Data;
 using System.Diagnostics;
 using System.Collections.Concurrent;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4
 {

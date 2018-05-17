@@ -1,7 +1,7 @@
 using System;
 using Unit4;
 using NUnit.Framework;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 using System.Data;
 using Moq;
 using System.Collections.Generic;

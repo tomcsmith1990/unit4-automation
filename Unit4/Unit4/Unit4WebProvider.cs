@@ -1,6 +1,6 @@
 using System;
 using ReportEngine.Provider.WebService;
-using Unit4.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4
 {
