@@ -38,7 +38,7 @@ namespace Unit4.Automation
                 Console.WriteLine("Getting BCRs");
 
                 var factory = new Unit4EngineFactory();
-                var bcrReport = new BcrReport(factory, _log);
+                var bcrReport = new CachingBcrReport(new BcrReport(factory, _log));
 
                 var bcr = bcrReport.RunBCR(tier3Hierarchy);
 
