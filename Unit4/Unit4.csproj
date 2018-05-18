@@ -88,6 +88,7 @@
     <Compile Include="CostCentreList.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
     <Compile Include="Model\CostCentre.cs" />
+    <Compile Include="Model\Bcr.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />

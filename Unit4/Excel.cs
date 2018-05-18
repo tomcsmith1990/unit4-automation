@@ -10,7 +10,7 @@ namespace Unit4.Automation
 {
     internal class Excel
     {
-        public void WriteToExcel(string path, IEnumerable<BcrLine> data)
+        public void WriteToExcel(string path, Bcr bcr)
         {
             var app = new MSExcel.Application();
             var workbook = app.Workbooks.Add();
@@ -23,6 +23,8 @@ namespace Unit4.Automation
 
             var rowToStartData = headerRow + 1;
 
+            var data = bcr.Lines.ToList();
+            
             Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
                 var rowNumber = i + rowToStartData;

@@ -40,7 +40,7 @@ namespace Unit4.Automation
                 var factory = new Unit4EngineFactory();
                 var bcrReport = new BcrReport(factory, _log);
 
-                var lines = bcrReport.RunBCR(tier3Hierarchy);
+                var bcr = bcrReport.RunBCR(tier3Hierarchy);
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
@@ -49,7 +49,7 @@ namespace Unit4.Automation
                 Console.WriteLine("Writing to Excel");
 
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
-                new Excel().WriteToExcel(outputPath, lines);
+                new Excel().WriteToExcel(outputPath, bcr);
 
                 stopwatch.Stop();
 
