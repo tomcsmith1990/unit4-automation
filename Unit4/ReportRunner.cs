@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Collections.Concurrent;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
@@ -38,9 +39,9 @@ namespace Unit4.Automation
                 Console.WriteLine("Getting BCRs");
 
                 var factory = new Unit4EngineFactory();
-                var bcrReport = new CachingBcrReport(new BcrReport(factory, _log));
+                var bcrReport = new Cache<Bcr>(() => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), "bcr.json");
 
-                var bcr = bcrReport.RunBCR(tier3Hierarchy);
+                var bcr = bcrReport.Fetch();
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));

@@ -96,7 +96,7 @@
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
-    <Compile Include="CachingBcrReport.cs" />
+    <Compile Include="Cache.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
