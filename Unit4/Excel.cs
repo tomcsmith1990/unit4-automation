@@ -15,7 +15,7 @@ namespace Unit4.Automation
             var app = new MSExcel.Application();
             var workbook = app.Workbooks.Add();
 
-            var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
+            var sheet = workbook.Sheets[1] as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
             var headerRow = 2;
@@ -24,7 +24,7 @@ namespace Unit4.Automation
             var rowToStartData = headerRow + 1;
 
             var data = bcr.Lines.ToList();
-            
+
             Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
                 var rowNumber = i + rowToStartData;
