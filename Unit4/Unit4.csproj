@@ -106,6 +106,7 @@
     <Compile Include="Interfaces\IUnit4Engine.cs" />
     <Compile Include="Interfaces\IUnit4EngineFactory.cs" />
     <Compile Include="Interfaces\ILogging.cs" />
+    <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />

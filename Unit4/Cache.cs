@@ -4,10 +4,11 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Model;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation
 {
-    internal class Cache<T>
+    internal class Cache<T> : ICache<T>
     {
         private readonly Func<T> _func;
         private readonly string _filename;
