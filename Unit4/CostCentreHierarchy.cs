@@ -9,16 +9,16 @@ namespace Unit4.Automation
 {
     internal class CostCentreHierarchy
     {
-        private readonly ICostCentres _costCentres = new CostCentreList();
+        private readonly ICache<SerializableCostCentreList> _costCentres;
 
-        public CostCentreHierarchy(ICostCentres costCentres)
+        public CostCentreHierarchy(ICache<SerializableCostCentreList> costCentres)
         {
             _costCentres = costCentres;
         }
 
         public IEnumerable<IGrouping<string, CostCentre>> GetHierarchyByTier3()
         {
-            var costCentres = _costCentres.GetCostCentres();
+            var costCentres = _costCentres.Fetch().CostCentres;
             return costCentres.GroupBy(x => x.Tier3, x => x);
         }
     }

@@ -25,11 +25,11 @@ namespace Unit4.Automation
             _log = log;
         }
 
-        public IEnumerable<BcrLine> RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
+        public Bcr RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
             var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
             
-            return RunBCR(reportsToRun).ToList();
+            return new Bcr() { Lines = RunBCR(reportsToRun).ToList() };
         }
 
         private IEnumerable<BcrLine> RunBCR(IEnumerable<Report> reports)

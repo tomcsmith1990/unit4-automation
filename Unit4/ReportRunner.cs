@@ -8,14 +8,27 @@ using System.Diagnostics;
 using System.Collections.Concurrent;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
     internal class ReportRunner
     {
-        private readonly ILogging _log = new Logging();
-        private readonly BcrLineBuilder _builder = new BcrLineBuilder();
-        private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy(new CostCentreList());
+        private readonly ILogging _log;
+        private readonly BcrLineBuilder _builder;
+        private readonly CostCentreHierarchy _hierarchy;
+
+        public ReportRunner()
+        {
+            _log = new Logging();
+            _builder = new BcrLineBuilder();
+
+            var costCentreList = 
+                new Cache<SerializableCostCentreList>(
+                        () => new CostCentresProvider().GetCostCentres(), 
+                        new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
+            _hierarchy = new CostCentreHierarchy(costCentreList);
+        }
 
         public void Run()
         {
@@ -38,9 +51,12 @@ namespace Unit4.Automation
                 Console.WriteLine("Getting BCRs");
 
                 var factory = new Unit4EngineFactory();
-                var bcrReport = new BcrReport(factory, _log);
+                var bcrReport = 
+                    new Cache<Bcr>(
+                        () => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), 
+                        new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")));
 
-                var lines = bcrReport.RunBCR(tier3Hierarchy);
+                var bcr = bcrReport.Fetch();
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
@@ -49,7 +65,7 @@ namespace Unit4.Automation
                 Console.WriteLine("Writing to Excel");
 
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
-                new Excel().WriteToExcel(outputPath, lines);
+                new Excel().WriteToExcel(outputPath, bcr);
 
                 stopwatch.Stop();
 

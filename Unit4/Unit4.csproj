@@ -85,9 +85,11 @@
     <Compile Include="Model\BcrLine.cs" />
     <Compile Include="BcrLineBuilder.cs" />
     <Compile Include="ReportEngine\Logging.cs" />
-    <Compile Include="CostCentreList.cs" />
+    <Compile Include="CostCentresProvider.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
     <Compile Include="Model\CostCentre.cs" />
+    <Compile Include="Model\Bcr.cs" />
+    <Compile Include="Model\SerializableCostCentreList.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
@@ -95,21 +97,27 @@
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
+    <Compile Include="Cache.cs" />
     <Compile Include="Report.cs" />
+    <Compile Include="JsonFile.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
     <Compile Include="CommandParser.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
-    <Compile Include="Interfaces\ICostCentres.cs" />
+    <Compile Include="Interfaces\ICostCentresProvider.cs" />
     <Compile Include="Interfaces\IUnit4Engine.cs" />
     <Compile Include="Interfaces\IUnit4EngineFactory.cs" />
     <Compile Include="Interfaces\ILogging.cs" />
+    <Compile Include="Interfaces\ICache.cs" />
+    <Compile Include="Interfaces\IFile.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
     <Compile Include="Tests\BcrReportTests.cs" />
     <Compile Include="Tests\ResqlTests.cs" />
     <Compile Include="Tests\CommandParserTests.cs" />
+    <Compile Include="Tests\SerializableRoundTripTests.cs" />
+    <Compile Include="Tests\CacheTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,18 +10,20 @@ namespace Unit4.Automation
 {
     internal class Excel
     {
-        public void WriteToExcel(string path, IEnumerable<BcrLine> data)
+        public void WriteToExcel(string path, Bcr bcr)
         {
             var app = new MSExcel.Application();
             var workbook = app.Workbooks.Add();
 
-            var sheet = workbook.Sheets.Add() as MSExcel.Worksheet;
+            var sheet = workbook.Sheets[1] as MSExcel.Worksheet;
             sheet.Name = Guid.NewGuid().ToString("N").Substring(0, 16);
 
             var headerRow = 2;
             AddHeader(sheet, headerRow);
 
             var rowToStartData = headerRow + 1;
+
+            var data = bcr.Lines.ToList();
 
             Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
@@ -82,16 +84,16 @@ namespace Unit4.Automation
 
         private void AddRow(MSExcel.Worksheet sheet, int rowNumber, BcrLine line)
         {
-            sheet.Cells[rowNumber, 1] = line.Tier1;
-            sheet.Cells[rowNumber, 2] = line.Tier1Name;
-            sheet.Cells[rowNumber, 3] = line.Tier2;
-            sheet.Cells[rowNumber, 4] = line.Tier2Name;
-            sheet.Cells[rowNumber, 5] = line.Tier3;
-            sheet.Cells[rowNumber, 6] = line.Tier3Name;
-            sheet.Cells[rowNumber, 7] = line.Tier4;
-            sheet.Cells[rowNumber, 8] = line.Tier4Name;
-            sheet.Cells[rowNumber, 9] = line.CostCentre;
-            sheet.Cells[rowNumber, 10] = line.CostCentreName;
+            sheet.Cells[rowNumber, 1] = line.CostCentre.Tier1;
+            sheet.Cells[rowNumber, 2] = line.CostCentre.Tier1Name;
+            sheet.Cells[rowNumber, 3] = line.CostCentre.Tier2;
+            sheet.Cells[rowNumber, 4] = line.CostCentre.Tier2Name;
+            sheet.Cells[rowNumber, 5] = line.CostCentre.Tier3;
+            sheet.Cells[rowNumber, 6] = line.CostCentre.Tier3Name;
+            sheet.Cells[rowNumber, 7] = line.CostCentre.Tier4;
+            sheet.Cells[rowNumber, 8] = line.CostCentre.Tier4Name;
+            sheet.Cells[rowNumber, 9] = line.CostCentre.Code;
+            sheet.Cells[rowNumber, 10] = line.CostCentre.CostCentreName;
             sheet.Cells[rowNumber, 11] = line.Account;
             sheet.Cells[rowNumber, 12] = line.AccountName;
             sheet.Cells[rowNumber, 13] = line.Budget;
