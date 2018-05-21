@@ -32,7 +32,7 @@ namespace Unit4.Automation.Tests
             mock.Setup(x => x.Exists()).Returns(true);
             mock.Setup(x => x.IsDirty()).Returns(false);
 
-            var cache = new Cache<Foo>(() => obj.Blah(), mock.Object);
+            var cache = new Cache<Foo>(() => { throw new NotImplementedException(); }, mock.Object);
 
             cache.Fetch();
 
