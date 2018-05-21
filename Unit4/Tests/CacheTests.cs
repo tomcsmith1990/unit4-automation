@@ -39,6 +39,20 @@ namespace Unit4.Automation.Tests
             Assert.That(obj.WasCalled, Is.False);
         }
 
+        [Test]
+        public void GivenCallThrough_ThenTheResultShouldBeSaved()
+        {
+            var obj = new Foo();
+            var mock = new Mock<IFile<Foo>>();
+            mock.Setup(x => x.Exists()).Returns(false);
+
+            var cache = new Cache<Foo>(() => obj.Blah(), mock.Object);
+
+            cache.Fetch();
+
+            mock.Verify(x => x.Write(obj), Times.Once);
+        }
+
         public class Foo
         {
             public Foo Blah()
