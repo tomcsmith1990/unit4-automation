@@ -114,6 +114,7 @@
     <Compile Include="Tests\BcrReportTests.cs" />
     <Compile Include="Tests\ResqlTests.cs" />
     <Compile Include="Tests\CommandParserTests.cs" />
+    <Compile Include="Tests\SerializableRoundTripTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
