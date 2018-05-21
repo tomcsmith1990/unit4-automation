@@ -7,5 +7,6 @@ namespace Unit4.Automation.Interfaces
         T Read();
         void Write(T value);
         bool Exists();
+        bool IsDirty();
     }
 }

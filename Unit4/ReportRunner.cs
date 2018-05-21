@@ -23,7 +23,10 @@ namespace Unit4.Automation
             _log = new Logging();
             _builder = new BcrLineBuilder();
 
-            var costCentreList = new Cache<SerializableCostCentreList>(() => new CostCentresProvider().GetCostCentres(), "costCentres.json");
+            var costCentreList = 
+                new Cache<SerializableCostCentreList>(
+                        () => new CostCentresProvider().GetCostCentres(), 
+                        new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
             _hierarchy = new CostCentreHierarchy(costCentreList);
         }
 
@@ -48,7 +51,10 @@ namespace Unit4.Automation
                 Console.WriteLine("Getting BCRs");
 
                 var factory = new Unit4EngineFactory();
-                var bcrReport = new Cache<Bcr>(() => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), "bcr.json");
+                var bcrReport = 
+                    new Cache<Bcr>(
+                        () => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), 
+                        new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")));
 
                 var bcr = bcrReport.Fetch();
 

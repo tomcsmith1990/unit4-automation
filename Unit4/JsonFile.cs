@@ -28,5 +28,10 @@ namespace Unit4.Automation
         {
             return File.Exists(_path);
         }
+
+        public bool IsDirty()
+        {
+            return false;
+        }
     }
 }

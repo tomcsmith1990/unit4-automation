@@ -13,10 +13,10 @@ namespace Unit4.Automation
         private readonly IFile<T> _file;
         private readonly Func<T> _func;
 
-        public Cache(Func<T> func, string filename)
+        public Cache(Func<T> func, IFile<T> file)
         {
             _func = func;
-            _file = new JsonFile<T>(Path.Combine(Directory.GetCurrentDirectory(), "cache", filename));
+            _file = file;
         }
 
         public T Fetch()
