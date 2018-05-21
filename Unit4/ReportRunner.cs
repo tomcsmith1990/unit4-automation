@@ -14,9 +14,16 @@ namespace Unit4.Automation
 {
     internal class ReportRunner
     {
-        private readonly ILogging _log = new Logging();
-        private readonly BcrLineBuilder _builder = new BcrLineBuilder();
-        private readonly CostCentreHierarchy _hierarchy = new CostCentreHierarchy(new CostCentreList());
+        private readonly ILogging _log;
+        private readonly BcrLineBuilder _builder;
+        private readonly CostCentreHierarchy _hierarchy;
+
+        public ReportRunner()
+        {
+            _log = new Logging();
+            _builder = new BcrLineBuilder();
+            _hierarchy = new CostCentreHierarchy(new CostCentreList());
+        }
 
         public void Run()
         {
