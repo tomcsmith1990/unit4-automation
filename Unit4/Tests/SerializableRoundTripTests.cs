@@ -17,5 +17,15 @@ namespace Unit4.Automation.Tests
 
             Assert.That(() => JsonConvert.DeserializeObject<SerializableCostCentreList>(json), Throws.Nothing);
         }
+
+        [Test]
+        public void CanSerializeThenDeserializeTypeBcr()
+        {
+            var obj = new Bcr() { Lines = new BcrLine[0] };
+
+            var json = JsonConvert.SerializeObject(obj);
+
+            Assert.That(() => JsonConvert.DeserializeObject<Bcr>(json), Throws.Nothing);
+        }
     }
 }
