@@ -10,27 +10,25 @@ namespace Unit4.Automation
 {
     internal class Cache<T> : ICache<T>
     {
+        private readonly IFile<T> _file;
         private readonly Func<T> _func;
-        private readonly string _filename;
 
         public Cache(Func<T> func, string filename)
         {
             _func = func;
-            _filename = filename;
+            _file = new JsonFile<T>(Path.Combine(Directory.GetCurrentDirectory(), "cache", filename));
         }
 
         public T Fetch()
         {
-            var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "cache", _filename);
-
-            if (File.Exists(outputPath))
+            if (_file.Exists())
             {
-                return JsonConvert.DeserializeObject<T>(File.ReadAllText(outputPath));
+                return _file.Read();
             }
 
             T result = _func();
 
-            File.WriteAllText(outputPath, JsonConvert.SerializeObject(result));
+            _file.Write(result);
 
             return result;
         }
