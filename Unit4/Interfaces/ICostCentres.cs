@@ -6,6 +6,6 @@ namespace Unit4.Automation.Interfaces
 {
     internal interface ICostCentres
     {
-        IEnumerable<CostCentre> GetCostCentres();
+        SerializableCostCentreList GetCostCentres();
     }
 }

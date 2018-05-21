@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Interfaces;
@@ -18,10 +19,10 @@ namespace Unit4.Automation
             return engine.RunReport(resql);
         }
 
-        public IEnumerable<CostCentre> GetCostCentres()
+        public SerializableCostCentreList GetCostCentres()
         {
             var data = RunReport(Resql.GetCostCentreList);
-            return data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre);
+            return new SerializableCostCentreList() { CostCentres = data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre).ToArray() };
         }
 
         private CostCentre CreateCostCentre(DataRow row)

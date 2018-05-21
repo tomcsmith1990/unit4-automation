@@ -22,7 +22,9 @@ namespace Unit4.Automation
         {
             _log = new Logging();
             _builder = new BcrLineBuilder();
-            _hierarchy = new CostCentreHierarchy(new CostCentreList());
+
+            var costCentreList = new Cache<SerializableCostCentreList>(() => new CostCentreList().GetCostCentres(), "costCentres.json");
+            _hierarchy = new CostCentreHierarchy(costCentreList);
         }
 
         public void Run()

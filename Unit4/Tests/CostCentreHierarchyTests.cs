@@ -65,7 +65,7 @@ namespace Unit4.Automation.Tests
             Assert.That(actualCostCentres, Is.EquivalentTo(costCentres));
         }
 
-        private class DummyCostCentres : ICostCentres
+        private class DummyCostCentres : ICache<SerializableCostCentreList>
         {
             private readonly CostCentre[] _costCentres;
             
@@ -74,9 +74,9 @@ namespace Unit4.Automation.Tests
                 _costCentres = costCentres;
             }
 
-            public IEnumerable<CostCentre> GetCostCentres()
+            public SerializableCostCentreList Fetch()
             {
-                return _costCentres; 
+                return new SerializableCostCentreList() { CostCentres = _costCentres };
             }
         }
     }
