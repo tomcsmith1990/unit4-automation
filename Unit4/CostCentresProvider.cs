@@ -22,7 +22,7 @@ namespace Unit4.Automation
         public SerializableCostCentreList GetCostCentres()
         {
             var data = RunReport(Resql.GetCostCentreList);
-            return new SerializableCostCentreList() { CostCentres = data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre).ToArray() };
+            return new SerializableCostCentreList() { CostCentres = data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre) };
         }
 
         private CostCentre CreateCostCentre(DataRow row)
