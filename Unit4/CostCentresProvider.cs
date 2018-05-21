@@ -9,7 +9,7 @@ using Unit4.Automation.ReportEngine;
 
 namespace Unit4.Automation
 {
-    internal class CostCentreList : ICostCentres
+    internal class CostCentresProvider : ICostCentresProvider
     {
         private DataSet RunReport(string resql)
         {
