@@ -18,7 +18,7 @@ namespace Unit4.Automation
 
         public IEnumerable<IGrouping<string, CostCentre>> GetHierarchyByTier3()
         {
-            var costCentres = _costCentres.Fetch().AsEnumerable();
+            var costCentres = _costCentres.Fetch().CostCentres;
             return costCentres.GroupBy(x => x.Tier3, x => x);
         }
     }

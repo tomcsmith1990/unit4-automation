@@ -1,15 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Unit4.Automation.Model
 {
     internal class SerializableCostCentreList
     {
-        public CostCentre[] CostCentres { get; set; }
+        private IEnumerable<CostCentre> _costCentres;
 
-        public IEnumerable<CostCentre> AsEnumerable()
+        public IEnumerable<CostCentre> CostCentres
         {
-            return CostCentres;
+            get
+            {
+                return _costCentres == null ? Enumerable.Empty<CostCentre>() : _costCentres;
+            }
+            set
+            {
+                _costCentres = value;
+            }
         }
     }
 }
