@@ -21,7 +21,7 @@ namespace Unit4.Automation
 
         public T Fetch()
         {
-            if (_file.Exists())
+            if (_file.Exists() && !_file.IsDirty())
             {
                 return _file.Read();
             }
