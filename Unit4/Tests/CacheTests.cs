@@ -13,10 +13,7 @@ namespace Unit4.Automation.Tests
         public void GivenDirtyFile_ThenItShouldRunTheFunction()
         {
             var obj = new Foo();
-            var mock = new Mock<IFile<Foo>>();
-            mock.Setup(x => x.Exists()).Returns(true);
-            mock.Setup(x => x.IsDirty()).Returns(true);
-
+            var mock = new CacheMock(obj, true).AsMock();
             var cache = new Cache<Foo>(() => obj.Blah(), mock.Object);
 
             cache.Fetch();
@@ -28,10 +25,7 @@ namespace Unit4.Automation.Tests
         public void GivenNonDirtyFile_ThenItShouldNotRunTheFunction()
         {
             var obj = new Foo();
-            var mock = new Mock<IFile<Foo>>();
-            mock.Setup(x => x.Exists()).Returns(true);
-            mock.Setup(x => x.IsDirty()).Returns(false);
-
+            var mock = new CacheMock(obj, false).AsMock();
             var cache = new Cache<Foo>(() => { throw new NotImplementedException(); }, mock.Object);
 
             cache.Fetch();
@@ -43,9 +37,7 @@ namespace Unit4.Automation.Tests
         public void GivenCallThrough_ThenTheResultShouldBeSaved()
         {
             var obj = new Foo();
-            var mock = new Mock<IFile<Foo>>();
-            mock.Setup(x => x.Exists()).Returns(false);
-
+            var mock = new CacheMock(null, false).AsMock();
             var cache = new Cache<Foo>(() => obj.Blah(), mock.Object);
 
             cache.Fetch();
@@ -57,12 +49,7 @@ namespace Unit4.Automation.Tests
         public void GivenCleanCache_ThenTheResultShouldBeRead()
         {
             var obj = new Foo();
-
-            var mock = new Mock<IFile<Foo>>();
-            mock.Setup(x => x.Exists()).Returns(true);
-            mock.Setup(x => x.IsDirty()).Returns(false);
-            mock.Setup(x => x.Read()).Returns(obj);
-
+            var mock = new CacheMock(obj, false).AsMock();
             var cache = new Cache<Foo>(() => { throw new NotImplementedException(); }, mock.Object);
 
             var actual = cache.Fetch();
@@ -70,7 +57,28 @@ namespace Unit4.Automation.Tests
             Assert.That(actual, Is.EqualTo(obj));
         }
 
-        public class Foo
+        private class CacheMock
+        {
+            private readonly Foo _object;
+            private readonly bool _isDirty;
+
+            public CacheMock(Foo obj, bool isDirty)
+            {
+                _object = obj;
+                _isDirty = isDirty;
+            }
+
+            public Mock<IFile<Foo>> AsMock()
+            {
+                var mock = new Mock<IFile<Foo>>();
+                mock.Setup(x => x.Exists()).Returns(_object != null);
+                mock.Setup(x => x.IsDirty()).Returns(_isDirty);
+                mock.Setup(x => x.Read()).Returns(_object);
+                return mock;
+            }
+        }
+
+        internal class Foo
         {
             public Foo Blah()
             {
