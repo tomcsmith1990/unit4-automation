@@ -24,6 +24,21 @@ namespace Unit4.Automation.Tests
             Assert.That(obj.WasCalled, Is.True);
         }
 
+        [Test]
+        public void GivenNonDirtyFile_ThenItShouldNotRunTheFunction()
+        {
+            var obj = new Foo();
+            var mock = new Mock<IFile<Foo>>();
+            mock.Setup(x => x.Exists()).Returns(true);
+            mock.Setup(x => x.IsDirty()).Returns(false);
+
+            var cache = new Cache<Foo>(() => obj.Blah(), mock.Object);
+
+            cache.Fetch();
+
+            Assert.That(obj.WasCalled, Is.False);
+        }
+
         public class Foo
         {
             public Foo Blah()
