@@ -26,7 +26,7 @@ namespace Unit4.Automation
         }
     }
 
-    [Verb("bcr")]
+    [Verb("bcr", HelpText = "Produce a BCR.")]
     internal class BcrOptions
     {
 
