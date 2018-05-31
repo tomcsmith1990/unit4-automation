@@ -133,6 +133,7 @@
     <Compile Include="Tests\CacheTests.cs" />
     <Compile Include="Tests\ReportRunnerFactoryTests.cs" />
     <Compile Include="Tests\BcrReportRunnerTests.cs" />
+    <Compile Include="Tests\BcrFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
