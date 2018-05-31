@@ -19,7 +19,7 @@ namespace Unit4.Automation
             });
         }
 
-        public IOptions GetCommand(params string[] args)
+        public IOptions GetOptions(params string[] args)
         {
             return _parser
                 .ParseArguments(args, typeof(TVerb))

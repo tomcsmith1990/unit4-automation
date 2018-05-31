@@ -8,9 +8,9 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var command = new CommandParser<BcrOptions>(Console.Out).GetCommand(args);
+            var options = new CommandParser<BcrOptions>(Console.Out).GetOptions(args);
 
-            var runner = new ReportRunnerFactory().Create(command);
+            var runner = new ReportRunnerFactory().Create(options);
 
             runner.Run();
         }
