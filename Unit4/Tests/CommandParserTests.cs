@@ -40,5 +40,14 @@ namespace Unit4.Automation.Tests
         {
             Assert.That(_parser.GetOptions("BcR"), Is.TypeOf(typeof(BcrOptions)));
         }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised()
+        {
+            var options = _parser.GetOptions("bcr", "--tier2=00T2000");
+            var bcrOptions = options as BcrOptions;
+            
+            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
+        }
     }
 }
