@@ -18,7 +18,7 @@ namespace Unit4.Automation.Tests
             {
                 var excel = new Excel();
 
-                Assert.That(() => excel.WriteToExcel(tempFile.Path, new Bcr() { Lines = new List<BcrLine>() }), Throws.Nothing);
+                Assert.That(() => excel.Write(tempFile.Path, new Bcr() { Lines = new List<BcrLine>() }), Throws.Nothing);
             }
         }
 

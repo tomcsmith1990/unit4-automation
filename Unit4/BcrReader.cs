@@ -12,7 +12,7 @@ using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class BcrReader
+    internal class BcrReader : IBcrReader
     {
         private readonly ILogging _log;
         private readonly CostCentreHierarchy _hierarchy;
