@@ -9,7 +9,6 @@ namespace Unit4.Automation
 {
     internal class CommandParser<TVerb> where TVerb : IOptions
     {
-        public enum Command { Help, Bcr };
         private readonly Parser _parser;
 
         public CommandParser(TextWriter output)
