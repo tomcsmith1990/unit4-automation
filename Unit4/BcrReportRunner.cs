@@ -27,32 +27,24 @@ namespace Unit4.Automation
             {
                 _log.Start();
 
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-                long elapsed = 0, current = 0;
-
-                Console.WriteLine("Getting BCRs");
-
-                var bcr = new BcrReader(_log).Read();
-
-                current = stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
-                elapsed = current;
-
-                Console.WriteLine("Writing to Excel");
-
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
-                new Excel().WriteToExcel(outputPath, bcr);
 
-                stopwatch.Stop();
+                using (var progress = new Progress())
+                {
+                    progress.Update("Getting BCRs");
 
-                current = stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
-                elapsed = current;
+                    var bcr = new BcrReader(_log).Read();
+
+                    progress.Complete();
+
+                    progress.Update("Writing to Excel");
+
+                    new Excel().WriteToExcel(outputPath, bcr);
+
+                    progress.Complete();
+                }
 
                 Console.WriteLine(string.Format("Success - {0}", outputPath));
-
-                Console.WriteLine(string.Format("Total time elapsed: {0}ms", elapsed));
             }
             catch (Exception e)
             {    
@@ -62,6 +54,35 @@ namespace Unit4.Automation
             finally
             {
                 _log.Close();
+            }
+        }
+
+        internal class Progress : IDisposable
+        {
+            private readonly Stopwatch _stopwatch;
+            private long _elapsed = 0, _current = 0;
+
+            public Progress()
+            {
+                _stopwatch = new Stopwatch();
+                _stopwatch.Start();
+            }
+
+            public void Update(string message)
+            {
+                Console.WriteLine(message);
+            }
+
+            public void Complete()
+            {
+                _current = _stopwatch.ElapsedMilliseconds;
+                Console.WriteLine(string.Format("Elapsed: {0}ms", _current - _elapsed));
+                _elapsed = _current;
+            }
+
+            public void Dispose()
+            {
+                Console.WriteLine(string.Format("Total time elapsed: {0}ms", _elapsed));
             }
         }
     }
