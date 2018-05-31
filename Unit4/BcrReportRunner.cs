@@ -12,13 +12,13 @@ using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class ReportRunner : IRunner
+    internal class BcrReportRunner : IRunner
     {
         private readonly ILogging _log;
         private readonly BcrLineBuilder _builder;
         private readonly CostCentreHierarchy _hierarchy;
 
-        public ReportRunner()
+        public BcrReportRunner()
         {
             _log = new Logging();
             _builder = new BcrLineBuilder();

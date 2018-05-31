@@ -11,7 +11,7 @@ namespace Unit4.Automation
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {
-                return new ReportRunner();
+                return new BcrReportRunner();
             }
 
             return new NullRunner();

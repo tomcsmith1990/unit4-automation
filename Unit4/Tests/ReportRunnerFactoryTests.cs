@@ -15,7 +15,7 @@ namespace Unit4.Automation.Tests
 
             var options = new BcrOptions();
 
-            Assert.That(factory.Create(options), Is.TypeOf(typeof(ReportRunner)));
+            Assert.That(factory.Create(options), Is.TypeOf(typeof(BcrReportRunner)));
         }
 
         [Test]
