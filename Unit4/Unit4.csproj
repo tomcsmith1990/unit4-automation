@@ -100,6 +100,7 @@
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
     <Compile Include="ReportEngine\Unit4WebProvider.cs" />
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
+    <Compile Include="NullRunner.cs" />
     <Compile Include="ReportRunner.cs" />
     <Compile Include="BcrReport.cs" />
     <Compile Include="Cache.cs" />

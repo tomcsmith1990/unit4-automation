@@ -33,13 +33,13 @@ namespace Unit4.Automation.Tests
     {
         public IRunner Create(IOptions options)
         {
-            return new ReportRunner();
-        }
-    }
+            var bcrOptions = options as BcrOptions;
+            if (bcrOptions != null)
+            {
+                return new ReportRunner();
+            }
 
-    internal class NullRunner : IRunner
-    {
-        public void Run()
-        {}
+            return new NullRunner();
+        }
     }
 }
