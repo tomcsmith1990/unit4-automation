@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Unit4.Automation.Model;
-using Command = Unit4.Automation.CommandParser<Unit4.Automation.Model.BcrOptions>.Command;
 
 namespace Unit4.Automation
 {
@@ -15,19 +14,6 @@ namespace Unit4.Automation
             {
                 new ReportRunner().Run();
             }
-            else
-            {
-                Help();
-            }
-        }
-
-        private static void Help()
-        {
-            var commands = Enum.GetNames(typeof(Command)).Select(x => x.ToLowerInvariant()).ToArray();
-            Console.WriteLine(string.Format(@"Unit4 Automation
-
-Available commands:
-{0}", string.Join(Environment.NewLine, commands)));
         }
     }
 }
