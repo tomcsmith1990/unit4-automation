@@ -10,11 +10,9 @@ namespace Unit4.Automation
         {
             var command = new CommandParser<BcrOptions>(Console.Out).GetCommand(args);
 
-            var bcrOptions = command as BcrOptions;
-            if (bcrOptions != null)
-            {
-                new ReportRunner().Run();
-            }
+            var runner = new ReportRunnerFactory().Create(command);
+
+            runner.Run();
         }
     }
 }
