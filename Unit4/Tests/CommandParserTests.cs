@@ -1,6 +1,7 @@
 using System;
 using Unit4.Automation;
 using NUnit.Framework;
+using System.IO;
 using Command = Unit4.Automation.CommandParser.Command;
 
 namespace Unit4.Automation.Tests
@@ -8,36 +9,36 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     public class CommandParserTests
     {
+        private CommandParser _parser;
+
+        [SetUp]
+        public void Setup()
+        {
+            _parser = new CommandParser(TextWriter.Null);
+        }
+
         [Test]
         public void GivenNoArguments_ThenTheCommandShouldBeHelp()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand(), Is.EqualTo(Command.Help));
+            Assert.That(_parser.GetCommand(), Is.EqualTo(Command.Help));
         }
 
         [Test]
         public void GivenAnUnknownCommand_ThenTheCommandShouldBeHelp()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("unknown"), Is.EqualTo(Command.Help));
+            Assert.That(_parser.GetCommand("unknown"), Is.EqualTo(Command.Help));
         }
 
         [Test]
         public void GivenTheBcrCommand_ThenTheCommandShouldBeBcr()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("bcr"), Is.EqualTo(Command.Bcr));
+            Assert.That(_parser.GetCommand("bcr"), Is.EqualTo(Command.Bcr));
         }
 
         [Test]
         public void GivenTheBcrCommandInADifferentCase_ThenTheCommandShouldBeBcr()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("BcR"), Is.EqualTo(Command.Bcr));
+            Assert.That(_parser.GetCommand("BcR"), Is.EqualTo(Command.Bcr));
         }
     }
 }

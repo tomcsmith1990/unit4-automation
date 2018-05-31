@@ -8,7 +8,7 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var command = new CommandParser().GetCommand(args);
+            var command = new CommandParser(Console.Out).GetCommand(args);
 
             switch (command)
             {
