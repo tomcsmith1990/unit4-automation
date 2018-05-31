@@ -28,5 +28,25 @@ namespace Unit4.Automation.Tests
 
             middleware.Verify(x => x.Use(bcr), Times.Once);
         }
+
+        [Test]
+        public void GivenBcrFromMiddleware_ThenThatBcrShouldBePassedToTheWriter()
+        {
+            var log = Mock.Of<ILogging>();
+            var reader = Mock.Of<IBcrReader>();
+
+            var bcr = new Bcr();
+
+            var middleware = new Mock<IBcrMiddleware>();
+            middleware.Setup(x => x.Use(It.IsAny<Bcr>())).Returns(bcr);
+
+            var writer = new Mock<IBcrWriter>();
+
+            var runner = new BcrReportRunner(log, reader, middleware.Object, writer.Object);
+
+            runner.Run();
+
+            writer.Verify(x => x.Write(It.IsAny<string>(), bcr), Times.Once);
+        }
     }
 }
