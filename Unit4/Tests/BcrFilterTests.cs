@@ -80,7 +80,7 @@ namespace Unit4.Automation.Tests
         public Bcr Use(Bcr bcr)
         {
             var newBcr = new Bcr();
-            newBcr.Lines = bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2)).ToList();
+            newBcr.Lines = _options.Tier2 == null ? bcr.Lines.ToList() : bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2)).ToList();
             return newBcr;
         }
     }
