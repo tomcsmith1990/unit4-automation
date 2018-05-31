@@ -102,6 +102,7 @@
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="NullRunner.cs" />
     <Compile Include="BcrReportRunner.cs" />
+    <Compile Include="BcrReader.cs" />
     <Compile Include="ReportRunnerFactory.cs" />
     <Compile Include="BcrReport.cs" />
     <Compile Include="Cache.cs" />

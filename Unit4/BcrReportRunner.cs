@@ -15,19 +15,10 @@ namespace Unit4.Automation
     internal class BcrReportRunner : IRunner
     {
         private readonly ILogging _log;
-        private readonly BcrLineBuilder _builder;
-        private readonly CostCentreHierarchy _hierarchy;
 
         public BcrReportRunner()
         {
             _log = new Logging();
-            _builder = new BcrLineBuilder();
-
-            var costCentreList = 
-                new Cache<SerializableCostCentreList>(
-                        () => new CostCentresProvider().GetCostCentres(), 
-                        new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
-            _hierarchy = new CostCentreHierarchy(costCentreList);
         }
 
         public void Run()
@@ -40,23 +31,9 @@ namespace Unit4.Automation
                 stopwatch.Start();
                 long elapsed = 0, current = 0;
 
-                Console.WriteLine("Getting cost centre hierarchy");
-
-                var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
-
-                current = stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
-                elapsed = current;
-
                 Console.WriteLine("Getting BCRs");
 
-                var factory = new Unit4EngineFactory();
-                var bcrReport = 
-                    new Cache<Bcr>(
-                        () => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), 
-                        new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")));
-
-                var bcr = bcrReport.Fetch();
+                var bcr = new BcrReader(_log).Read();
 
                 current = stopwatch.ElapsedMilliseconds;
                 Console.WriteLine(string.Format("Elapsed: {0}ms", current - elapsed));
