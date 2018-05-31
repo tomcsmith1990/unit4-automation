@@ -28,18 +28,4 @@ namespace Unit4.Automation.Tests
             Assert.That(factory.Create(options), Is.TypeOf(typeof(NullRunner)));
         }
     }
-
-    internal class ReportRunnerFactory
-    {
-        public IRunner Create(IOptions options)
-        {
-            var bcrOptions = options as BcrOptions;
-            if (bcrOptions != null)
-            {
-                return new ReportRunner();
-            }
-
-            return new NullRunner();
-        }
-    }
 }
