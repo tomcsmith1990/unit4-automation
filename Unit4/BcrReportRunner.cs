@@ -43,11 +43,11 @@ namespace Unit4.Automation
 
                     progress.Complete();
 
-                    _middleware.Use(bcr);
-                    
+                    var finalBcr = _middleware.Use(bcr);
+
                     progress.Update("Writing to Excel");
 
-                    _writer.Write(outputPath, bcr);
+                    _writer.Write(outputPath, finalBcr);
 
                     progress.Complete();
                 }
