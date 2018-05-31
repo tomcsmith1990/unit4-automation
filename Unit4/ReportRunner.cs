@@ -12,7 +12,7 @@ using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class ReportRunner
+    internal class ReportRunner : IRunner
     {
         private readonly ILogging _log;
         private readonly BcrLineBuilder _builder;

@@ -17,13 +17,29 @@ namespace Unit4.Automation.Tests
 
             Assert.That(factory.Create(options), Is.TypeOf(typeof(ReportRunner)));
         }
+
+        [Test]
+        public void GivenNullOptions_ThenWeShouldGetNullRunner()
+        {
+            var factory = new ReportRunnerFactory();
+
+            var options = new NullOptions();
+
+            Assert.That(factory.Create(options), Is.TypeOf(typeof(NullRunner)));
+        }
     }
 
     internal class ReportRunnerFactory
     {
-        public ReportRunner Create(IOptions options)
+        public IRunner Create(IOptions options)
         {
             return new ReportRunner();
         }
+    }
+
+    internal class NullRunner : IRunner
+    {
+        public void Run()
+        {}
     }
 }

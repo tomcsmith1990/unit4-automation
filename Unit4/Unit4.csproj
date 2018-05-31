@@ -116,6 +116,7 @@
     <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Interfaces\IFile.cs" />
     <Compile Include="Interfaces\IOptions.cs" />
+    <Compile Include="Interfaces\IRunner.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
