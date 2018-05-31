@@ -15,10 +15,14 @@ namespace Unit4.Automation
     internal class BcrReportRunner : IRunner
     {
         private readonly ILogging _log;
+        private readonly BcrReader _reader;
+        private readonly Excel _writer;
 
         public BcrReportRunner()
         {
             _log = new Logging();
+            _reader = new BcrReader(_log);
+            _writer = new Excel();
         }
 
         public void Run()
@@ -33,13 +37,13 @@ namespace Unit4.Automation
                 {
                     progress.Update("Getting BCRs");
 
-                    var bcr = new BcrReader(_log).Read();
+                    var bcr = _reader.Read();
 
                     progress.Complete();
 
                     progress.Update("Writing to Excel");
 
-                    new Excel().WriteToExcel(outputPath, bcr);
+                    _writer.WriteToExcel(outputPath, bcr);
 
                     progress.Complete();
                 }
