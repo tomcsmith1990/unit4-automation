@@ -23,7 +23,7 @@ namespace Unit4.Automation.Tests
     {
         public ReportRunner Create(IOptions options)
         {
-            throw new NotImplementedException();
+            return new ReportRunner();
         }
     }
 }
