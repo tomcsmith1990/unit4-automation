@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using CommandLine;
 
 namespace Unit4.Automation
 {
@@ -9,16 +10,16 @@ namespace Unit4.Automation
 
         public Command GetCommand(params string[] args)
         {
-            if (!args.Any())
-            {
-                return Command.Help;
-            }
-
-            switch (args.First().ToLowerInvariant())
-            {
-                case "bcr": return Command.Bcr;
-                default:    return Command.Help;
-            }
+            var parser = new Parser(settings => settings.CaseSensitive = false);
+            return parser
+                .ParseArguments(args, typeof(BcrOptions))
+                .MapResult<BcrOptions, Command>(options => Command.Bcr, errors => Command.Help);
         }
+    }
+
+    [Verb("bcr")]
+    internal class BcrOptions
+    {
+
     }
 }
