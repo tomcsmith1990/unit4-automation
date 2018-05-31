@@ -93,6 +93,8 @@
     <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Model\Bcr.cs" />
     <Compile Include="Model\SerializableCostCentreList.cs" />
+    <Compile Include="Model\NullOptions.cs" />
+    <Compile Include="Model\BcrOptions.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Interfaces\ILogging.cs" />
     <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Interfaces\IFile.cs" />
+    <Compile Include="Interfaces\IOptions.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />

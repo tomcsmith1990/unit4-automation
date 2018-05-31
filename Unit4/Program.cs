@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Unit4.Automation.Model;
 using Command = Unit4.Automation.CommandParser.Command;
 
 namespace Unit4.Automation
@@ -10,15 +11,13 @@ namespace Unit4.Automation
         {
             var command = new CommandParser(Console.Out).GetCommand(args);
 
-            switch (command)
+            if (command.GetType() == typeof(BcrOptions))
             {
-                case Command.Bcr:
-                    new ReportRunner().Run();
-                    break;
-                case Command.Help:
-                default:
-                    Help();
-                    break;
+                new ReportRunner().Run();
+            }
+            else
+            {
+                Help();
             }
         }
 

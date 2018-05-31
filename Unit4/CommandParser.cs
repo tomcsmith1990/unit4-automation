@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.IO;
 using CommandLine;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
@@ -18,17 +20,11 @@ namespace Unit4.Automation
             });
         }
 
-        public Command GetCommand(params string[] args)
+        public IOptions GetCommand(params string[] args)
         {
             return _parser
                 .ParseArguments(args, typeof(BcrOptions))
-                .MapResult<BcrOptions, Command>(options => Command.Bcr, errors => Command.Help);
+                .MapResult<BcrOptions, IOptions>(options => options, errors => new NullOptions());
         }
-    }
-
-    [Verb("bcr", HelpText = "Produce a BCR.")]
-    internal class BcrOptions
-    {
-
     }
 }
