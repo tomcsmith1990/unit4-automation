@@ -122,6 +122,7 @@
     <Compile Include="Interfaces\IRunner.cs" />
     <Compile Include="Interfaces\IBcrReader.cs" />
     <Compile Include="Interfaces\IBcrWriter.cs" />
+    <Compile Include="Interfaces\IBcrMiddleware.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Tests\SerializableRoundTripTests.cs" />
     <Compile Include="Tests\CacheTests.cs" />
     <Compile Include="Tests\ReportRunnerFactoryTests.cs" />
+    <Compile Include="Tests\BcrReportRunnerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,13 +16,15 @@ namespace Unit4.Automation
     {
         private readonly ILogging _log;
         private readonly IBcrReader _reader;
+        private readonly IBcrMiddleware _middleware;
         private readonly IBcrWriter _writer;
 
-        public BcrReportRunner()
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer)
         {
-            _log = new Logging();
-            _reader = new BcrReader(_log);
-            _writer = new Excel();
+            _log = log;
+            _reader = reader;
+            _middleware = middleware;
+            _writer = writer;
         }
 
         public void Run()
