@@ -9,12 +9,12 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     public class CommandParserTests
     {
-        private CommandParser _parser;
+        private CommandParser<BcrOptions> _parser;
 
         [SetUp]
         public void Setup()
         {
-            _parser = new CommandParser(TextWriter.Null);
+            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
         }
 
         [Test]

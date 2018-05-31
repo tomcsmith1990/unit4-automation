@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Unit4.Automation.Model;
-using Command = Unit4.Automation.CommandParser.Command;
+using Command = Unit4.Automation.CommandParser<Unit4.Automation.Model.BcrOptions>.Command;
 
 namespace Unit4.Automation
 {
@@ -9,7 +9,7 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var command = new CommandParser(Console.Out).GetCommand(args);
+            var command = new CommandParser<BcrOptions>(Console.Out).GetCommand(args);
 
             if (command.GetType() == typeof(BcrOptions))
             {

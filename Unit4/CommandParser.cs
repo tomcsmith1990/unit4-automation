@@ -7,7 +7,7 @@ using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class CommandParser
+    internal class CommandParser<TVerb> where TVerb : IOptions
     {
         public enum Command { Help, Bcr };
         private readonly Parser _parser;
@@ -23,8 +23,8 @@ namespace Unit4.Automation
         public IOptions GetCommand(params string[] args)
         {
             return _parser
-                .ParseArguments(args, typeof(BcrOptions))
-                .MapResult<BcrOptions, IOptions>(options => options, errors => new NullOptions());
+                .ParseArguments(args, typeof(TVerb))
+                .MapResult<TVerb, IOptions>(options => options, errors => new NullOptions());
         }
     }
 }
