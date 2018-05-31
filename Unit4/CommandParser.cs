@@ -16,6 +16,7 @@ namespace Unit4.Automation
             _parser = new Parser(settings => {
                 settings.CaseSensitive = false;
                 settings.HelpWriter = output;
+                settings.MaximumDisplayWidth = Console.WindowWidth > 0 ? Console.WindowWidth : 80; //workaround for tests in Travis
             });
         }
 
