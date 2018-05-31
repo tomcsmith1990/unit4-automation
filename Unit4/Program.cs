@@ -10,7 +10,8 @@ namespace Unit4.Automation
         {
             var command = new CommandParser<BcrOptions>(Console.Out).GetCommand(args);
 
-            if (command.GetType() == typeof(BcrOptions))
+            var bcrOptions = command as BcrOptions;
+            if (bcrOptions != null)
             {
                 new ReportRunner().Run();
             }
