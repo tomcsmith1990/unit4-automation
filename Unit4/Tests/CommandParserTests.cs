@@ -29,49 +29,22 @@ namespace Unit4.Automation.Tests
             Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
         }
 
-        [Test]
-        public void GivenTheBcrCommand_ThenTheCommandShouldBeBcr()
+        [TestCase("bcr")]
+        [TestCase("BCR")]
+        [TestCase("BcR")]
+        [TestCase("Bcr")]
+        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(string command)
         {
-            Assert.That(_parser.GetOptions("bcr"), Is.TypeOf(typeof(BcrOptions)));
+            Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
 
-        [Test]
-        public void GivenTheBcrCommandInADifferentCase_ThenTheCommandShouldBeBcr()
+        [TestCase("tier2")]
+        [TestCase("Tier2")]
+        [TestCase("TIER2")]
+        [TestCase("tIEr2")]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(string optionName)
         {
-            Assert.That(_parser.GetOptions("BcR"), Is.TypeOf(typeof(BcrOptions)));
-        }
-
-        [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised()
-        {
-            var options = _parser.GetOptions("bcr", "--tier2=00T2000");
-            var bcrOptions = options as BcrOptions;
-            
-            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
-        }
-
-        [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToCamelCase()
-        {
-            var options = _parser.GetOptions("bcr", "--Tier2=00T2000");
-            var bcrOptions = options as BcrOptions;
-            
-            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
-        }
-
-        [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToUpperCase()
-        {
-            var options = _parser.GetOptions("bcr", "--TIER2=00T2000");
-            var bcrOptions = options as BcrOptions;
-            
-            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
-        }
-
-        [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToRandomCasing()
-        {
-            var options = _parser.GetOptions("bcr", "--tIEr2=00T2000");
+            var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
             var bcrOptions = options as BcrOptions;
             
             Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
