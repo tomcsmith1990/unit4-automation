@@ -14,19 +14,12 @@ namespace Unit4.Automation
             {
                 var log = new Logging();
                 var reader = new BcrReader(log);
+                var filter = new BcrFilter(bcrOptions);
                 var writer = new Excel();
-                return new BcrReportRunner(log, reader, new NullMiddleware(), writer);
+                return new BcrReportRunner(log, reader, filter, writer);
             }
 
             return new NullRunner();
-        }
-    }
-
-    internal class NullMiddleware : IBcrMiddleware
-    {
-        public Bcr Use(Bcr bcr)
-        {
-            return bcr;
         }
     }
 }
