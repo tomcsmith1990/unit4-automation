@@ -4,6 +4,7 @@ using System.IO;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Unit4.Automation.Model;
+using System.Linq;
 
 namespace Unit4.Automation.Tests
 {
@@ -18,7 +19,7 @@ namespace Unit4.Automation.Tests
             {
                 var excel = new Excel();
 
-                Assert.That(() => excel.WriteToExcel(tempFile.Path, new Bcr() { Lines = new List<BcrLine>() }), Throws.Nothing);
+                Assert.That(() => excel.Write(tempFile.Path, new Bcr(Enumerable.Empty<BcrLine>())), Throws.Nothing);
             }
         }
 

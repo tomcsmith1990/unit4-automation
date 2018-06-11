@@ -1,24 +1,30 @@
 using System;
 using System.Linq;
+using System.IO;
+using CommandLine;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class CommandParser
+    internal class CommandParser<TVerb> where TVerb : IOptions
     {
-        public enum Command { Help, Bcr };
+        private readonly Parser _parser;
 
-        public Command GetCommand(params string[] args)
+        public CommandParser(TextWriter output)
         {
-            if (!args.Any())
-            {
-                return Command.Help;
-            }
+            _parser = new Parser(settings => {
+                settings.CaseSensitive = false;
+                settings.HelpWriter = output;
+                settings.MaximumDisplayWidth = Console.WindowWidth > 0 ? Console.WindowWidth : 80; //workaround for tests in Travis
+            });
+        }
 
-            switch (args.First().ToLowerInvariant())
-            {
-                case "bcr": return Command.Bcr;
-                default:    return Command.Help;
-            }
+        public IOptions GetOptions(params string[] args)
+        {
+            return _parser
+                .ParseArguments(args, typeof(TVerb))
+                .MapResult<TVerb, IOptions>(options => options, errors => new NullOptions());
         }
     }
 }

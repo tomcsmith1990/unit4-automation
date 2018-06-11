@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Command = Unit4.Automation.CommandParser.Command;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
@@ -8,27 +8,11 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var command = new CommandParser().GetCommand(args);
+            var options = new CommandParser<BcrOptions>(Console.Out).GetOptions(args);
 
-            switch (command)
-            {
-                case Command.Bcr:
-                    new ReportRunner().Run();
-                    break;
-                case Command.Help:
-                default:
-                    Help();
-                    break;
-            }
-        }
+            var runner = new ReportRunnerFactory().Create(options);
 
-        private static void Help()
-        {
-            var commands = Enum.GetNames(typeof(Command)).Select(x => x.ToLowerInvariant()).ToArray();
-            Console.WriteLine(string.Format(@"Unit4 Automation
-
-Available commands:
-{0}", string.Join(Environment.NewLine, commands)));
+            runner.Run();
         }
     }
 }

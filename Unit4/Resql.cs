@@ -23,7 +23,7 @@ namespace Unit4.Automation
 .declare [Budget Group (Tier4)] String ''
 
 .query [GL-COA-001 Revenue Cost Centre Hierarchy Report] 
-    agr_getBrowser 'GL-COA-001 Revenue Cost Centre Hierarchy Report', dim_value_eq='$?[Cost Centre]', client_eq='$?[Company]', r0r0r0r1dim_value_eq='$?[Directorate]', r0r0r1dim_value_eq='$?[Service Group (Tier2)]', r0r1dim_value_eq='$?[Service (Tier3)]', r1dim_value_eq='$?[Budget Group (Tier4)]'
+    agr_getBrowser 'GL-COA-001 Revenue Cost Centre Hierarchy Report', dim_value_eq='$?[Cost Centre]', client_eq='$?[Company]', r0r0r0r1dim_value_eq='$?[Directorate]', r0r0r1dim_value_eq='$?[Service Group (Tier2)]', r0r1dim_value_eq='$?[Service (Tier3)]', r1dim_value_eq='$?[Budget Group (Tier4)]', status_eq='N'
 .endQuery";
             }
         }

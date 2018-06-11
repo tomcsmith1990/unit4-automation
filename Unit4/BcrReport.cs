@@ -29,7 +29,7 @@ namespace Unit4.Automation
         {
             var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
             
-            return new Bcr() { Lines = RunBCR(reportsToRun).ToList() };
+            return new Bcr(RunBCR(reportsToRun).ToList());
         }
 
         private IEnumerable<BcrLine> RunBCR(IEnumerable<Report> reports)

@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Unit4.Automation.Model;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation
 {
-    internal class Excel
+    internal class Excel : IBcrWriter
     {
-        public void WriteToExcel(string path, Bcr bcr)
+        public void Write(string path, Bcr bcr)
         {
             var app = new MSExcel.Application();
             var workbook = app.Workbooks.Add();

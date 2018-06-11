@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Unit4.Automation.Model;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Unit4.Automation.Tests
 {
@@ -21,7 +22,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void CanSerializeThenDeserializeTypeBcr()
         {
-            var obj = new Bcr() { Lines = new BcrLine[0] };
+            var obj = new Bcr(Enumerable.Empty<BcrLine>());
 
             var json = JsonConvert.SerializeObject(obj);
 

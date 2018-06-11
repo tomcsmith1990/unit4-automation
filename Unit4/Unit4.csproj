@@ -79,6 +79,9 @@
     <Reference Include="Microsoft.Office.Interop.Excel">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net40\CommandLine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -90,12 +93,18 @@
     <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Model\Bcr.cs" />
     <Compile Include="Model\SerializableCostCentreList.cs" />
+    <Compile Include="Model\NullOptions.cs" />
+    <Compile Include="Model\BcrOptions.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
     <Compile Include="ReportEngine\Unit4WebProvider.cs" />
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
-    <Compile Include="ReportRunner.cs" />
+    <Compile Include="NullRunner.cs" />
+    <Compile Include="BcrReportRunner.cs" />
+    <Compile Include="BcrReader.cs" />
+    <Compile Include="BcrFilter.cs" />
+    <Compile Include="ReportRunnerFactory.cs" />
     <Compile Include="BcrReport.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Report.cs" />
@@ -110,6 +119,11 @@
     <Compile Include="Interfaces\ILogging.cs" />
     <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Interfaces\IFile.cs" />
+    <Compile Include="Interfaces\IOptions.cs" />
+    <Compile Include="Interfaces\IRunner.cs" />
+    <Compile Include="Interfaces\IBcrReader.cs" />
+    <Compile Include="Interfaces\IBcrWriter.cs" />
+    <Compile Include="Interfaces\IBcrMiddleware.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
@@ -118,6 +132,9 @@
     <Compile Include="Tests\CommandParserTests.cs" />
     <Compile Include="Tests\SerializableRoundTripTests.cs" />
     <Compile Include="Tests\CacheTests.cs" />
+    <Compile Include="Tests\ReportRunnerFactoryTests.cs" />
+    <Compile Include="Tests\BcrReportRunnerTests.cs" />
+    <Compile Include="Tests\BcrFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,43 +1,53 @@
 using System;
 using Unit4.Automation;
 using NUnit.Framework;
-using Command = Unit4.Automation.CommandParser.Command;
+using System.IO;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
     public class CommandParserTests
     {
+        private CommandParser<BcrOptions> _parser;
+
+        [SetUp]
+        public void Setup()
+        {
+            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
+        }
+
         [Test]
         public void GivenNoArguments_ThenTheCommandShouldBeHelp()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand(), Is.EqualTo(Command.Help));
+            Assert.That(_parser.GetOptions(), Is.TypeOf(typeof(NullOptions)));
         }
 
         [Test]
         public void GivenAnUnknownCommand_ThenTheCommandShouldBeHelp()
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("unknown"), Is.EqualTo(Command.Help));
+            Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
         }
 
-        [Test]
-        public void GivenTheBcrCommand_ThenTheCommandShouldBeBcr()
+        [TestCase("bcr")]
+        [TestCase("BCR")]
+        [TestCase("BcR")]
+        [TestCase("Bcr")]
+        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(string command)
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("bcr"), Is.EqualTo(Command.Bcr));
+            Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
 
-        [Test]
-        public void GivenTheBcrCommandInADifferentCase_ThenTheCommandShouldBeBcr()
+        [TestCase("tier2")]
+        [TestCase("Tier2")]
+        [TestCase("TIER2")]
+        [TestCase("tIEr2")]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(string optionName)
         {
-            var commandParser = new CommandParser();
-
-            Assert.That(commandParser.GetCommand("BcR"), Is.EqualTo(Command.Bcr));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
+            var bcrOptions = options as BcrOptions;
+            
+            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
         }
     }
 }

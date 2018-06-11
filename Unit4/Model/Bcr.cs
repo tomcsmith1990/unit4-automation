@@ -6,17 +6,25 @@ namespace Unit4.Automation.Model
 {
     internal class Bcr
     {
-        private IEnumerable<BcrLine> _lines;
+        private readonly IEnumerable<BcrLine> _lines;
+
+        public Bcr(IEnumerable<BcrLine> lines)
+        {
+            if (lines == null)
+            {
+                _lines = Enumerable.Empty<BcrLine>();
+            }
+            else
+            {
+                _lines = lines;
+            }
+        }
 
         public IEnumerable<BcrLine> Lines
         {
             get
             {
-                return _lines == null ? Enumerable.Empty<BcrLine>() : _lines;
-            }
-            set
-            {
-                _lines = value;
+                return _lines;
             }
         }
     }
