@@ -49,5 +49,32 @@ namespace Unit4.Automation.Tests
             
             Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
         }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToCamelCase()
+        {
+            var options = _parser.GetOptions("bcr", "--Tier2=00T2000");
+            var bcrOptions = options as BcrOptions;
+            
+            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
+        }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToUpperCase()
+        {
+            var options = _parser.GetOptions("bcr", "--TIER2=00T2000");
+            var bcrOptions = options as BcrOptions;
+            
+            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
+        }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeCaseInsensitiveToRandomCasing()
+        {
+            var options = _parser.GetOptions("bcr", "--tIEr2=00T2000");
+            var bcrOptions = options as BcrOptions;
+            
+            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
+        }
     }
 }
