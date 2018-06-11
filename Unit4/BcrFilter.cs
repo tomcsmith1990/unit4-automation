@@ -16,9 +16,12 @@ namespace Unit4.Automation
 
         public Bcr Use(Bcr bcr)
         {
-            var newBcr = new Bcr();
-            newBcr.Lines = _options.Tier2 == null ? bcr.Lines.ToList() : bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2)).ToList();
-            return newBcr;
+            if (_options.Tier2 == null)
+            {
+                return bcr;
+            }
+
+            return new Bcr(bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2)).ToList());
         }
     }
 }

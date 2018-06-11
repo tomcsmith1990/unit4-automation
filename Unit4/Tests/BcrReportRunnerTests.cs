@@ -4,6 +4,7 @@ using Unit4.Automation.Interfaces;
 using NUnit.Framework;
 using Moq;
 using System.IO;
+using System.Linq;
 
 namespace Unit4.Automation.Tests
 {
@@ -16,7 +17,7 @@ namespace Unit4.Automation.Tests
             var log = Mock.Of<ILogging>();
             var writer = Mock.Of<IBcrWriter>();
 
-            var bcr = new Bcr();
+            var bcr = new Bcr(Enumerable.Empty<BcrLine>());
 
             var reader = new Mock<IBcrReader>();
             reader.Setup(x => x.Read()).Returns(bcr);
@@ -36,7 +37,7 @@ namespace Unit4.Automation.Tests
             var log = Mock.Of<ILogging>();
             var reader = Mock.Of<IBcrReader>();
 
-            var bcr = new Bcr();
+            var bcr = new Bcr(Enumerable.Empty<BcrLine>());
 
             var middleware = new Mock<IBcrMiddleware>();
             middleware.Setup(x => x.Use(It.IsAny<Bcr>())).Returns(bcr);

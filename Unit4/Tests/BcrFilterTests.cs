@@ -17,14 +17,13 @@ namespace Unit4.Automation.Tests
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr();
-            bcr.Lines = new BcrLine[] {
+            var bcr = new Bcr(new BcrLine[] {
                     new BcrLine() {
                         CostCentre = new CostCentre() {
                             Tier2 = "notTheRightTier2"
                         }
                     },
-                };
+                });
 
             Assert.That(filter.Use(bcr).Lines, Is.Empty);
         }
@@ -36,16 +35,15 @@ namespace Unit4.Automation.Tests
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr();
-            bcr.Lines = new BcrLine[] {
+            var bcr = new Bcr(new BcrLine[] {
                     new BcrLine() {
                         CostCentre = new CostCentre() {
                             Tier2 = "tier2"
                         }
                     },
-                };
+                });
 
-            Assert.That(filter.Use(bcr).Lines, Has.Count.EqualTo(1));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -55,16 +53,15 @@ namespace Unit4.Automation.Tests
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr();
-            bcr.Lines = new BcrLine[] {
+            var bcr = new Bcr(new BcrLine[] {
                     new BcrLine() {
                         CostCentre = new CostCentre() {
                             Tier2 = "tier2"
                         }
                     },
-                };
+                });
 
-            Assert.That(filter.Use(bcr).Lines, Has.Count.EqualTo(1));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
     }
 }
