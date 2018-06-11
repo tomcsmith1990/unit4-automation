@@ -3,6 +3,7 @@ using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using NUnit.Framework;
 using Moq;
+using System.IO;
 
 namespace Unit4.Automation.Tests
 {
@@ -22,7 +23,7 @@ namespace Unit4.Automation.Tests
 
             var middleware = new Mock<IBcrMiddleware>();
 
-            var runner = new BcrReportRunner(log, reader.Object, middleware.Object, writer);
+            var runner = new BcrReportRunner(log, reader.Object, middleware.Object, writer, TextWriter.Null);
 
             runner.Run();
 
@@ -42,7 +43,7 @@ namespace Unit4.Automation.Tests
 
             var writer = new Mock<IBcrWriter>();
 
-            var runner = new BcrReportRunner(log, reader, middleware.Object, writer.Object);
+            var runner = new BcrReportRunner(log, reader, middleware.Object, writer.Object, TextWriter.Null);
 
             runner.Run();
 

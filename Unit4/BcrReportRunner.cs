@@ -18,14 +18,21 @@ namespace Unit4.Automation
         private readonly IBcrReader _reader;
         private readonly IBcrMiddleware _middleware;
         private readonly IBcrWriter _writer;
+        private readonly TextWriter _progress;
 
         public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer)
+            : this(log, reader, middleware, writer, Console.Out)
+        {
+        }
+
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, TextWriter progress)
         {
             _log = log;
             _reader = reader;
             _middleware = middleware;
             _writer = writer;
-        }
+            _progress = progress;
+        } 
 
         public void Run()
         {
@@ -35,7 +42,7 @@ namespace Unit4.Automation
 
                 var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
 
-                using (var progress = new Progress())
+                using (var progress = new Progress(_progress))
                 {
                     progress.Update("Getting BCRs");
 
@@ -52,12 +59,12 @@ namespace Unit4.Automation
                     progress.Complete();
                 }
 
-                Console.WriteLine(string.Format("Success - {0}", outputPath));
+                _progress.WriteLine(string.Format("Success - {0}", outputPath));
             }
             catch (Exception e)
             {    
                 _log.Error(e);
-                Console.WriteLine(_log.Path);        
+                _progress.WriteLine(_log.Path);        
             }
             finally
             {
@@ -70,27 +77,30 @@ namespace Unit4.Automation
             private readonly Stopwatch _stopwatch;
             private long _elapsed = 0, _current = 0;
 
-            public Progress()
+            private readonly TextWriter _output;
+
+            public Progress(TextWriter output)
             {
+                _output = output;
                 _stopwatch = new Stopwatch();
                 _stopwatch.Start();
             }
 
             public void Update(string message)
             {
-                Console.WriteLine(message);
+                _output.WriteLine(message);
             }
 
             public void Complete()
             {
                 _current = _stopwatch.ElapsedMilliseconds;
-                Console.WriteLine(string.Format("Elapsed: {0}ms", _current - _elapsed));
+                _output.WriteLine(string.Format("Elapsed: {0}ms", _current - _elapsed));
                 _elapsed = _current;
             }
 
             public void Dispose()
             {
-                Console.WriteLine(string.Format("Total time elapsed: {0}ms", _elapsed));
+                _output.WriteLine(string.Format("Total time elapsed: {0}ms", _elapsed));
             }
         }
     }
