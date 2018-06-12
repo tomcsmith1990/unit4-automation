@@ -26,12 +26,17 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
-            return MatchesTier2(costCentre);
+            return MatchesTier2(costCentre) && MatchesTier3(costCentre);
         }
 
         private bool MatchesTier2(CostCentre costCentre)
         {
             return _options.Tier2 == null || !_options.Tier2.Any() || _options.Tier2.Any(x => string.Equals(x, costCentre.Tier2));
+        }
+
+        private bool MatchesTier3(CostCentre costCentre)
+        {
+            return _options.Tier3 == null || !_options.Tier3.Any() || _options.Tier3.Any(x => string.Equals(x, costCentre.Tier3));
         }
     }
 }
