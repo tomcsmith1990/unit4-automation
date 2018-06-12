@@ -13,17 +13,11 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
         {
-            var options = new BcrOptions("tier2");
+            var options = new BcrOptions(new string[] { "tier2" });
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr(new BcrLine[] {
-                    new BcrLine() {
-                        CostCentre = new CostCentre() {
-                            Tier2 = "notTheRightTier2"
-                        }
-                    },
-                });
+            var bcr = new Bcr(new BcrLine[] { LineWithTier2("notTheRightTier2") });
 
             Assert.That(filter.Use(bcr).Lines, Is.Empty);
         }
@@ -31,17 +25,11 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
         {
-            var options = new BcrOptions("tier2");
+            var options = new BcrOptions(new string[] { "tier2" });
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr(new BcrLine[] {
-                    new BcrLine() {
-                        CostCentre = new CostCentre() {
-                            Tier2 = "tier2"
-                        }
-                    },
-                });
+            var bcr = new Bcr(new BcrLine[] { LineWithTier2("tier2") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
@@ -53,15 +41,34 @@ namespace Unit4.Automation.Tests
 
             var filter = new BcrFilter(options);
 
-            var bcr = new Bcr(new BcrLine[] {
-                    new BcrLine() {
-                        CostCentre = new CostCentre() {
-                            Tier2 = "tier2"
-                        }
-                    },
-                });
+            var bcr = new Bcr(new BcrLine[] { LineWithTier2("tier2") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
+        }
+
+        [Test]
+        public void GivenTier2OptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded()
+        {
+            var options = new BcrOptions(new string[] { "firstTier2", "secondTier2" });
+
+            var filter = new BcrFilter(options);
+
+            var firstBcrLine = LineWithTier2("firstTier2");
+            var secondBcrLine = LineWithTier2("secondTier2");
+            var thirdBcrLine = LineWithTier2("thirdTier2");
+
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine, thirdBcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
+        }
+
+        private BcrLine LineWithTier2(string tier2)
+        {
+            return new BcrLine() {
+                CostCentre = new CostCentre() {
+                    Tier2 = tier2
+                }
+            };
         }
     }
 }
