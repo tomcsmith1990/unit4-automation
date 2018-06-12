@@ -13,9 +13,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
         {
-            var options = A.BcrOptions().WithTier2("tier2");
-
-            var filter = new BcrFilter(options);
+            var filter = A.BcrFilter().WithTier2("tier2").Build();
 
             var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("notTheRightTier2") });
 
@@ -25,9 +23,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
         {
-            var options = A.BcrOptions().WithTier2("tier2");
-
-            var filter = new BcrFilter(options);
+            var filter = A.BcrFilter().WithTier2("tier2").Build();
 
             var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("tier2") });
 
@@ -37,9 +33,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenNoTier2Option_ThenAllLinesShouldBeIncluded()
         {
-            var options = A.BcrOptions();
-
-            var filter = new BcrFilter(options);
+            var filter = A.BcrFilter().Build();
 
             var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("tier2") });
 
@@ -49,9 +43,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2OptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded()
         {
-            var options = A.BcrOptions().WithTier2("firstTier2", "secondTier2");
-
-            var filter = new BcrFilter(options);
+            var filter = A.BcrFilter().WithTier2("firstTier2", "secondTier2").Build();
 
             var firstBcrLine = A.BcrLine().WithTier2("firstTier2").Build();
             var secondBcrLine = A.BcrLine().WithTier2("secondTier2").Build();
@@ -69,9 +61,9 @@ namespace Unit4.Automation.Tests
                 return new BcrLineBuilder();
             }
 
-            public static BcrOptionsBuilder BcrOptions()
+            public static BcrFilterBuilder BcrFilter()
             {
-                return new BcrOptionsBuilder();
+                return new BcrFilterBuilder();
             }
         }
 
@@ -100,24 +92,24 @@ namespace Unit4.Automation.Tests
             }
         }
 
-        private class BcrOptionsBuilder
+        private class BcrFilterBuilder
         {
             private string[] _tier2;
 
-            public BcrOptionsBuilder WithTier2(params string[] tier2)
+            public BcrFilterBuilder WithTier2(params string[] tier2)
             {
                 _tier2 = tier2;
                 return this;
             }
 
-            public BcrOptions Build()
+            public BcrFilter Build()
             {
-                return (BcrOptions)this;
+                return (BcrFilter)this;
             }
 
-            public static implicit operator BcrOptions(BcrOptionsBuilder builder)
+            public static implicit operator BcrFilter(BcrFilterBuilder builder)
             {
-                return new BcrOptions(builder._tier2);
+                return new BcrFilter(new BcrOptions(builder._tier2));
             }
         }
     }
