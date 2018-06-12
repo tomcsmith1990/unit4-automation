@@ -13,7 +13,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
         {
-            var options = new BcrOptions("tier2");
+            var options = new BcrOptions(new string[] { "tier2" });
 
             var filter = new BcrFilter(options);
 
@@ -31,7 +31,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
         {
-            var options = new BcrOptions("tier2");
+            var options = new BcrOptions(new string[] { "tier2" });
 
             var filter = new BcrFilter(options);
 

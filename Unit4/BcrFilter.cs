@@ -21,7 +21,7 @@ namespace Unit4.Automation
                 return bcr;
             }
 
-            return new Bcr(bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2)).ToList());
+            return new Bcr(bcr.Lines.Where(x => x.CostCentre.Tier2.Equals(_options.Tier2.First())).ToList());
         }
     }
 }

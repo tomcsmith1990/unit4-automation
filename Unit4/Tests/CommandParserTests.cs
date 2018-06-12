@@ -3,6 +3,7 @@ using Unit4.Automation;
 using NUnit.Framework;
 using System.IO;
 using Unit4.Automation.Model;
+using System.Linq;
 
 namespace Unit4.Automation.Tests
 {
@@ -47,7 +48,18 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
             var bcrOptions = options as BcrOptions;
             
-            Assert.That(bcrOptions.Tier2, Is.EqualTo("00T2000"));
+            Assert.That(bcrOptions.Tier2.Single(), Is.EqualTo("00T2000"));
+        }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldTakeCommaSeparatedValues()
+        {
+            var commandSeparatedTier2s = new string[] { "firstTier2", "secondTier2" };
+            
+            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", string.Join(",", commandSeparatedTier2s)));
+            var bcrOptions = options as BcrOptions;
+
+            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(commandSeparatedTier2s));
         }
     }
 }
