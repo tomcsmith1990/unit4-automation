@@ -61,5 +61,17 @@ namespace Unit4.Automation.Tests
 
             Assert.That(bcrOptions.Tier2, Is.EquivalentTo(commandSeparatedTier2s));
         }
+
+        [TestCase("myTier2,,,")]
+        [TestCase(",myTier2,,")]
+        [TestCase(",,myTier2,")]
+        [TestCase(",,,myTier2")]
+        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(string option)
+        {
+            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", option));
+            var bcrOptions = options as BcrOptions;
+
+            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(new string[] { "myTier2" }));
+        }
     }
 }
