@@ -60,6 +60,19 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
         }
 
+        [Test]
+        public void GivenDifferentTierOptions_ThenMatchAgainstLowerTierButNoMatchAgainstHigherTierShouldBeIncluded()
+        {
+            var filter = A.BcrFilter().WithTier2("tier2").WithTier3("differentTier3").Build();
+
+            var firstBcrLine = A.BcrLine().WithTier2("tier2").Build();
+            var secondBcrLine = A.BcrLine().WithTier2("differentTier2").WithTier3("differentTier3").Build();
+
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
+        }
+
         private static class A
         {
             public static BcrLineBuilder BcrLine()
