@@ -10,12 +10,14 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     public class BcrFilterTests
     {
-        [Test]
-        public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
-        {
-            var filter = A.BcrFilter().WithTier2("tier2").Build();
+        public enum Criteria { Tier2 }
 
-            var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("notTheRightTier2") });
+        [TestCase(Criteria.Tier2)]
+        public void GivenTierOption_ThenLinesNotMatchingThatTierShouldNotBeIncluded(Criteria criteria)
+        {
+            var filter = A.BcrFilter().With(criteria, "tier").Build();
+
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "notTheRightTier") });
 
             Assert.That(filter.Use(bcr).Lines, Is.Empty);
         }
@@ -71,6 +73,15 @@ namespace Unit4.Automation.Tests
         {
             private string _tier2;
             
+            public BcrLineBuilder With(Criteria criteria, string value)
+            {
+                switch (criteria)
+                {
+                    case Criteria.Tier2: return WithTier2(value);
+                    default: throw new NotSupportedException(criteria.ToString());
+                }
+            }
+
             public BcrLineBuilder WithTier2(string tier2)
             {
                 _tier2 = tier2;
@@ -96,6 +107,14 @@ namespace Unit4.Automation.Tests
         {
             private string[] _tier2;
 
+            public BcrFilterBuilder With(Criteria criteria, params string[] value)
+            {
+                switch (criteria)
+                {
+                    case Criteria.Tier2: return WithTier2(value);
+                    default: throw new NotSupportedException(criteria.ToString());
+                }
+            }
             public BcrFilterBuilder WithTier2(params string[] tier2)
             {
                 _tier2 = tier2;
