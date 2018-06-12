@@ -16,12 +16,22 @@ namespace Unit4.Automation
 
         public Bcr Use(Bcr bcr)
         {
-            if (_options.Tier2 == null || !_options.Tier2.Any())
+            if (_options.Tier2 == null)
             {
                 return bcr;
             }
 
-            return new Bcr(bcr.Lines.Where(x => x.CostCentre.Matches(_options)).ToList());
+            return new Bcr(bcr.Lines.Where(x => Matches(x.CostCentre)).ToList());
+        }
+
+        private bool Matches(CostCentre costCentre)
+        {
+            return MatchesTier2(costCentre);
+        }
+
+        private bool MatchesTier2(CostCentre costCentre)
+        {
+            return _options.Tier2 == null || !_options.Tier2.Any() || _options.Tier2.Any(x => string.Equals(x, costCentre.Tier2));
         }
     }
 }
