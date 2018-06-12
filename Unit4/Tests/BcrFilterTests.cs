@@ -13,6 +13,7 @@ namespace Unit4.Automation.Tests
         public enum Criteria { Tier2, Tier3 }
 
         [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
         public void GivenTierOption_ThenLinesNotMatchingThatTierShouldNotBeIncluded(Criteria criteria)
         {
             var filter = A.BcrFilter().With(criteria, "tier").Build();
@@ -23,6 +24,7 @@ namespace Unit4.Automation.Tests
         }
 
         [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
         public void GivenTierOption_ThenLinesMatchingThatTierShouldBeIncluded(Criteria criteria)
         {
             var filter = A.BcrFilter().With(criteria, "tier").Build();
@@ -33,6 +35,7 @@ namespace Unit4.Automation.Tests
         }
 
         [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
         public void GivenNoTierOption_ThenAllLinesShouldBeIncluded(Criteria criteria)
         {
             var filter = A.BcrFilter().Build();
@@ -43,6 +46,7 @@ namespace Unit4.Automation.Tests
         }
 
         [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
         public void GivenTierOptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded(Criteria criteria)
         {
             var filter = A.BcrFilter().With(criteria, "firstTier2", "secondTier2").Build();

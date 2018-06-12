@@ -34,7 +34,7 @@ namespace Unit4.Automation.Model
         }
 
         [Option]
-        public IEnumerable<string> tier3
+        public IEnumerable<string> Tier3
         {
             get
             {
