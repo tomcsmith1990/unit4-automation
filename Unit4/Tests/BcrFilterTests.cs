@@ -13,7 +13,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
         {
-            var options = new BcrOptions(new string[] { "tier2" });
+            var options = A.BcrOptions().WithTier2("tier2");
 
             var filter = new BcrFilter(options);
 
@@ -25,7 +25,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
         {
-            var options = new BcrOptions(new string[] { "tier2" });
+            var options = A.BcrOptions().WithTier2("tier2");
 
             var filter = new BcrFilter(options);
 
@@ -37,7 +37,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenNoTier2Option_ThenAllLinesShouldBeIncluded()
         {
-            var options = new BcrOptions();
+            var options = A.BcrOptions();
 
             var filter = new BcrFilter(options);
 
@@ -49,7 +49,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier2OptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded()
         {
-            var options = new BcrOptions(new string[] { "firstTier2", "secondTier2" });
+            var options = A.BcrOptions().WithTier2("firstTier2", "secondTier2");
 
             var filter = new BcrFilter(options);
 
@@ -67,6 +67,11 @@ namespace Unit4.Automation.Tests
             public static BcrLineBuilder BcrLine()
             {
                 return new BcrLineBuilder();
+            }
+
+            public static BcrOptionsBuilder BcrOptions()
+            {
+                return new BcrOptionsBuilder();
             }
         }
 
@@ -92,6 +97,27 @@ namespace Unit4.Automation.Tests
                         Tier2 = builder._tier2
                     }
                 };
+            }
+        }
+
+        private class BcrOptionsBuilder
+        {
+            private string[] _tier2;
+
+            public BcrOptionsBuilder WithTier2(params string[] tier2)
+            {
+                _tier2 = tier2;
+                return this;
+            }
+
+            public BcrOptions Build()
+            {
+                return (BcrOptions)this;
+            }
+
+            public static implicit operator BcrOptions(BcrOptionsBuilder builder)
+            {
+                return new BcrOptions(builder._tier2);
             }
         }
     }
