@@ -19,7 +19,7 @@ namespace Unit4.Automation.Model
             _tier2 = tier2;
         }
 
-        [Option(HelpText = "Filter by a tier 2 code.")]
+        [Option(HelpText = "Filter by a tier 2 code.", Separator=',')]
         public IEnumerable<string> Tier2 { get { return _tier2; } }
     }
 }
