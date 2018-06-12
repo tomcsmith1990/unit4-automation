@@ -16,7 +16,7 @@ namespace Unit4.Automation
 
         public Bcr Use(Bcr bcr)
         {
-            if (_options.Tier2 == null)
+            if (_options.Tier2 == null || !_options.Tier2.Any())
             {
                 return bcr;
             }
