@@ -21,8 +21,7 @@ namespace Unit4.Automation
                 return bcr;
             }
 
-            var matchingLines = bcr.Lines.Where(x => _options.Tier2.Any(y => string.Equals(x.CostCentre.Tier2, y))).ToList();
-            return new Bcr(matchingLines);
+            return new Bcr(bcr.Lines.Where(x => x.CostCentre.Matches(_options)).ToList());
         }
     }
 }

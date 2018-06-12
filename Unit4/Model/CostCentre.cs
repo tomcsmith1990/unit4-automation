@@ -1,6 +1,7 @@
 using System;
+using System.Linq;
 
-namespace Unit4
+namespace Unit4.Automation.Model
 {
     internal class CostCentre
     {
@@ -15,5 +16,10 @@ namespace Unit4
         public string Tier3Name { get; set; }
         public string Tier4Name { get; set; }
         public string CostCentreName { get; set; }
+
+        public bool Matches(BcrOptions options)
+        {
+            return options.Tier2.Any(x => string.Equals(x, Tier2));
+        }
     }
 }
