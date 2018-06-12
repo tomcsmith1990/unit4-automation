@@ -10,7 +10,7 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     public class BcrFilterTests
     {
-        public enum Criteria { Tier2 }
+        public enum Criteria { Tier2, Tier3 }
 
         [TestCase(Criteria.Tier2)]
         public void GivenTierOption_ThenLinesNotMatchingThatTierShouldNotBeIncluded(Criteria criteria)
@@ -72,12 +72,14 @@ namespace Unit4.Automation.Tests
         private class BcrLineBuilder
         {
             private string _tier2;
+            private string _tier3;
             
             public BcrLineBuilder With(Criteria criteria, string value)
             {
                 switch (criteria)
                 {
                     case Criteria.Tier2: return WithTier2(value);
+                    case Criteria.Tier3: return WithTier3(value);
                     default: throw new NotSupportedException(criteria.ToString());
                 }
             }
@@ -85,6 +87,12 @@ namespace Unit4.Automation.Tests
             public BcrLineBuilder WithTier2(string tier2)
             {
                 _tier2 = tier2;
+                return this;
+            }
+
+            public BcrLineBuilder WithTier3(string tier3)
+            {
+                _tier3 = tier3;
                 return this;
             }
 
@@ -97,7 +105,8 @@ namespace Unit4.Automation.Tests
             {
                 return new BcrLine() {
                     CostCentre = new CostCentre() {
-                        Tier2 = builder._tier2
+                        Tier2 = builder._tier2,
+                        Tier3 = builder._tier3
                     }
                 };
             }
@@ -106,18 +115,26 @@ namespace Unit4.Automation.Tests
         private class BcrFilterBuilder
         {
             private string[] _tier2;
+            private string[] _tier3;
 
             public BcrFilterBuilder With(Criteria criteria, params string[] value)
             {
                 switch (criteria)
                 {
                     case Criteria.Tier2: return WithTier2(value);
+                    case Criteria.Tier3: return WithTier3(value);
                     default: throw new NotSupportedException(criteria.ToString());
                 }
             }
             public BcrFilterBuilder WithTier2(params string[] tier2)
             {
                 _tier2 = tier2;
+                return this;
+            }
+
+            public BcrFilterBuilder WithTier3(params string[] tier3)
+            {
+                _tier3 = tier3;
                 return this;
             }
 
@@ -128,7 +145,7 @@ namespace Unit4.Automation.Tests
 
             public static implicit operator BcrFilter(BcrFilterBuilder builder)
             {
-                return new BcrFilter(new BcrOptions(builder._tier2));
+                return new BcrFilter(new BcrOptions(builder._tier2, builder._tier3));
             }
         }
     }
