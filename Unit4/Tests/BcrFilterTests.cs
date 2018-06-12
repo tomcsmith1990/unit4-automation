@@ -22,12 +22,12 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines, Is.Empty);
         }
 
-        [Test]
-        public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
+        [TestCase(Criteria.Tier2)]
+        public void GivenTierOption_ThenLinesMatchingThatTierShouldBeIncluded(Criteria criteria)
         {
-            var filter = A.BcrFilter().WithTier2("tier2").Build();
+            var filter = A.BcrFilter().With(criteria, "tier").Build();
 
-            var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("tier2") });
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "tier") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
