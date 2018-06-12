@@ -32,12 +32,12 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
 
-        [Test]
-        public void GivenNoTier2Option_ThenAllLinesShouldBeIncluded()
+        [TestCase(Criteria.Tier2)]
+        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded(Criteria criteria)
         {
             var filter = A.BcrFilter().Build();
 
-            var bcr = new Bcr(new BcrLine[] { A.BcrLine().WithTier2("tier2") });
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "tier") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
