@@ -73,9 +73,8 @@ namespace Unit4.Automation.Tests
             }
         }
 
-        [TestCase(Criteria.Tier2)]
-        [TestCase(Criteria.Tier3)]
-        public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues(Criteria criteria)
+        [Test]
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues([Values]Criteria criteria)
         {
             var commandSeparatedTiers = new string[] { "firstTier2", "secondTier2" };
             
