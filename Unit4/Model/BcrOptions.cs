@@ -35,7 +35,7 @@ namespace Unit4.Automation.Model
             }
         }
 
-        [Option]
+        [Option(Separator=',')]
         public IEnumerable<string> Tier3
         {
             get
