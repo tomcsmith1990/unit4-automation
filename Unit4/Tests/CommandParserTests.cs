@@ -65,16 +65,20 @@ namespace Unit4.Automation.Tests
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
         }
 
-        [TestCase("myTier2,,,")]
-        [TestCase(",myTier2,,")]
-        [TestCase(",,myTier2,")]
-        [TestCase(",,,myTier2")]
-        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(string option)
+        [TestCase(Criteria.Tier2, "myTier,,,")]
+        [TestCase(Criteria.Tier2, ",myTier,,")]
+        [TestCase(Criteria.Tier2, ",,myTier,")]
+        [TestCase(Criteria.Tier2, ",,,myTier")]
+        [TestCase(Criteria.Tier3, "myTier,,,")]
+        [TestCase(Criteria.Tier3, ",myTier,,")]
+        [TestCase(Criteria.Tier3, ",,myTier,")]
+        [TestCase(Criteria.Tier3, ",,,myTier")]
+        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(Criteria criteria, string option)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", Criteria.Tier2.Name(), option));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(new string[] { "myTier2" }));
+            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new string[] { "myTier" }));
         }
     }
 }
