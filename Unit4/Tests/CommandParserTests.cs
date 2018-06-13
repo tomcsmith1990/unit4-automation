@@ -76,7 +76,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues([Values]Criteria criteria)
         {
-            var commandSeparatedTiers = new string[] { "firstTier2", "secondTier2" };
+            var commandSeparatedTiers = new string[] { "firstTier", "secondTier" };
             
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), string.Join(",", commandSeparatedTiers)));
             var bcrOptions = options as BcrOptions;
