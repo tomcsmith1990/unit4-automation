@@ -4,14 +4,14 @@ using NUnit.Framework;
 using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using System.Linq;
+using Unit4.Automation.Tests.Helpers;
+using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class BcrFilterTests
+    internal class BcrFilterTests
     {
-        public enum Criteria { Tier2, Tier3 }
-
         [TestCase(Criteria.Tier2)]
         [TestCase(Criteria.Tier3)]
         public void GivenTierOption_ThenLinesNotMatchingThatTierShouldNotBeIncluded(Criteria criteria)
@@ -87,101 +87,6 @@ namespace Unit4.Automation.Tests
             var bcr = new Bcr(new BcrLine[] { firstBcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
-        }
-
-
-
-        private static class A
-        {
-            public static BcrLineBuilder BcrLine()
-            {
-                return new BcrLineBuilder();
-            }
-
-            public static BcrFilterBuilder BcrFilter()
-            {
-                return new BcrFilterBuilder();
-            }
-        }
-
-        private class BcrLineBuilder
-        {
-            private string _tier2;
-            private string _tier3;
-            
-            public BcrLineBuilder With(Criteria criteria, string value)
-            {
-                switch (criteria)
-                {
-                    case Criteria.Tier2: return WithTier2(value);
-                    case Criteria.Tier3: return WithTier3(value);
-                    default: throw new NotSupportedException(criteria.ToString());
-                }
-            }
-
-            public BcrLineBuilder WithTier2(string tier2)
-            {
-                _tier2 = tier2;
-                return this;
-            }
-
-            public BcrLineBuilder WithTier3(string tier3)
-            {
-                _tier3 = tier3;
-                return this;
-            }
-
-            public BcrLine Build()
-            {
-                return (BcrLine)this;
-            }
-
-            public static implicit operator BcrLine(BcrLineBuilder builder)
-            {
-                return new BcrLine() {
-                    CostCentre = new CostCentre() {
-                        Tier2 = builder._tier2,
-                        Tier3 = builder._tier3
-                    }
-                };
-            }
-        }
-
-        private class BcrFilterBuilder
-        {
-            private string[] _tier2;
-            private string[] _tier3;
-
-            public BcrFilterBuilder With(Criteria criteria, params string[] value)
-            {
-                switch (criteria)
-                {
-                    case Criteria.Tier2: return WithTier2(value);
-                    case Criteria.Tier3: return WithTier3(value);
-                    default: throw new NotSupportedException(criteria.ToString());
-                }
-            }
-            public BcrFilterBuilder WithTier2(params string[] tier2)
-            {
-                _tier2 = tier2;
-                return this;
-            }
-
-            public BcrFilterBuilder WithTier3(params string[] tier3)
-            {
-                _tier3 = tier3;
-                return this;
-            }
-
-            public BcrFilter Build()
-            {
-                return (BcrFilter)this;
-            }
-
-            public static implicit operator BcrFilter(BcrFilterBuilder builder)
-            {
-                return new BcrFilter(new BcrOptions(builder._tier2, builder._tier3));
-            }
         }
     }
 }

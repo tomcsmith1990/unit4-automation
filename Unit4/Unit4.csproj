@@ -124,6 +124,9 @@
     <Compile Include="Interfaces\IBcrReader.cs" />
     <Compile Include="Interfaces\IBcrWriter.cs" />
     <Compile Include="Interfaces\IBcrMiddleware.cs" />
+    <Compile Include="Tests\Helpers\A.cs" />
+    <Compile Include="Tests\Helpers\BcrLineBuilder.cs" />
+    <Compile Include="Tests\Helpers\BcrFilterBuilder.cs" />
     <Compile Include="Tests\Unit4WebProviderTests.cs" />
     <Compile Include="Tests\ExcelTests.cs" />
     <Compile Include="Tests\CostCentreHierarchyTests.cs" />
