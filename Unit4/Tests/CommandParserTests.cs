@@ -10,7 +10,7 @@ using Unit4.Automation.Tests.Helpers;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class CommandParserTests
+    internal class CommandParserTests
     {
         private CommandParser<BcrOptions> _parser;
 
@@ -53,15 +53,16 @@ namespace Unit4.Automation.Tests
             Assert.That(bcrOptions.ValueOf(Criteria.Tier2).Single(), Is.EqualTo("00T2000"));
         }
 
-        [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldTakeCommaSeparatedValues()
+        [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues(Criteria criteria)
         {
-            var commandSeparatedTier2s = new string[] { "firstTier2", "secondTier2" };
+            var commandSeparatedTiers = new string[] { "firstTier2", "secondTier2" };
             
-            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", Criteria.Tier2.Name(), string.Join(",", commandSeparatedTier2s)));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), string.Join(",", commandSeparatedTiers)));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(commandSeparatedTier2s));
+            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
         }
 
         [TestCase("myTier2,,,")]
