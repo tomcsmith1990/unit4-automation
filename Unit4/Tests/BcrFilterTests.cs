@@ -60,16 +60,19 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
         }
 
-        [Test]
-        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded()
+        [TestCase(Criteria.Tier2)]
+        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded(params Criteria[] criteria)
         {
             var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
 
-            var firstBcrLine = A.BcrLine().WithTier2("1").WithTier3("0").Build();
+            var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
+            var blankLine = tiers.Aggregate(A.BcrLine(), (builder, t) => builder.With(t, "0"));
+            
+            var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(criteria, "1")).Build();
 
-            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
+            var bcr = new Bcr(new BcrLine[] { bcrLine });
 
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine }));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { bcrLine }));
         }
 
         [Test]
