@@ -58,7 +58,7 @@ namespace Unit4.Automation.Tests
         {
             var commandSeparatedTier2s = new string[] { "firstTier2", "secondTier2" };
             
-            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", string.Join(",", commandSeparatedTier2s)));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", Criteria.Tier2.Name(), string.Join(",", commandSeparatedTier2s)));
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(commandSeparatedTier2s));
@@ -70,7 +70,7 @@ namespace Unit4.Automation.Tests
         [TestCase(",,,myTier2")]
         public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(string option)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", option));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", Criteria.Tier2.Name(), option));
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(new string[] { "myTier2" }));

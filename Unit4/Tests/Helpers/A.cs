@@ -27,5 +27,15 @@ namespace Unit4.Automation.Tests.Helpers
                 default: throw new NotSupportedException(criteria.ToString());
             }
         }
+
+        public static string Name(this Criteria criteria)
+        {
+            switch (criteria)
+            {
+                case Criteria.Tier2: return "tier2";
+                case Criteria.Tier3: return "tier3";
+                default: throw new NotSupportedException(criteria.ToString());
+            }
+        }
     }
 }
