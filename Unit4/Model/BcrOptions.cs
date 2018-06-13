@@ -35,7 +35,7 @@ namespace Unit4.Automation.Model
             }
         }
 
-        [Option(Separator=',')]
+        [Option(HelpText = "Filter by a tier 3 code.", Separator=',')]
         public IEnumerable<string> Tier3
         {
             get
