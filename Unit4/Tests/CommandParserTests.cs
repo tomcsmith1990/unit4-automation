@@ -44,25 +44,32 @@ namespace Unit4.Automation.Tests
         }
 
         [TestCaseSource("CaseDifferences")]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(string optionName)
+        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(Criteria criteria, string optionName)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}=myTier", optionName));
             var bcrOptions = options as BcrOptions;
             
-            Assert.That(bcrOptions.ValueOf(Criteria.Tier2).Single(), Is.EqualTo("00T2000"));
+            Assert.That(bcrOptions.ValueOf(criteria).Single(), Is.EqualTo("myTier"));
         }
 
         private static IEnumerable<TestCaseData> CaseDifferences
         {
             get
             {
-                yield return new TestCaseData(Criteria.Tier2.Name().ToLowerInvariant());
-                yield return new TestCaseData(Criteria.Tier2.Name().ToUpperInvariant());
+                var criterias = (Criteria[])Enum.GetValues(typeof(Criteria));
+                foreach (var criteria in criterias)
+                {
+                    var lowerCase = criteria.Name().ToLowerInvariant();
+                    var upperCase = criteria.Name().ToUpperInvariant();
 
-                var stringBuilder = new StringBuilder(Criteria.Tier2.Name().Length);
-                stringBuilder.Append(Criteria.Tier2.Name().ToUpperInvariant().First());
-                var firstLetterCapitalised = Criteria.Tier2.Name().ToLowerInvariant().Skip(1).Aggregate(stringBuilder, (builder, c) => builder.Append(c)).ToString();
-                yield return new TestCaseData(firstLetterCapitalised);
+                    var stringBuilder = new StringBuilder(upperCase.Length);
+                    stringBuilder.Append(upperCase.First());
+                    var firstLetterCapitalised = lowerCase.Skip(1).Aggregate(stringBuilder, (builder, c) => builder.Append(c)).ToString();
+
+                    yield return new TestCaseData(criteria, lowerCase);
+                    yield return new TestCaseData(criteria, upperCase);
+                    yield return new TestCaseData(criteria, firstLetterCapitalised);
+                }
             }
         }
 
