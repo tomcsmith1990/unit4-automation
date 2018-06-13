@@ -4,6 +4,8 @@ using NUnit.Framework;
 using System.IO;
 using Unit4.Automation.Model;
 using System.Linq;
+using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
+using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
 {
@@ -48,7 +50,7 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
             var bcrOptions = options as BcrOptions;
             
-            Assert.That(bcrOptions.Tier2.Single(), Is.EqualTo("00T2000"));
+            Assert.That(bcrOptions.ValueOf(Criteria.Tier2).Single(), Is.EqualTo("00T2000"));
         }
 
         [Test]
@@ -59,7 +61,7 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", string.Join(",", commandSeparatedTier2s)));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(commandSeparatedTier2s));
+            Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(commandSeparatedTier2s));
         }
 
         [TestCase("myTier2,,,")]
@@ -71,7 +73,7 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", option));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(new string[] { "myTier2" }));
+            Assert.That(bcrOptions.ValueOf(Criteria.Tier2), Is.EquivalentTo(new string[] { "myTier2" }));
         }
     }
 }
