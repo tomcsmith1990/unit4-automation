@@ -7,6 +7,7 @@ using System.Linq;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 using Unit4.Automation.Tests.Helpers;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Unit4.Automation.Tests
 {
@@ -42,16 +43,27 @@ namespace Unit4.Automation.Tests
             Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
 
-        [TestCase("tier2")]
-        [TestCase("Tier2")]
-        [TestCase("TIER2")]
-        [TestCase("tIEr2")]
+        [TestCaseSource("CaseDifferences")]
         public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(string optionName)
         {
             var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
             var bcrOptions = options as BcrOptions;
             
             Assert.That(bcrOptions.ValueOf(Criteria.Tier2).Single(), Is.EqualTo("00T2000"));
+        }
+
+        private static IEnumerable<TestCaseData> CaseDifferences
+        {
+            get
+            {
+                yield return new TestCaseData(Criteria.Tier2.Name().ToLowerInvariant());
+                yield return new TestCaseData(Criteria.Tier2.Name().ToUpperInvariant());
+
+                var stringBuilder = new StringBuilder(Criteria.Tier2.Name().Length);
+                stringBuilder.Append(Criteria.Tier2.Name().ToUpperInvariant().First());
+                var firstLetterCapitalised = Criteria.Tier2.Name().ToLowerInvariant().Skip(1).Aggregate(stringBuilder, (builder, c) => builder.Append(c)).ToString();
+                yield return new TestCaseData(firstLetterCapitalised);
+            }
         }
 
         [TestCase(Criteria.Tier2)]
