@@ -61,30 +61,54 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenDifferentTierOptions_ThenMatchAgainstLowerTierButNoMatchAgainstHigherTierShouldBeIncluded()
+        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded()
         {
-            var filter = A.BcrFilter().WithTier2("tier2").WithTier3("differentTier3").Build();
+            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
 
-            var firstBcrLine = A.BcrLine().WithTier2("tier2").WithTier3("differentTier3").Build();
-            var secondBcrLine = A.BcrLine().WithTier2("differentTier2").WithTier3("differentTier3").Build();
+            var firstBcrLine = A.BcrLine().WithTier2("1").WithTier3("0").Build();
 
-            var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine });
-
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
-        }
-
-        [Test]
-        public void GivenDifferentTierOptions_ThenMatchAgainstHigherTierButNoMatchAgainstLowerTierShouldBeIncluded()
-        {
-            var filter = A.BcrFilter().WithTier2("tier2").WithTier3("tier3").Build();
-
-            var firstBcrLine = A.BcrLine().WithTier2("tier2").WithTier3("differentTier3").Build();
-            var secondBcrLine = A.BcrLine().WithTier2("differentTier2").WithTier3("differentTier3").Build();
-
-            var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine });
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine }));
         }
+
+        [Test]
+        public void GivenMatchOnTier3Only_ThenTheLineShouldBeIncluded()
+        {
+            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
+
+            var firstBcrLine = A.BcrLine().WithTier2("0").WithTier3("1").Build();
+
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine }));
+        }
+
+        [Test]
+        public void GivenMatchOnTier2AndTier3_ThenTheLineShouldBeIncluded()
+        {
+            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
+
+            var firstBcrLine = A.BcrLine().WithTier2("1").WithTier3("1").Build();
+
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine }));
+        }
+
+        [Test]
+        public void GivenMatchOnNoTier_ThenTheLineShouldNotBeIncluded()
+        {
+            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
+
+            var firstBcrLine = A.BcrLine().WithTier2("0").WithTier3("0").Build();
+
+            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
+        }
+
+
 
         private static class A
         {
