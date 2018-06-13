@@ -26,9 +26,14 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
+            if (!HasTier2 && !HasTier3)
+            {
+                return true;
+            }
+
             var matchesTier2 = HasTier2 && MatchesTier2(costCentre);
             var matchesTier3 = HasTier3 && MatchesTier3(costCentre);
-            return matchesTier2 || matchesTier3 || !HasTier2 && !HasTier3;
+            return matchesTier2 || matchesTier3;
         }
 
         private bool HasTier2 { get { return _options.Tier2 != null && _options.Tier2.Any(); } }
