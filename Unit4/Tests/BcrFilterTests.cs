@@ -45,11 +45,11 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTierOptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded([Values] Criteria criteria)
         {
-            var filter = A.BcrFilter().With(criteria, "firstTier2", "secondTier2").Build();
+            var filter = A.BcrFilter().With(criteria, "firstTier", "secondTier").Build();
 
-            var firstBcrLine = A.BcrLine().With(criteria, "firstTier2").Build();
-            var secondBcrLine = A.BcrLine().With(criteria, "secondTier2").Build();
-            var thirdBcrLine = A.BcrLine().With(criteria, "thirdTier2").Build();
+            var firstBcrLine = A.BcrLine().With(criteria, "firstTier").Build();
+            var secondBcrLine = A.BcrLine().With(criteria, "secondTier").Build();
+            var thirdBcrLine = A.BcrLine().With(criteria, "thirdTier").Build();
 
             var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine, thirdBcrLine });
 
