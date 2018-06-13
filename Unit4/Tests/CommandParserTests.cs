@@ -6,6 +6,7 @@ using Unit4.Automation.Model;
 using System.Linq;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 using Unit4.Automation.Tests.Helpers;
+using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests
 {
@@ -65,20 +66,28 @@ namespace Unit4.Automation.Tests
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
         }
 
-        [TestCase(Criteria.Tier2, "myTier,,,")]
-        [TestCase(Criteria.Tier2, ",myTier,,")]
-        [TestCase(Criteria.Tier2, ",,myTier,")]
-        [TestCase(Criteria.Tier2, ",,,myTier")]
-        [TestCase(Criteria.Tier3, "myTier,,,")]
-        [TestCase(Criteria.Tier3, ",myTier,,")]
-        [TestCase(Criteria.Tier3, ",,myTier,")]
-        [TestCase(Criteria.Tier3, ",,,myTier")]
+        [TestCaseSource("ExtraCommas")]
         public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(Criteria criteria, string option)
         {
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new string[] { "myTier" }));
+        }
+
+        private static IEnumerable<TestCaseData> ExtraCommas
+        {
+            get
+            {
+                var criterias = (Criteria[])Enum.GetValues(typeof(Criteria));
+                foreach (var criteria in criterias)
+                {
+                    yield return new TestCaseData(criteria, "myTier,,,");
+                    yield return new TestCaseData(criteria, ",myTier,,");
+                    yield return new TestCaseData(criteria, ",,myTier,");
+                    yield return new TestCaseData(criteria, ",,,myTier");
+                }
+            }
         }
     }
 }
