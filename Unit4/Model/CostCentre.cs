@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace Unit4.Automation.Model
 {
     internal class CostCentre

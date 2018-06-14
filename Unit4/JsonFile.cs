@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using Unit4.Automation.Interfaces;
 using Newtonsoft.Json;

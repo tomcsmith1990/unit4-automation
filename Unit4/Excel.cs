@@ -1,7 +1,5 @@
 using System;
-using System.Data;
 using MSExcel = Microsoft.Office.Interop.Excel;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Unit4.Automation.Model;

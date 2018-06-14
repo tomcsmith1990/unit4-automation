@@ -1,11 +1,5 @@
 using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Data;
-using System.Diagnostics;
-using System.Collections.Concurrent;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
 using Unit4.Automation.Model;
