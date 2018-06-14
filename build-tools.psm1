@@ -13,8 +13,9 @@ function Test {
     & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\bin\Debug\unit4-automation.exe
 }
 
-function Run([String[]] $options = "") {
-    & ".\Unit4\bin\Debug\unit4-automation.exe" bcr $options
+function Run([string[]][parameter(ValueFromRemainingArguments)] $options = "") {
+    $arguments = $options | ForEach-Object { $_ -Replace " ", "," }
+    & ".\Unit4\bin\Debug\unit4-automation.exe" bcr $arguments
 }
 
 function Help {

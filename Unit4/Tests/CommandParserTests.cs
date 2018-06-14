@@ -4,11 +4,15 @@ using NUnit.Framework;
 using System.IO;
 using Unit4.Automation.Model;
 using System.Linq;
+using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
+using Unit4.Automation.Tests.Helpers;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class CommandParserTests
+    internal class CommandParserTests
     {
         private CommandParser<BcrOptions> _parser;
 
@@ -30,48 +34,63 @@ namespace Unit4.Automation.Tests
             Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
         }
 
-        [TestCase("bcr")]
-        [TestCase("BCR")]
-        [TestCase("BcR")]
-        [TestCase("Bcr")]
-        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(string command)
+        [Test]
+        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(
+            [Values("bcr", "BCR", "BcR", "Bcr")] string command)
         {
             Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
 
-        [TestCase("tier2")]
-        [TestCase("Tier2")]
-        [TestCase("TIER2")]
-        [TestCase("tIEr2")]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(string optionName)
+        [TestCaseSource("CaseDifferences")]
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(Criteria criteria, string optionName)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--{0}=00T2000", optionName));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}=myTier", optionName));
             var bcrOptions = options as BcrOptions;
             
-            Assert.That(bcrOptions.Tier2.Single(), Is.EqualTo("00T2000"));
+            Assert.That(bcrOptions.ValueOf(criteria).Single(), Is.EqualTo("myTier"));
+        }
+
+        private static IEnumerable<TestCaseData> CaseDifferences
+        {
+            get
+            {
+                var criterias = (Criteria[])Enum.GetValues(typeof(Criteria));
+                foreach (var criteria in criterias)
+                {
+                    var lowerCase = criteria.Name().ToLowerInvariant();
+                    var upperCase = criteria.Name().ToUpperInvariant();
+
+                    var stringBuilder = new StringBuilder(upperCase.Length);
+                    stringBuilder.Append(upperCase.First());
+                    var firstLetterCapitalised = lowerCase.Skip(1).Aggregate(stringBuilder, (builder, c) => builder.Append(c)).ToString();
+
+                    yield return new TestCaseData(criteria, lowerCase);
+                    yield return new TestCaseData(criteria, upperCase);
+                    yield return new TestCaseData(criteria, firstLetterCapitalised);
+                }
+            }
         }
 
         [Test]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldTakeCommaSeparatedValues()
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues([Values]Criteria criteria)
         {
-            var commandSeparatedTier2s = new string[] { "firstTier2", "secondTier2" };
+            var commandSeparatedTiers = new string[] { "firstTier", "secondTier" };
             
-            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", string.Join(",", commandSeparatedTier2s)));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), string.Join(",", commandSeparatedTiers)));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(commandSeparatedTier2s));
+            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
         }
 
-        [TestCase("myTier2,,,")]
-        [TestCase(",myTier2,,")]
-        [TestCase(",,myTier2,")]
-        [TestCase(",,,myTier2")]
-        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(string option)
+        [Test]
+        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(
+            [Values] Criteria criteria, 
+            [Values("myTier,,,", ",myTier,,", ",,myTier,", ",,,myTier")] string option)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--tier2={0}", option));
+            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.Tier2, Is.EquivalentTo(new string[] { "myTier2" }));
+            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new string[] { "myTier" }));
         }
     }
 }

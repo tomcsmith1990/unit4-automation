@@ -4,71 +4,89 @@ using NUnit.Framework;
 using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using System.Linq;
+using Unit4.Automation.Tests.Helpers;
+using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class BcrFilterTests
+    internal class BcrFilterTests
     {
         [Test]
-        public void GivenTier2Option_ThenLinesNotMatchingThatTier2ShouldNotBeIncluded()
+        public void GivenTierOption_ThenLinesNotMatchingThatTierShouldNotBeIncluded([Values] Criteria criteria)
         {
-            var options = new BcrOptions(new string[] { "tier2" });
+            var filter = A.BcrFilter().With(criteria, "tier").Build();
 
-            var filter = new BcrFilter(options);
-
-            var bcr = new Bcr(new BcrLine[] { LineWithTier2("notTheRightTier2") });
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "notTheRightTier") });
 
             Assert.That(filter.Use(bcr).Lines, Is.Empty);
         }
 
         [Test]
-        public void GivenTier2Option_ThenLinesMatchingThatTier2ShouldBeIncluded()
+        public void GivenTierOption_ThenLinesMatchingThatTierShouldBeIncluded([Values] Criteria criteria)
         {
-            var options = new BcrOptions(new string[] { "tier2" });
+            var filter = A.BcrFilter().With(criteria, "tier").Build();
 
-            var filter = new BcrFilter(options);
-
-            var bcr = new Bcr(new BcrLine[] { LineWithTier2("tier2") });
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "tier") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
 
         [Test]
-        public void GivenNoTier2Option_ThenAllLinesShouldBeIncluded()
+        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded([Values] Criteria criteria)
         {
-            var options = new BcrOptions();
+            var filter = A.BcrFilter().Build();
 
-            var filter = new BcrFilter(options);
-
-            var bcr = new Bcr(new BcrLine[] { LineWithTier2("tier2") });
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().With(criteria, "tier") });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Has.Count.EqualTo(1));
         }
 
         [Test]
-        public void GivenTier2OptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded()
+        public void GivenTierOptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded([Values] Criteria criteria)
         {
-            var options = new BcrOptions(new string[] { "firstTier2", "secondTier2" });
+            var filter = A.BcrFilter().With(criteria, "firstTier", "secondTier").Build();
 
-            var filter = new BcrFilter(options);
-
-            var firstBcrLine = LineWithTier2("firstTier2");
-            var secondBcrLine = LineWithTier2("secondTier2");
-            var thirdBcrLine = LineWithTier2("thirdTier2");
+            var firstBcrLine = A.BcrLine().With(criteria, "firstTier").Build();
+            var secondBcrLine = A.BcrLine().With(criteria, "secondTier").Build();
+            var thirdBcrLine = A.BcrLine().With(criteria, "thirdTier").Build();
 
             var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine, thirdBcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
         }
 
-        private BcrLine LineWithTier2(string tier2)
+        [TestCase(Criteria.Tier2)]
+        [TestCase(Criteria.Tier3)]
+        [TestCase(Criteria.Tier2, Criteria.Tier3)]
+        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded(params Criteria[] criteria)
         {
-            return new BcrLine() {
-                CostCentre = new CostCentre() {
-                    Tier2 = tier2
-                }
-            };
+            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
+
+            var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
+            var blankLine = tiers.Aggregate(A.BcrLine(), (builder, t) => builder.With(t, "0"));
+            
+            var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(t, "1")).Build();
+
+            var bcr = new Bcr(new BcrLine[] { bcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { bcrLine }));
+        }
+
+        [Test]
+        public void GivenMatchOnNoTier_ThenTheLineShouldNotBeIncluded()
+        {
+            var allCriteria = (Criteria[])Enum.GetValues(typeof(Criteria));
+
+            var filter = 
+                allCriteria.Aggregate(A.BcrFilter(), (builder, c) => builder.With(c, "1")).Build();
+            
+            var bcrLine = 
+                allCriteria.Aggregate(A.BcrLine(), (builder, c) => builder.With(c, "0")).Build();
+
+            var bcr = new Bcr(new BcrLine[] { bcrLine });
+
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
         }
     }
 }
