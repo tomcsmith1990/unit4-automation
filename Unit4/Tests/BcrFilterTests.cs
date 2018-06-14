@@ -77,14 +77,14 @@ namespace Unit4.Automation.Tests
         public void GivenMatchOnNoTier_ThenTheLineShouldNotBeIncluded()
         {
             var allCriteria = (Criteria[])Enum.GetValues(typeof(Criteria));
-            
+
             var filter = 
                 allCriteria.Aggregate(A.BcrFilter(), (builder, c) => builder.With(c, "1")).Build();
             
-            var firstBcrLine = 
+            var bcrLine = 
                 allCriteria.Aggregate(A.BcrLine(), (builder, c) => builder.With(c, "0")).Build();
 
-            var bcr = new Bcr(new BcrLine[] { firstBcrLine });
+            var bcr = new Bcr(new BcrLine[] { bcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
         }
