@@ -34,11 +34,9 @@ namespace Unit4.Automation.Tests
             Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
         }
 
-        [TestCase("bcr")]
-        [TestCase("BCR")]
-        [TestCase("BcR")]
-        [TestCase("Bcr")]
-        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(string command)
+        [Test]
+        public void GivenTheBcrCommandInAnyCase_ThenTheCommandShouldBeBcr(
+            [Values("bcr", "BCR", "BcR", "Bcr")] string command)
         {
             Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
