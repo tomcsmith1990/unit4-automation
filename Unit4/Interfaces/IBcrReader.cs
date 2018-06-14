@@ -1,4 +1,3 @@
-using System;
 using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Interfaces

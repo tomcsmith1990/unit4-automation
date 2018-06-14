@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.IO;
 using CommandLine;
 using Unit4.Automation.Interfaces;

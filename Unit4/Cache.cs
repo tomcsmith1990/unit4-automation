@@ -1,9 +1,4 @@
 using System;
-using Newtonsoft.Json;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation

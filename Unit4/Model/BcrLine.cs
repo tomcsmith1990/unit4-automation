@@ -1,7 +1,3 @@
-using System;
-using System.Data;
-using System.Collections.Generic;
-
 namespace Unit4.Automation.Model
 {
     internal class BcrLine
