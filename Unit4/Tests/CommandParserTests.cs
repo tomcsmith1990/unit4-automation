@@ -42,7 +42,7 @@ namespace Unit4.Automation.Tests
         }
 
         [TestCaseSource("CaseDifferences")]
-        public void GivenTheBcrCommand_ThenTheTier2OptionShouldBeRecognised(Criteria criteria, string optionName)
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(Criteria criteria, string optionName)
         {
             var options = _parser.GetOptions("bcr", string.Format("--{0}=myTier", optionName));
             var bcrOptions = options as BcrOptions;
