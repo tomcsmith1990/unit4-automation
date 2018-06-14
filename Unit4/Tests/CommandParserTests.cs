@@ -84,28 +84,15 @@ namespace Unit4.Automation.Tests
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
         }
 
-        [TestCaseSource("ExtraCommas")]
-        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(Criteria criteria, string option)
+        [Test]
+        public void GivenTheBcrCommand_ThenExtraCommasShouldBeIgnored(
+            [Values] Criteria criteria, 
+            [Values("myTier,,,", ",myTier,,", ",,myTier,", ",,,myTier")] string option)
         {
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new string[] { "myTier" }));
-        }
-
-        private static IEnumerable<TestCaseData> ExtraCommas
-        {
-            get
-            {
-                var criterias = (Criteria[])Enum.GetValues(typeof(Criteria));
-                foreach (var criteria in criterias)
-                {
-                    yield return new TestCaseData(criteria, "myTier,,,");
-                    yield return new TestCaseData(criteria, ",myTier,,");
-                    yield return new TestCaseData(criteria, ",,myTier,");
-                    yield return new TestCaseData(criteria, ",,,myTier");
-                }
-            }
         }
     }
 }
