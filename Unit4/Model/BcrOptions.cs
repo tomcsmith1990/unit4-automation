@@ -12,14 +12,27 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
 
-        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
+        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
         {}
 
         public BcrOptions(IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4)
+            : this(Enumerable.Empty<string>(), tier2, tier3, tier4)
+        {
+        }
+
+        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4)
         {
             _tier2 = tier2;
             _tier3 = tier3;
             _tier4 = tier4;
+        }
+
+        public IEnumerable<string> Tier1
+        {
+            get
+            {
+                throw new System.NotSupportedException();
+            }
         }
 
         [Option(HelpText = "Filter by a tier 2 code.", Separator=',')]
