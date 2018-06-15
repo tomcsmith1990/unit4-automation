@@ -9,7 +9,7 @@ using Unit4.Automation.Model;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class CostCentreHierarchyTests
+    internal class CostCentreHierarchyTests
     {
         [Test]
         public void GivenNoCostCentres_ThenThereShouldBeNoGroups()

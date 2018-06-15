@@ -7,7 +7,7 @@ using Moq;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class CacheTests
+    internal class CacheTests
     {
         [Test]
         public void GivenDirtyFile_ThenItShouldRunTheFunction()

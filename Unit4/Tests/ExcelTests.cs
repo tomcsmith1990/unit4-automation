@@ -9,7 +9,7 @@ using System.Linq;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class ExcelTests
+    internal class ExcelTests
     {
         [Test]
         [Category("RequiresExcelInstall")]

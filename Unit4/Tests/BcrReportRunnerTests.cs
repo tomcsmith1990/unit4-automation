@@ -9,7 +9,7 @@ using System.Linq;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class BcrReportRunnerTests
+    internal class BcrReportRunnerTests
     {
         [Test]
         public void GivenBcrFromReader_ThenThatBcrShouldBePassedToTheMiddleware()

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class ResqlTests
+    internal class ResqlTests
     {
         [Test]
         public void GivenTier3Parameter_TheReportShouldUseItAsTier3()

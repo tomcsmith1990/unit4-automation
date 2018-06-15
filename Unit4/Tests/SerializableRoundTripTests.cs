@@ -7,7 +7,7 @@ using System.Linq;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class SerializableRoundTripTests
+    internal class SerializableRoundTripTests
     {
         [Test]
         public void CanSerializeThenDeserializeType()
