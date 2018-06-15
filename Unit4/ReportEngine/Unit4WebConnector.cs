@@ -26,14 +26,28 @@ namespace Unit4.Automation.ReportEngine
             { 
                 Name = "WebService",
                 Authenticators = authenticators,
-                Authenticator = agressoAuthenticator,
-                Datasource = m_Credentials.SoapService
             };
-            
-            agressoAuthenticator.Name = m_Credentials.Username;
-            agressoAuthenticator.Client = m_Credentials.Client;
+
+            connector.Read();
+            connector.Authenticator = agressoAuthenticator;
+
+            SetCredentialsIfNotFoundFromRegistry(connector, agressoAuthenticator);
 
             return connector;
+        }
+
+        private void SetCredentialsIfNotFoundFromRegistry(WebProviderConnector connector, AgressoAuthenticator agressoAuthenticator)
+        {
+            if (string.IsNullOrEmpty(connector.Datasource))
+            {
+                connector.Datasource = m_Credentials.SoapService;
+            }
+
+            if (string.IsNullOrEmpty(agressoAuthenticator.Name))
+            {
+                agressoAuthenticator.Name = m_Credentials.Username;
+                agressoAuthenticator.Client = m_Credentials.Client;
+            }
         }
     }
 }
