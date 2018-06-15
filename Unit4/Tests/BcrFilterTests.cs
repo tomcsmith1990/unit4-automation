@@ -61,9 +61,10 @@ namespace Unit4.Automation.Tests
         public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(
             [ValueSource("CriteriaPowerset")] IEnumerable<Criteria> criteria)
         {
-            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
-
             var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
+
+            var filter = tiers.Aggregate(A.BcrFilter(), (builder, t) => builder.With(t, "1")).Build();
+
             var blankLine = tiers.Aggregate(A.BcrLine(), (builder, t) => builder.With(t, "0"));
             
             var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(t, "1")).Build();
