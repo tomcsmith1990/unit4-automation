@@ -58,7 +58,7 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded(
+        public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(
             [ValueSource("CriteriaPowerset")] IEnumerable<Criteria> criteria)
         {
             var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
