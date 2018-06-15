@@ -1,6 +1,7 @@
 using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Unit4.Automation
 {
@@ -20,34 +21,26 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
-            if (!HasTier2 && !HasTier3 && !HasTier4)
+            if (!HasOption(_options.Tier1) && !HasOption(_options.Tier2) && !HasOption(_options.Tier3) && !HasOption(_options.Tier4))
             {
                 return true;
             }
 
-            var matchesTier2 = HasTier2 && MatchesTier2(costCentre);
-            var matchesTier3 = HasTier3 && MatchesTier3(costCentre);
-            var matchesTier4 = HasTier4 && MatchesTier4(costCentre);
-            return matchesTier2 || matchesTier3 || matchesTier4;
+            var matchesTier1 = HasOption(_options.Tier1) && Matches(_options.Tier1, costCentre.Tier1);
+            var matchesTier2 = HasOption(_options.Tier2) && Matches(_options.Tier2, costCentre.Tier2);
+            var matchesTier3 = HasOption(_options.Tier3) && Matches(_options.Tier3, costCentre.Tier3);
+            var matchesTier4 = HasOption(_options.Tier4) && Matches(_options.Tier4, costCentre.Tier4);
+            return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4;
         }
 
-        private bool HasTier2 { get { return _options.Tier2 != null && _options.Tier2.Any(); } }
-        private bool HasTier3 { get { return _options.Tier3 != null && _options.Tier3.Any(); } }
-        private bool HasTier4 { get { return _options.Tier4 != null && _options.Tier4.Any(); } }
-
-        private bool MatchesTier2(CostCentre costCentre)
+        private bool HasOption(IEnumerable<string> option)
         {
-            return  _options.Tier2.Any(x => string.Equals(x, costCentre.Tier2));
+            return option != null && option.Any();
         }
 
-        private bool MatchesTier3(CostCentre costCentre)
+        private bool Matches(IEnumerable<string> options, string value)
         {
-            return _options.Tier3.Any(x => string.Equals(x, costCentre.Tier3));
-        }
-
-        private bool MatchesTier4(CostCentre costCentre)
-        {
-            return _options.Tier4.Any(x => string.Equals(x, costCentre.Tier4));
+            return options.Any(x => string.Equals(x, value));
         }
     }
 }

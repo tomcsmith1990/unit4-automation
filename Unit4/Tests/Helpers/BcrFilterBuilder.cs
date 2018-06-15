@@ -6,6 +6,7 @@ namespace Unit4.Automation.Tests.Helpers
 {
     internal class BcrFilterBuilder
     {
+        private string[] _tier1;
         private string[] _tier2;
         private string[] _tier3;
         private string[] _tier4;
@@ -14,27 +15,13 @@ namespace Unit4.Automation.Tests.Helpers
         {
             switch (criteria)
             {
-                case Criteria.Tier2: return WithTier2(value);
-                case Criteria.Tier3: return WithTier3(value);
-                case Criteria.Tier4: return WithTier4(value);
+                case Criteria.Tier1: _tier1 = value; break;
+                case Criteria.Tier2: _tier2 = value; break;
+                case Criteria.Tier3: _tier3 = value; break;
+                case Criteria.Tier4: _tier4 = value; break;
                 default: throw new NotSupportedException(criteria.ToString());
             }
-        }
-        public BcrFilterBuilder WithTier2(params string[] tier2)
-        {
-            _tier2 = tier2;
-            return this;
-        }
 
-        public BcrFilterBuilder WithTier3(params string[] tier3)
-        {
-            _tier3 = tier3;
-            return this;
-        }
-
-        public BcrFilterBuilder WithTier4(params string[] tier4)
-        {
-            _tier4 = tier4;
             return this;
         }
 
@@ -45,7 +32,7 @@ namespace Unit4.Automation.Tests.Helpers
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)
         {
-            return new BcrFilter(new BcrOptions(builder._tier2, builder._tier3, builder._tier4));
+            return new BcrFilter(new BcrOptions(builder._tier1, builder._tier2, builder._tier3, builder._tier4));
         }
     }
 }
