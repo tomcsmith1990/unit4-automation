@@ -9,7 +9,7 @@ namespace Unit4.Automation.Tests.Helpers
     {
         public static IEnumerable<IEnumerable<T>> Powerset<T>(this IEnumerable<T> enumerable)
         {
-            throw new NotSupportedException();
+            yield return enumerable;
         }
 
         [Test]
