@@ -15,35 +15,13 @@ namespace Unit4.Automation.Tests.Helpers
         {
             switch (criteria)
             {
-                case Criteria.Tier1: return WithTier1(value);
-                case Criteria.Tier2: return WithTier2(value);
-                case Criteria.Tier3: return WithTier3(value);
-                case Criteria.Tier4: return WithTier4(value);
+                case Criteria.Tier1: _tier1 = value; break;
+                case Criteria.Tier2: _tier2 = value; break;
+                case Criteria.Tier3: _tier3 = value; break;
+                case Criteria.Tier4: _tier4 = value; break;
                 default: throw new NotSupportedException(criteria.ToString());
             }
-        }
 
-        public BcrLineBuilder WithTier1(string tier1)
-        {
-            _tier1 = tier1;
-            return this;
-        }
-
-        public BcrLineBuilder WithTier2(string tier2)
-        {
-            _tier2 = tier2;
-            return this;
-        }
-
-        public BcrLineBuilder WithTier3(string tier3)
-        {
-            _tier3 = tier3;
-            return this;
-        }
-
-        public BcrLineBuilder WithTier4(string tier4)
-        {
-            _tier4 = tier4;
             return this;
         }
 
