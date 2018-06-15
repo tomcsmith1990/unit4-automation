@@ -13,10 +13,15 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
 
-        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
+        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
         {}
 
         public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4)
+            : this(tier1, tier2, tier3, tier4, Enumerable.Empty<string>())
+        {
+        }
+
+        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4, IEnumerable<string> costCentre)
         {
             _tier1 = tier1;
             _tier2 = tier2;
@@ -57,6 +62,14 @@ namespace Unit4.Automation.Model
             get
             {
                 return PreventNullAndRemoveEmptyStrings(_tier4);
+            }
+        }
+
+        public IEnumerable<string> CostCentre
+        {
+            get
+            {
+                throw new System.NotSupportedException();
             }
         }
 

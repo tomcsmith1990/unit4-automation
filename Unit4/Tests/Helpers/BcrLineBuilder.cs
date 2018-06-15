@@ -10,6 +10,7 @@ namespace Unit4.Automation.Tests.Helpers
         private string _tier2;
         private string _tier3;
         private string _tier4;
+        private string _costCentre;
         
         public BcrLineBuilder With(Criteria criteria, string value)
         {
@@ -19,6 +20,7 @@ namespace Unit4.Automation.Tests.Helpers
                 case Criteria.Tier2: _tier2 = value; break;
                 case Criteria.Tier3: _tier3 = value; break;
                 case Criteria.Tier4: _tier4 = value; break;
+                case Criteria.CostCentre: _costCentre = value; break;
                 default: throw new NotSupportedException(criteria.ToString());
             }
 
@@ -38,6 +40,7 @@ namespace Unit4.Automation.Tests.Helpers
                     Tier2 = builder._tier2,
                     Tier3 = builder._tier3,
                     Tier4 = builder._tier4,
+                    Code = builder._costCentre,
                 }
             };
         }
