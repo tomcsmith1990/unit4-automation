@@ -19,5 +19,13 @@ namespace Unit4.Automation.Tests.Helpers
 
             Assert.That(set.Powerset(), Is.EquivalentTo(new int[][] { new int[] { } }));
         }
+
+        [Test]
+        public static void GivenOneElement_ThenThePowersetShouldBeThatElementAndTheEmptySet()
+        {
+            var set = new int[] { 1 };
+
+            Assert.That(set.Powerset(), Is.EquivalentTo(new int[][] { new int[] { }, new int[] { 1 } }));
+        }
     }
 }
