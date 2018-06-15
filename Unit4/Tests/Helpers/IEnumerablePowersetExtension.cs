@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests.Helpers
@@ -9,7 +10,15 @@ namespace Unit4.Automation.Tests.Helpers
     {
         public static IEnumerable<IEnumerable<T>> Powerset<T>(this IEnumerable<T> enumerable)
         {
-            yield return enumerable;
+            var items = 1 << enumerable.Count();
+            for (int bitmask = 0; bitmask < items; bitmask++)
+            {
+                if ((bitmask >> 0 & 1) == 1)
+                {
+                    yield return new T[] { enumerable.ElementAt(0) };
+                }
+            }
+            yield return Enumerable.Empty<T>();
         }
 
         [Test]
