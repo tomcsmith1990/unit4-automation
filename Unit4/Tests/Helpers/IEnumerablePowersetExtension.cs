@@ -13,12 +13,20 @@ namespace Unit4.Automation.Tests.Helpers
             var items = 1 << enumerable.Count();
             for (int bitmask = 0; bitmask < items; bitmask++)
             {
-                if ((bitmask >> 0 & 1) == 1)
+                yield return enumerable.ApplyBitmask(bitmask);
+            }
+        }
+
+        private static IEnumerable<T> ApplyBitmask<T>(this IEnumerable<T> enumerable, int bitmask)
+        {
+            var length = enumerable.Count();
+            for (int item = 0; item < length; item++)
+            {
+                if ((bitmask >> item & 1) == 1)
                 {
-                    yield return new T[] { enumerable.ElementAt(0) };
+                    yield return enumerable.ElementAt(item);
                 }
             }
-            yield return Enumerable.Empty<T>();
         }
 
         [Test]
