@@ -26,10 +26,10 @@ namespace Unit4.Automation
                 return true;
             }
 
-            var matchesTier1 = HasOption(_options.Tier1) && MatchesTier1(costCentre);
-            var matchesTier2 = HasOption(_options.Tier2) && MatchesTier2(costCentre);
-            var matchesTier3 = HasOption(_options.Tier3) && MatchesTier3(costCentre);
-            var matchesTier4 = HasOption(_options.Tier4) && MatchesTier4(costCentre);
+            var matchesTier1 = HasOption(_options.Tier1) && Matches(_options.Tier1, costCentre.Tier1);
+            var matchesTier2 = HasOption(_options.Tier2) && Matches(_options.Tier2, costCentre.Tier2);
+            var matchesTier3 = HasOption(_options.Tier3) && Matches(_options.Tier3, costCentre.Tier3);
+            var matchesTier4 = HasOption(_options.Tier4) && Matches(_options.Tier4, costCentre.Tier4);
             return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4;
         }
 
@@ -41,26 +41,6 @@ namespace Unit4.Automation
         private bool Matches(IEnumerable<string> options, string value)
         {
             return options.Any(x => string.Equals(x, value));
-        }
-
-        private bool MatchesTier1(CostCentre costCentre)
-        {
-            return Matches(_options.Tier1, costCentre.Tier1);
-        }
-
-        private bool MatchesTier2(CostCentre costCentre)
-        {
-            return Matches(_options.Tier2, costCentre.Tier2);
-        }
-
-        private bool MatchesTier3(CostCentre costCentre)
-        {
-            return Matches(_options.Tier3, costCentre.Tier3);
-        }
-
-        private bool MatchesTier4(CostCentre costCentre)
-        {
-            return Matches(_options.Tier4, costCentre.Tier4);
         }
     }
 }
