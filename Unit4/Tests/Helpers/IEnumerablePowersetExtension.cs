@@ -36,5 +36,15 @@ namespace Unit4.Automation.Tests.Helpers
 
             Assert.That(set.Powerset(), Is.EquivalentTo(new int[][] { new int[] { }, new int[] { 1 } }));
         }
+
+        [Test]
+        public static void GivenTwoElements_ThenThePowersetShouldBeAllCombinations()
+        {
+            var set = new int[] { 1, 2 };
+
+            var expected = new int[][] { new int[] { }, new int[] { 1 }, new int[] { 2 }, new int[] { 1, 2 } };
+
+            Assert.That(set.Powerset(), Is.EquivalentTo(expected));
+        }
     }
 }
