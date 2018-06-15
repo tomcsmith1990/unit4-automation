@@ -5,6 +5,7 @@ using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using System.Linq;
 using Unit4.Automation.Tests.Helpers;
+using System.Collections.Generic;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 
 namespace Unit4.Automation.Tests
@@ -56,14 +57,14 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
         }
 
-        [TestCase(Criteria.Tier2)]
-        [TestCase(Criteria.Tier3)]
-        [TestCase(Criteria.Tier2, Criteria.Tier3)]
-        public void GivenMatchOnTier2Only_ThenTheLineShouldBeIncluded(params Criteria[] criteria)
+        [Test]
+        public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(
+            [ValueSource("CriteriaPowerset")] IEnumerable<Criteria> criteria)
         {
-            var filter = A.BcrFilter().WithTier2("1").WithTier3("1").Build();
-
             var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
+
+            var filter = tiers.Aggregate(A.BcrFilter(), (builder, t) => builder.With(t, "1")).Build();
+
             var blankLine = tiers.Aggregate(A.BcrLine(), (builder, t) => builder.With(t, "0"));
             
             var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(t, "1")).Build();
@@ -71,6 +72,14 @@ namespace Unit4.Automation.Tests
             var bcr = new Bcr(new BcrLine[] { bcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { bcrLine }));
+        }
+
+        private static IEnumerable<IEnumerable<Criteria>> CriteriaPowerset
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Criteria)).Cast<Criteria>().Powerset().Where(x => x.Any());
+            }
         }
 
         [Test]
