@@ -57,9 +57,8 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
         }
 
-        [Test]
-        public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(
-            [ValueSource("CriteriaPowerset")] IEnumerable<Criteria> criteria)
+        [Test, TestCaseSource("CriteriaPowerset")]
+        public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(IEnumerable<Criteria> criteria)
         {
             var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
 
@@ -74,11 +73,15 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { bcrLine }));
         }
 
-        private static IEnumerable<IEnumerable<Criteria>> CriteriaPowerset
+        private static IEnumerable<TestCaseData> CriteriaPowerset
         {
             get
             {
-                return Enum.GetValues(typeof(Criteria)).Cast<Criteria>().Powerset().Where(x => x.Any());
+                return Enum.GetValues(typeof(Criteria))
+                            .Cast<Criteria>()
+                            .Powerset()
+                            .Where(x => x.Any())
+                            .Select(x => new TestCaseData(x).SetName("{M}(" + string.Join(",", x.ToArray()) + ")"));
             }
         }
 
