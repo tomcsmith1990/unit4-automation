@@ -10,6 +10,7 @@ namespace Unit4.Automation.Tests.Helpers
         private string[] _tier2;
         private string[] _tier3;
         private string[] _tier4;
+        private string[] _costCentre;
 
         public BcrFilterBuilder With(Criteria criteria, params string[] value)
         {
@@ -19,6 +20,7 @@ namespace Unit4.Automation.Tests.Helpers
                 case Criteria.Tier2: _tier2 = value; break;
                 case Criteria.Tier3: _tier3 = value; break;
                 case Criteria.Tier4: _tier4 = value; break;
+                case Criteria.CostCentre: _costCentre = value; break;
                 default: throw new NotSupportedException(criteria.ToString());
             }
 
@@ -32,7 +34,7 @@ namespace Unit4.Automation.Tests.Helpers
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)
         {
-            return new BcrFilter(new BcrOptions(builder._tier1, builder._tier2, builder._tier3, builder._tier4));
+            return new BcrFilter(new BcrOptions(builder._tier1, builder._tier2, builder._tier3, builder._tier4, builder._costCentre));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
-            if (!HasOption(_options.Tier1) && !HasOption(_options.Tier2) && !HasOption(_options.Tier3) && !HasOption(_options.Tier4))
+            if (!HasOption(_options.Tier1) && !HasOption(_options.Tier2) && !HasOption(_options.Tier3) && !HasOption(_options.Tier4) && !HasOption(_options.CostCentre))
             {
                 return true;
             }
@@ -30,7 +30,8 @@ namespace Unit4.Automation
             var matchesTier2 = HasOption(_options.Tier2) && Matches(_options.Tier2, costCentre.Tier2);
             var matchesTier3 = HasOption(_options.Tier3) && Matches(_options.Tier3, costCentre.Tier3);
             var matchesTier4 = HasOption(_options.Tier4) && Matches(_options.Tier4, costCentre.Tier4);
-            return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4;
+            var matchesCostCentre = HasOption(_options.CostCentre) && Matches(_options.CostCentre, costCentre.Code);
+            return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4 || matchesCostCentre;
         }
 
         private bool HasOption(IEnumerable<string> option)

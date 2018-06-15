@@ -12,16 +12,18 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier2;
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
+        private readonly IEnumerable<string> _costCentre;
 
-        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
+        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
         {}
 
-        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4)
+        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4, IEnumerable<string> costCentre)
         {
             _tier1 = tier1;
             _tier2 = tier2;
             _tier3 = tier3;
             _tier4 = tier4;
+            _costCentre = costCentre;
         }
 
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
@@ -57,6 +59,15 @@ namespace Unit4.Automation.Model
             get
             {
                 return PreventNullAndRemoveEmptyStrings(_tier4);
+            }
+        }
+
+        [Option(HelpText = "Filter by a cost centre.", Separator=',')]
+        public IEnumerable<string> CostCentre
+        {
+            get
+            {
+                return PreventNullAndRemoveEmptyStrings(_costCentre);
             }
         }
 
