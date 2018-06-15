@@ -21,22 +21,17 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
-            if (!HasTier1 && !HasTier2 && !HasTier3 && !HasTier4)
+            if (!HasOption(_options.Tier1) && !HasOption(_options.Tier2) && !HasOption(_options.Tier3) && !HasOption(_options.Tier4))
             {
                 return true;
             }
 
-            var matchesTier1 = HasTier1 && MatchesTier1(costCentre);
-            var matchesTier2 = HasTier2 && MatchesTier2(costCentre);
-            var matchesTier3 = HasTier3 && MatchesTier3(costCentre);
-            var matchesTier4 = HasTier4 && MatchesTier4(costCentre);
+            var matchesTier1 = HasOption(_options.Tier1) && MatchesTier1(costCentre);
+            var matchesTier2 = HasOption(_options.Tier2) && MatchesTier2(costCentre);
+            var matchesTier3 = HasOption(_options.Tier3) && MatchesTier3(costCentre);
+            var matchesTier4 = HasOption(_options.Tier4) && MatchesTier4(costCentre);
             return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4;
         }
-
-        private bool HasTier1 { get { return HasOption(_options.Tier1); } }
-        private bool HasTier2 { get { return HasOption(_options.Tier2); } }
-        private bool HasTier3 { get { return HasOption(_options.Tier3); } }
-        private bool HasTier4 { get { return HasOption(_options.Tier4); } }
 
         private bool HasOption(IEnumerable<string> option)
         {
