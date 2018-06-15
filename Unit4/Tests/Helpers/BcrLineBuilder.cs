@@ -8,6 +8,7 @@ namespace Unit4.Automation.Tests.Helpers
     {
         private string _tier2;
         private string _tier3;
+        private string _tier4;
         
         public BcrLineBuilder With(Criteria criteria, string value)
         {
@@ -15,6 +16,7 @@ namespace Unit4.Automation.Tests.Helpers
             {
                 case Criteria.Tier2: return WithTier2(value);
                 case Criteria.Tier3: return WithTier3(value);
+                case Criteria.Tier4: return WithTier4(value);
                 default: throw new NotSupportedException(criteria.ToString());
             }
         }
@@ -31,6 +33,12 @@ namespace Unit4.Automation.Tests.Helpers
             return this;
         }
 
+        public BcrLineBuilder WithTier4(string tier4)
+        {
+            _tier4 = tier4;
+            return this;
+        }
+
         public BcrLine Build()
         {
             return (BcrLine)this;
@@ -41,7 +49,8 @@ namespace Unit4.Automation.Tests.Helpers
             return new BcrLine() {
                 CostCentre = new CostCentre() {
                     Tier2 = builder._tier2,
-                    Tier3 = builder._tier3
+                    Tier3 = builder._tier3,
+                    Tier4 = builder._tier4,
                 }
             };
         }

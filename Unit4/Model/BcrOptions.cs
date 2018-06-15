@@ -11,10 +11,15 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier2;
         private readonly IEnumerable<string> _tier3;
 
-        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>())
+        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>())
         {}
 
         public BcrOptions(IEnumerable<string> tier2, IEnumerable<string> tier3)
+            : this(tier2, tier3, Enumerable.Empty<string>())
+        {
+        }
+
+        public BcrOptions(IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4)
         {
             _tier2 = tier2;
             _tier3 = tier3;
@@ -45,6 +50,14 @@ namespace Unit4.Automation.Model
                 }
 
                 return _tier3.Where(x => !string.Equals(x, string.Empty));
+            }
+        }
+
+        public IEnumerable<string> Tier4
+        {
+            get
+            {
+                throw new System.NotSupportedException();
             }
         }
     }
