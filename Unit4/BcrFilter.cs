@@ -38,24 +38,29 @@ namespace Unit4.Automation
             return option != null && option.Any();
         }
 
+        private bool Matches(IEnumerable<string> options, string value)
+        {
+            return options.Any(x => string.Equals(x, value));
+        }
+
         private bool MatchesTier1(CostCentre costCentre)
         {
-            return  _options.Tier1.Any(x => string.Equals(x, costCentre.Tier1));
+            return Matches(_options.Tier1, costCentre.Tier1);
         }
 
         private bool MatchesTier2(CostCentre costCentre)
         {
-            return  _options.Tier2.Any(x => string.Equals(x, costCentre.Tier2));
+            return Matches(_options.Tier2, costCentre.Tier2);
         }
 
         private bool MatchesTier3(CostCentre costCentre)
         {
-            return _options.Tier3.Any(x => string.Equals(x, costCentre.Tier3));
+            return Matches(_options.Tier3, costCentre.Tier3);
         }
 
         private bool MatchesTier4(CostCentre costCentre)
         {
-            return _options.Tier4.Any(x => string.Equals(x, costCentre.Tier4));
+            return Matches(_options.Tier4, costCentre.Tier4);
         }
     }
 }
