@@ -1,6 +1,7 @@
 using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Unit4.Automation
 {
@@ -32,10 +33,15 @@ namespace Unit4.Automation
             return matchesTier1 || matchesTier2 || matchesTier3 || matchesTier4;
         }
 
-        private bool HasTier1 { get { return _options.Tier1 != null && _options.Tier1.Any(); } }
-        private bool HasTier2 { get { return _options.Tier2 != null && _options.Tier2.Any(); } }
-        private bool HasTier3 { get { return _options.Tier3 != null && _options.Tier3.Any(); } }
-        private bool HasTier4 { get { return _options.Tier4 != null && _options.Tier4.Any(); } }
+        private bool HasTier1 { get { return HasOption(_options.Tier1); } }
+        private bool HasTier2 { get { return HasOption(_options.Tier2); } }
+        private bool HasTier3 { get { return HasOption(_options.Tier3); } }
+        private bool HasTier4 { get { return HasOption(_options.Tier4); } }
+
+        private bool HasOption(IEnumerable<string> option)
+        {
+            return option != null && option.Any();
+        }
 
         private bool MatchesTier1(CostCentre costCentre)
         {
