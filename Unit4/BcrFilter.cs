@@ -25,18 +25,20 @@ namespace Unit4.Automation
 
         private bool Matches(CostCentre costCentre)
         {
-            if (!HasTier2 && !HasTier3)
+            if (!HasTier2 && !HasTier3 && !HasTier4)
             {
                 return true;
             }
 
             var matchesTier2 = HasTier2 && MatchesTier2(costCentre);
             var matchesTier3 = HasTier3 && MatchesTier3(costCentre);
-            return matchesTier2 || matchesTier3;
+            var matchesTier4 = HasTier4 && MatchesTier4(costCentre);
+            return matchesTier2 || matchesTier3 || matchesTier4;
         }
 
         private bool HasTier2 { get { return _options.Tier2 != null && _options.Tier2.Any(); } }
         private bool HasTier3 { get { return _options.Tier3 != null && _options.Tier3.Any(); } }
+        private bool HasTier4 { get { return _options.Tier4 != null && _options.Tier4.Any(); } }
 
         private bool MatchesTier2(CostCentre costCentre)
         {
@@ -46,6 +48,11 @@ namespace Unit4.Automation
         private bool MatchesTier3(CostCentre costCentre)
         {
             return _options.Tier3.Any(x => string.Equals(x, costCentre.Tier3));
+        }
+
+        private bool MatchesTier4(CostCentre costCentre)
+        {
+            return _options.Tier4.Any(x => string.Equals(x, costCentre.Tier4));
         }
     }
 }
