@@ -29,12 +29,7 @@ namespace Unit4.Automation.Model
         {
             get
             {
-                if (_tier1 == null)
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-                return _tier1.Where(x => !string.Equals(x, string.Empty));
+                return PreventNullAndRemoveEmptyStrings(_tier1);
             }
         }
 
@@ -43,12 +38,7 @@ namespace Unit4.Automation.Model
         {
             get
             {
-                if (_tier2 == null)
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-                return _tier2.Where(x => !string.Equals(x, string.Empty));
+                return PreventNullAndRemoveEmptyStrings(_tier2);
             }
         }
 
@@ -57,12 +47,7 @@ namespace Unit4.Automation.Model
         {
             get
             {
-                if (_tier3 == null)
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-                return _tier3.Where(x => !string.Equals(x, string.Empty));
+                return PreventNullAndRemoveEmptyStrings(_tier3);
             }
         }
 
@@ -71,13 +56,18 @@ namespace Unit4.Automation.Model
         {
             get
             {
-                if (_tier4 == null)
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-                return _tier4.Where(x => !string.Equals(x, string.Empty));
+                return PreventNullAndRemoveEmptyStrings(_tier4);
             }
+        }
+
+        private IEnumerable<string> PreventNullAndRemoveEmptyStrings(IEnumerable<string> enumerable)
+        {
+            if (enumerable == null)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return enumerable.Where(x => !string.Equals(x, string.Empty));
         }
     }
 }
