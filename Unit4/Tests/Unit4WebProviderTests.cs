@@ -8,7 +8,7 @@ using Unit4.Automation.ReportEngine;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class Unit4WebProviderTests
+    internal class Unit4WebProviderTests
     {
         [Test]
         public void TheConnector_ShouldHaveUsername()

@@ -11,7 +11,7 @@ using Unit4.Automation.Model;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    public class BcrReportTests
+    internal class BcrReportTests
     {
         [Test]
         public void GivenOneTier3_ThenTheReportShouldBeRanForThatTier3()
