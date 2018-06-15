@@ -15,11 +15,6 @@ namespace Unit4.Automation
 
         public Bcr Use(Bcr bcr)
         {
-            if (_options.Tier2 == null)
-            {
-                return bcr;
-            }
-
             return new Bcr(bcr.Lines.Where(x => Matches(x.CostCentre)).ToList());
         }
 
