@@ -25,7 +25,7 @@ namespace Unit4.Automation.Tests
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
-            bcrReport.RunBCR(hierarchy);
+            bcrReport.RunBcr(hierarchy);
 
             engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier3(hierarchy.Single().Key)), Times.Once);
         }
@@ -43,7 +43,7 @@ namespace Unit4.Automation.Tests
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
-            bcrReport.RunBCR(hierarchy);
+            bcrReport.RunBcr(hierarchy);
 
             engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(hierarchy.Single().Single().Tier4)), Times.Once);
         }
@@ -61,7 +61,7 @@ namespace Unit4.Automation.Tests
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
-            bcrReport.RunBCR(hierarchy);
+            bcrReport.RunBcr(hierarchy);
 
             hierarchy.Single().ToList().ForEach(c => {
                 engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrTier4(c.Tier4)), Times.Once);
@@ -81,7 +81,7 @@ namespace Unit4.Automation.Tests
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
 
-            bcrReport.RunBCR(hierarchy);
+            bcrReport.RunBcr(hierarchy);
 
             engineFactory.Mock.Verify(x => x.RunReport(Resql.BcrCostCentre(hierarchy.Single().Single().Code)), Times.Once);
         }
