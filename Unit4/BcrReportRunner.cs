@@ -65,7 +65,7 @@ namespace Unit4.Automation
             }
         }
 
-        internal class Progress : IDisposable
+        private class Progress : IDisposable
         {
             private readonly Stopwatch _stopwatch;
             private long _elapsed = 0, _current = 0;
