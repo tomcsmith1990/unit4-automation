@@ -1,4 +1,3 @@
-using System;
 
 namespace Unit4.Automation
 {
