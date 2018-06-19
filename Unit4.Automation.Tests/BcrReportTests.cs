@@ -1,5 +1,4 @@
 using System;
-using Unit4.Automation;
 using NUnit.Framework;
 using Unit4.Automation.Interfaces;
 using System.Data;

@@ -1,5 +1,3 @@
-using System;
-using Unit4.Automation;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,6 @@
 using System;
-using Unit4.Automation;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using Unit4.Automation.Interfaces;
 using System.Linq;
 using Unit4.Automation.Tests.Helpers;
 using System.Collections.Generic;

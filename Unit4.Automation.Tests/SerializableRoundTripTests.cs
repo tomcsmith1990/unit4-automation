@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 using Unit4.Automation.Model;
 using Newtonsoft.Json;

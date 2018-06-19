@@ -1,8 +1,6 @@
 using System;
-using Unit4.Automation;
 using System.IO;
 using NUnit.Framework;
-using System.Collections.Generic;
 using Unit4.Automation.Model;
 using System.Linq;
 
