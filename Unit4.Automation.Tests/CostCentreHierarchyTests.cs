@@ -51,7 +51,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenSomeCostCentresInTheTier_ThenThereShouldBeAllCostCentresInThatGroup()
         {
-            var costCentres = new CostCentre[] {
+            var costCentres = new [] {
                 new CostCentre() { Tier3 = "A", Tier4 = "B" },
                 new CostCentre() { Tier3 = "A", Tier4 = "C" },
                 new CostCentre() { Tier3 = "A", Tier4 = "D" }
