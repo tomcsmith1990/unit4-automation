@@ -19,7 +19,7 @@ namespace Unit4.Automation.Tests
 
             var engineFactory = 
                 new DummyEngineFactory(
-                    new string[] { Resql.Bcr(tier3: hierarchy.Single().Single().Tier3) }
+                    new [] { Resql.Bcr(tier3: hierarchy.Single().Single().Tier3) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
@@ -36,8 +36,8 @@ namespace Unit4.Automation.Tests
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: new string[] { Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) },
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key) }
+                    returnEmpty: new [] { Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) },
+                    throws: new [] { Resql.Bcr(tier3: hierarchy.Single().Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
@@ -55,7 +55,7 @@ namespace Unit4.Automation.Tests
             var engineFactory =
                 new DummyEngineFactory(
                     returnEmpty: hierarchy.Single().Select(x => Resql.Bcr(tier4: x.Tier4)),
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key) }
+                    throws: new [] { Resql.Bcr(tier3: hierarchy.Single().Key) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
@@ -74,8 +74,8 @@ namespace Unit4.Automation.Tests
 
             var engineFactory =
                 new DummyEngineFactory(
-                    returnEmpty: new string[] { Resql.Bcr(costCentre: hierarchy.Single().Single().Code) },
-                    throws: new string[] { Resql.Bcr(tier3: hierarchy.Single().Key), Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) }
+                    returnEmpty: new [] { Resql.Bcr(costCentre: hierarchy.Single().Single().Code) },
+                    throws: new [] { Resql.Bcr(tier3: hierarchy.Single().Key), Resql.Bcr(tier4: hierarchy.Single().Single().Tier4) }
                 );
 
             var bcrReport = new BcrReport(engineFactory, new NullLogging());
