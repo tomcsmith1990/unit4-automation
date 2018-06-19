@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
