@@ -84,21 +84,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\Helpers\A.cs" />
-    <Compile Include="Tests\Helpers\BcrLineBuilder.cs" />
-    <Compile Include="Tests\Helpers\BcrFilterBuilder.cs" />
-    <Compile Include="Tests\Helpers\IEnumerablePowersetExtension.cs" />
-    <Compile Include="Tests\Unit4WebProviderTests.cs" />
-    <Compile Include="Tests\ExcelTests.cs" />
-    <Compile Include="Tests\CostCentreHierarchyTests.cs" />
-    <Compile Include="Tests\BcrReportTests.cs" />
-    <Compile Include="Tests\ResqlTests.cs" />
-    <Compile Include="Tests\CommandParserTests.cs" />
-    <Compile Include="Tests\SerializableRoundTripTests.cs" />
-    <Compile Include="Tests\CacheTests.cs" />
-    <Compile Include="Tests\ReportRunnerFactoryTests.cs" />
-    <Compile Include="Tests\BcrReportRunnerTests.cs" />
-    <Compile Include="Tests\BcrFilterTests.cs" />
+    <Compile Include="Helpers\A.cs" />
+    <Compile Include="Helpers\BcrLineBuilder.cs" />
+    <Compile Include="Helpers\BcrFilterBuilder.cs" />
+    <Compile Include="Helpers\IEnumerablePowersetExtension.cs" />
+    <Compile Include="Unit4WebProviderTests.cs" />
+    <Compile Include="ExcelTests.cs" />
+    <Compile Include="CostCentreHierarchyTests.cs" />
+    <Compile Include="BcrReportTests.cs" />
+    <Compile Include="ResqlTests.cs" />
+    <Compile Include="CommandParserTests.cs" />
+    <Compile Include="SerializableRoundTripTests.cs" />
+    <Compile Include="CacheTests.cs" />
+    <Compile Include="ReportRunnerFactoryTests.cs" />
+    <Compile Include="BcrReportRunnerTests.cs" />
+    <Compile Include="BcrFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
