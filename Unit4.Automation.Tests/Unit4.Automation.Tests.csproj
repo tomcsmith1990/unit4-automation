@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{4ef7f564-2a65-4222-81d6-26fce555f301}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{0d2afd1a-ff03-452b-b822-c30a04468505}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Unit4.Automation</RootNamespace>
-    <AssemblyName>unit4-automation</AssemblyName>
+    <RootNamespace>Unit4.Automation.Tests</RootNamespace>
+    <AssemblyName>Unit4.Automation.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -58,8 +58,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Unit4\Unit4.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NUnit">
+      <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\netstandard1.0\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -67,54 +73,32 @@
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
-    <Reference Include="CommandLine">
-      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net40\CommandLine.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Model\BcrLine.cs" />
-    <Compile Include="BcrLineBuilder.cs" />
-    <Compile Include="ReportEngine\Logging.cs" />
-    <Compile Include="CostCentresProvider.cs" />
-    <Compile Include="CostCentreHierarchy.cs" />
-    <Compile Include="Model\CostCentre.cs" />
-    <Compile Include="Model\Bcr.cs" />
-    <Compile Include="Model\SerializableCostCentreList.cs" />
-    <Compile Include="Model\NullOptions.cs" />
-    <Compile Include="Model\BcrOptions.cs" />
-    <Compile Include="Credentials.cs" />
-    <Compile Include="ReportEngine\Unit4Engine.cs" />
-    <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
-    <Compile Include="ReportEngine\Unit4WebProvider.cs" />
-    <Compile Include="ReportEngine\Unit4WebConnector.cs" />
-    <Compile Include="NullRunner.cs" />
-    <Compile Include="BcrReportRunner.cs" />
-    <Compile Include="BcrReader.cs" />
-    <Compile Include="BcrFilter.cs" />
-    <Compile Include="ReportRunnerFactory.cs" />
-    <Compile Include="BcrReport.cs" />
-    <Compile Include="Cache.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="JsonFile.cs" />
-    <Compile Include="Excel.cs" />
-    <Compile Include="Resql.cs" />
-    <Compile Include="CommandParser.cs" />
-    <Compile Include="Interfaces\ICredentials.cs" />
-    <Compile Include="Interfaces\ICostCentresProvider.cs" />
-    <Compile Include="Interfaces\IUnit4Engine.cs" />
-    <Compile Include="Interfaces\IUnit4EngineFactory.cs" />
-    <Compile Include="Interfaces\ILogging.cs" />
-    <Compile Include="Interfaces\ICache.cs" />
-    <Compile Include="Interfaces\IFile.cs" />
-    <Compile Include="Interfaces\IOptions.cs" />
-    <Compile Include="Interfaces\IRunner.cs" />
-    <Compile Include="Interfaces\IBcrReader.cs" />
-    <Compile Include="Interfaces\IBcrWriter.cs" />
-    <Compile Include="Interfaces\IBcrMiddleware.cs" />
+    <Compile Include="Helpers\A.cs" />
+    <Compile Include="Helpers\BcrLineBuilder.cs" />
+    <Compile Include="Helpers\BcrFilterBuilder.cs" />
+    <Compile Include="Helpers\IEnumerablePowersetExtension.cs" />
+    <Compile Include="Unit4WebProviderTests.cs" />
+    <Compile Include="ExcelTests.cs" />
+    <Compile Include="CostCentreHierarchyTests.cs" />
+    <Compile Include="BcrReportTests.cs" />
+    <Compile Include="ResqlTests.cs" />
+    <Compile Include="CommandParserTests.cs" />
+    <Compile Include="SerializableRoundTripTests.cs" />
+    <Compile Include="CacheTests.cs" />
+    <Compile Include="ReportRunnerFactoryTests.cs" />
+    <Compile Include="BcrReportRunnerTests.cs" />
+    <Compile Include="BcrFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
