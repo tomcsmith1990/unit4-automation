@@ -6,11 +6,11 @@ function Build {
     Restore
     msbuild.exe .\Unit4.sln
 
-    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\bin\Debug\unit4-automation.exe --where="cat == RequiresExcelInstall"
+    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4.Automation.Tests\bin\Debug\Unit4.Automation.Tests.dll --where="cat == RequiresExcelInstall"
 }
 
 function Test {
-    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4\bin\Debug\unit4-automation.exe
+    & ".\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" .\Unit4.Automation.Tests\bin\Debug\Unit4.Automation.Tests.dll
 }
 
 function Help {
