@@ -52,7 +52,7 @@ namespace Unit4.Automation
                     progress.Complete();
                 }
 
-                _progress.WriteLine(string.Format("Success - {0}", outputPath));
+                _progress.WriteLine("Success - {0}", outputPath);
             }
             catch (Exception e)
             {    
