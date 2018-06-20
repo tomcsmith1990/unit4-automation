@@ -6,16 +6,16 @@ namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4WebConnector
     {
-        private readonly ICredentials m_Credentials;
+        private readonly ICredentials _credentials;
 
         public Unit4WebConnector(ICredentials credentials)
         {
-            m_Credentials = credentials;
+            _credentials = credentials;
         }
         public WebProviderConnector Create()
         {
             var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = SecureStringHelper.ToSecureString(m_Credentials.Password);
+            agressoAuthenticator.Password = SecureStringHelper.ToSecureString(_credentials.Password);
             
             var authenticators = new BaseAuthenticator[1]
             {
@@ -26,11 +26,11 @@ namespace Unit4.Automation.ReportEngine
                 Name = "WebService",
                 Authenticators = authenticators,
                 Authenticator = agressoAuthenticator,
-                Datasource = m_Credentials.SoapService
+                Datasource = _credentials.SoapService
             };
             
-            agressoAuthenticator.Name = m_Credentials.Username;
-            agressoAuthenticator.Client = m_Credentials.Client;
+            agressoAuthenticator.Name = _credentials.Username;
+            agressoAuthenticator.Client = _credentials.Client;
 
             return connector;
         }

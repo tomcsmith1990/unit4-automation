@@ -7,24 +7,24 @@ namespace Unit4.Automation.ReportEngine
     internal class Unit4WebProvider : IDisposable
     {
         private readonly ICredentials m_Credentials;
-        private readonly WebProvider m_Provider;
+        private readonly WebProvider _provider;
 
         public Unit4WebProvider(ICredentials credentials)
         {
             m_Credentials = credentials;
 
             var connector = new Unit4WebConnector(credentials).Create();
-            m_Provider = new WebProvider(connector);
+            _provider = new WebProvider(connector);
         }
 
         public WebProvider Create()
         {
-            return m_Provider;
+            return _provider;
         }
 
         public void Dispose()
         {
-            m_Provider.Dispose();
+            _provider.Dispose();
         }
     }
 }
