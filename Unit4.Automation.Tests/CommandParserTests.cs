@@ -18,7 +18,7 @@ namespace Unit4.Automation.Tests
         [SetUp]
         public void Setup()
         {
-            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
+            _parser = new CommandParser<BcrOptions>((TextWriter.Null));
         }
 
         [Test]
@@ -87,6 +87,7 @@ namespace Unit4.Automation.Tests
             [Values("myTier,,,", ",myTier,,", ",,myTier,", ",,,myTier")] string option)
         {
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
+
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new [] { "myTier" }));
