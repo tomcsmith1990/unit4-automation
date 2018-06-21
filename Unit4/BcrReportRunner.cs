@@ -33,7 +33,7 @@ namespace Unit4.Automation
             {
                 _log.Start();
 
-                var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
+                var outputPath = NewPath();
 
                 using (var progress = new Progress(_progress))
                 {
@@ -63,6 +63,11 @@ namespace Unit4.Automation
             {
                 _log.Close();
             }
+        }
+
+        private string NewPath()
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
         }
 
         private class Progress : IDisposable
