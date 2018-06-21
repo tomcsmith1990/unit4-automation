@@ -8,10 +8,11 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     internal class PathProviderTests
     {
-        [Test]
-        public void GivenNullBcrOptions_TheTheFileShouldBeInTheCurrentDirectory()
+        [TestCase(null)]
+        [TestCase("")]
+        public void GivenNullOrEmptyBcrOptions_TheTheFileShouldBeInTheCurrentDirectory(string outputDir)
         {
-            var options = new BcrOptions(null, null, null, null, null, null);
+            var options = new BcrOptions(null, null, null, null, null, outputDir);
             var provider = new PathProvider(options);
 
             var actualPath = provider.NewPath();
