@@ -26,6 +26,14 @@ namespace Unit4.Automation.Model
             _costCentre = costCentre;
         }
 
+        public string OutputPath
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
         public IEnumerable<string> Tier1
         {

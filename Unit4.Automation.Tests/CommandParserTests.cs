@@ -91,5 +91,16 @@ namespace Unit4.Automation.Tests
 
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new [] { "myTier" }));
         }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheOutputOptionShouldBeRecognised()
+        {
+            var path = @"C:\my\path\to\output";
+
+            var options = _parser.GetOptions("bcr", string.Format("--output={0}", path));
+            var bcrOptions = options as BcrOptions;
+
+            Assert.That(bcrOptions.OutputPath, Is.EqualTo(path));
+        }
     }
 }
