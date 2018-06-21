@@ -103,6 +103,7 @@
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
     <Compile Include="CommandParser.cs" />
+    <Compile Include="PathProvider.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
     <Compile Include="Interfaces\ICostCentresProvider.cs" />
     <Compile Include="Interfaces\IUnit4Engine.cs" />
