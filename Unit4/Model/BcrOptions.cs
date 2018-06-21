@@ -13,7 +13,7 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
         private readonly IEnumerable<string> _costCentre;
-        private readonly string _outputPath;
+        private readonly string _outputDirectory;
 
         public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null)
         {}
@@ -21,14 +21,14 @@ namespace Unit4.Automation.Model
         // https://github.com/commandlineparser/commandline/issues/188
         // Constructor parameter order must be the same order as properties are defined in class.
         // It also looks like the parameter name must match the property name, not the option name.
-        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4, IEnumerable<string> costCentre, string outputPath)
+        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3, IEnumerable<string> tier4, IEnumerable<string> costCentre, string outputDirectory)
         {
             _tier1 = tier1;
             _tier2 = tier2;
             _tier3 = tier3;
             _tier4 = tier4;
             _costCentre = costCentre;
-            _outputPath = outputPath;
+            _outputDirectory = outputDirectory;
         }
 
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
@@ -77,11 +77,11 @@ namespace Unit4.Automation.Model
         }
 
         [Option("output")]
-        public string OutputPath
+        public string OutputDirectory
         {
             get
             {
-                return _outputPath;
+                return _outputDirectory;
             }
         }
 

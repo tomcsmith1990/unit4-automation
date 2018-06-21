@@ -101,7 +101,7 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--output={0}", path));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.OutputPath, Is.EqualTo(path));
+            Assert.That(bcrOptions.OutputDirectory, Is.EqualTo(path));
         }
     }
 }
