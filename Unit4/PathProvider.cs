@@ -1,9 +1,10 @@
 using System;
 using System.IO;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation
 {
-    internal class PathProvider
+    internal class PathProvider : IPathProvider
     {
         public string NewPath()
         {

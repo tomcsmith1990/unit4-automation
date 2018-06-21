@@ -14,12 +14,12 @@ namespace Unit4.Automation
         private readonly TextWriter _progress;
         private readonly PathProvider _pathProvider;
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer)
-            : this(log, reader, middleware, writer, Console.Out)
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider)
+            : this(log, reader, middleware, writer, pathProvider, Console.Out)
         {
         }
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, TextWriter progress)
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider, TextWriter progress)
         {
             _log = log;
             _reader = reader;

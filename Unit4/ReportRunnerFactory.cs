@@ -15,7 +15,8 @@ namespace Unit4.Automation
                 var reader = new BcrReader(log);
                 var filter = new BcrFilter(bcrOptions);
                 var writer = new Excel();
-                return new BcrReportRunner(log, reader, filter, writer);
+                var pathProvider = new PathProvider();
+                return new BcrReportRunner(log, reader, filter, writer, pathProvider);
             }
 
             return new NullRunner();
