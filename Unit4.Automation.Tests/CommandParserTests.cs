@@ -18,7 +18,7 @@ namespace Unit4.Automation.Tests
         [SetUp]
         public void Setup()
         {
-            _parser = new CommandParser<BcrOptions>((TextWriter.Null));
+            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
         }
 
         [Test]
