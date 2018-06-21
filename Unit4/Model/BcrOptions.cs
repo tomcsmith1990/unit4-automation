@@ -76,7 +76,7 @@ namespace Unit4.Automation.Model
             }
         }
 
-        [Option("output")]
+        [Option("output", HelpText = "The directory to save the bcr in. The directory must already exist.")]
         public string OutputDirectory
         {
             get
