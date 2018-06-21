@@ -11,7 +11,7 @@ namespace Unit4.Automation
 
         public PathProvider(BcrOptions options)
         {
-            _outputDir = options.OutputDirectory ?? Directory.GetCurrentDirectory();
+            _outputDir = string.IsNullOrEmpty(options.OutputDirectory) ? Directory.GetCurrentDirectory() : options.OutputDirectory;
         }
 
         public string NewPath()
