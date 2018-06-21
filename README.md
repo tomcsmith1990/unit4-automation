@@ -4,6 +4,35 @@
 
 This provides automation for [Unit4's Business World On!](https://www.unit4.com/uki/applications/erp/business-world) (formerly known as Agresso).
 
-It makes SOAP requests using Unit4's _Resql_ langauge. It pulls together many of these requests to form an overall BCR, which it then writes to Excel.
+It makes SOAP requests using Unit4's _Resql_ langauge. It pulls together many of these requests to form the overall output, since larger requests timeout most of the time.
 
 It uses the [commandlineparser](https://github.com/commandlineparser/commandline/wiki) library.
+
+## Available Commands
+
+```
+bcr        Produce a BCR.
+
+help       Display more information on a specific command.
+
+version    Display version information.
+```
+
+### BCR Command
+
+The `bcr` command produces an Excel spreadsheet with a bcr which matches the filters.
+
+Options:
+```
+--tier1         Filter by a tier 1 code.
+
+--tier2         Filter by a tier 2 code.
+
+--tier3         Filter by a tier 3 code.
+
+--tier4         Filter by a tier 4 code.
+
+--costcentre    Filter by a cost centre.
+
+--output        The directory to save the bcr in. The directory must already exist.
+```

@@ -12,19 +12,21 @@ namespace Unit4.Automation
         private readonly IBcrMiddleware _middleware;
         private readonly IBcrWriter _writer;
         private readonly TextWriter _progress;
+        private readonly IPathProvider _pathProvider;
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer)
-            : this(log, reader, middleware, writer, Console.Out)
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider)
+            : this(log, reader, middleware, writer, pathProvider, Console.Out)
         {
         }
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, TextWriter progress)
+        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider, TextWriter progress)
         {
             _log = log;
             _reader = reader;
             _middleware = middleware;
             _writer = writer;
             _progress = progress;
+            _pathProvider = pathProvider;
         } 
 
         public void Run()
@@ -33,7 +35,7 @@ namespace Unit4.Automation
             {
                 _log.Start();
 
-                var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
+                var outputPath = _pathProvider.NewPath();
 
                 using (var progress = new Progress(_progress))
                 {
