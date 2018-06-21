@@ -1,5 +1,3 @@
-using System;
-using Unit4.Automation;
 using NUnit.Framework;
 
 namespace Unit4.Automation.Tests

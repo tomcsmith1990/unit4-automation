@@ -1,5 +1,4 @@
 using System;
-using Unit4.Automation;
 using NUnit.Framework;
 using System.IO;
 using Unit4.Automation.Model;
@@ -74,7 +73,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTheBcrCommand_ThenTheTierOptionShouldTakeCommaSeparatedValues([Values]Criteria criteria)
         {
-            var commandSeparatedTiers = new string[] { "firstTier", "secondTier" };
+            var commandSeparatedTiers = new [] { "firstTier", "secondTier" };
             
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), string.Join(",", commandSeparatedTiers)));
             var bcrOptions = options as BcrOptions;
@@ -90,7 +89,7 @@ namespace Unit4.Automation.Tests
             var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
             var bcrOptions = options as BcrOptions;
 
-            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new string[] { "myTier" }));
+            Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(new [] { "myTier" }));
         }
     }
 }

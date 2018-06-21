@@ -1,8 +1,6 @@
 using System;
-using Unit4.Automation;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using Unit4.Automation.Interfaces;
 using System.Linq;
 using Unit4.Automation.Tests.Helpers;
 using System.Collections.Generic;
@@ -52,9 +50,9 @@ namespace Unit4.Automation.Tests
             var secondBcrLine = A.BcrLine().With(criteria, "secondTier").Build();
             var thirdBcrLine = A.BcrLine().With(criteria, "thirdTier").Build();
 
-            var bcr = new Bcr(new BcrLine[] { firstBcrLine, secondBcrLine, thirdBcrLine });
+            var bcr = new Bcr(new [] { firstBcrLine, secondBcrLine, thirdBcrLine });
 
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { firstBcrLine, secondBcrLine }));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new [] { firstBcrLine, secondBcrLine }));
         }
 
         [Test, TestCaseSource("CriteriaPowerset")]
@@ -68,9 +66,9 @@ namespace Unit4.Automation.Tests
             
             var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(t, "1")).Build();
 
-            var bcr = new Bcr(new BcrLine[] { bcrLine });
+            var bcr = new Bcr(new [] { bcrLine });
 
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new BcrLine[] { bcrLine }));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new [] { bcrLine }));
         }
 
         private static IEnumerable<TestCaseData> CriteriaPowerset
@@ -96,7 +94,7 @@ namespace Unit4.Automation.Tests
             var bcrLine = 
                 allCriteria.Aggregate(A.BcrLine(), (builder, c) => builder.With(c, "0")).Build();
 
-            var bcr = new Bcr(new BcrLine[] { bcrLine });
+            var bcr = new Bcr(new [] { bcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
         }

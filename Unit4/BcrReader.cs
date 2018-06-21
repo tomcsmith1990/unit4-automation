@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
@@ -29,7 +28,7 @@ namespace Unit4.Automation
             var factory = new Unit4EngineFactory();
             var bcrReport = 
                 new Cache<Bcr>(
-                    () => new BcrReport(factory, _log).RunBCR(tier3Hierarchy), 
+                    () => new BcrReport(factory, _log).RunBcr(tier3Hierarchy), 
                     new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")));
 
             return bcrReport.Fetch();

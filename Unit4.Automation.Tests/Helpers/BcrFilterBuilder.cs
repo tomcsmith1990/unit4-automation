@@ -29,7 +29,7 @@ namespace Unit4.Automation.Tests.Helpers
 
         public BcrFilter Build()
         {
-            return (BcrFilter)this;
+            return this;
         }
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)

@@ -52,7 +52,7 @@ namespace Unit4.Automation
                     progress.Complete();
                 }
 
-                _progress.WriteLine(string.Format("Success - {0}", outputPath));
+                _progress.WriteLine("Success - {0}", outputPath);
             }
             catch (Exception e)
             {    
@@ -65,7 +65,7 @@ namespace Unit4.Automation
             }
         }
 
-        internal class Progress : IDisposable
+        private class Progress : IDisposable
         {
             private readonly Stopwatch _stopwatch;
             private long _elapsed = 0, _current = 0;
@@ -87,13 +87,13 @@ namespace Unit4.Automation
             public void Complete()
             {
                 _current = _stopwatch.ElapsedMilliseconds;
-                _output.WriteLine(string.Format("Elapsed: {0}ms", _current - _elapsed));
+                _output.WriteLine("Elapsed: {0}ms", _current - _elapsed);
                 _elapsed = _current;
             }
 
             public void Dispose()
             {
-                _output.WriteLine(string.Format("Total time elapsed: {0}ms", _elapsed));
+                _output.WriteLine("Total time elapsed: {0}ms", _elapsed);
             }
         }
     }

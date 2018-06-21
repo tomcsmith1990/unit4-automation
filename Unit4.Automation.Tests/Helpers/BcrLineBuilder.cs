@@ -29,7 +29,7 @@ namespace Unit4.Automation.Tests.Helpers
 
         public BcrLine Build()
         {
-            return (BcrLine)this;
+            return this;
         }
 
         public static implicit operator BcrLine(BcrLineBuilder builder)

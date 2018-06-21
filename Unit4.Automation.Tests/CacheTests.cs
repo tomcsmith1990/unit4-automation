@@ -1,6 +1,5 @@
 using System;
 using NUnit.Framework;
-using Unit4.Automation;
 using Unit4.Automation.Interfaces;
 using Moq;
 

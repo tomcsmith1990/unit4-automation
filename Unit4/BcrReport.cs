@@ -23,14 +23,14 @@ namespace Unit4.Automation
             _log = log;
         }
 
-        public Bcr RunBCR(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
+        public Bcr RunBcr(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
             var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
             
-            return new Bcr(RunBCR(reportsToRun).ToList());
+            return new Bcr(RunBcr(reportsToRun).ToList());
         }
 
-        private IEnumerable<BcrLine> RunBCR(IEnumerable<Report> reports)
+        private IEnumerable<BcrLine> RunBcr(IEnumerable<Report> reports)
         {
             var bag = new ConcurrentBag<BcrLine>();
 
@@ -40,7 +40,7 @@ namespace Unit4.Automation
             {
                 try
                 {
-                    var bcrLines = RunBCR(t);
+                    var bcrLines = RunBcr(t);
                     foreach (var line in bcrLines)
                     {
                         bag.Add(line);
@@ -59,13 +59,13 @@ namespace Unit4.Automation
 
             if (extraReportsToRun.Any())
             {
-                return bag.Concat(RunBCR(extraReportsToRun));
+                return bag.Concat(RunBcr(extraReportsToRun));
             }
 
             return bag;
         }
 
-        private IEnumerable<BcrLine> RunBCR(Report report)
+        private IEnumerable<BcrLine> RunBcr(Report report)
         {
             string value = report.Parameter;
             try

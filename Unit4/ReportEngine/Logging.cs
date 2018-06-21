@@ -10,17 +10,17 @@ namespace Unit4.Automation.ReportEngine
 {
     internal class Logging : ILogging
     {
-        private readonly string m_LogFilePath;
+        private readonly string _logFilePath;
 
-        public string Path { get { return m_LogFilePath; } }
+        public string Path { get { return _logFilePath; } }
 
         public Logging()
         {
-            m_LogFilePath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
+            _logFilePath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
         }
         public void Start()
         {
-            var logFile = new LogFileListener(m_LogFilePath, true);
+            var logFile = new LogFileListener(_logFilePath, true);
             Log.Level = TraceLevel.Verbose;
             Log.Open(logFile);
         }
