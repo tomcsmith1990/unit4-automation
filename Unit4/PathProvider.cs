@@ -16,7 +16,8 @@ namespace Unit4.Automation
 
         public string NewPath()
         {
-            return Path.Combine(_outputDir, string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
+            var filename = string.Format("{0}_{1}.xlsx", DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss"), Guid.NewGuid().ToString("N").Substring(0, 4));
+            return Path.Combine(_outputDir, filename);
         }
     }
 }
