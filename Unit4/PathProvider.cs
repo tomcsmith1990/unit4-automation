@@ -7,14 +7,16 @@ namespace Unit4.Automation
 {
     internal class PathProvider : IPathProvider
     {
+        private readonly string _outputDir;
+
         public PathProvider(BcrOptions options)
         {
-
+            _outputDir = options.OutputDirectory;
         }
 
         public string NewPath()
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), "output", string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
+            return Path.Combine(_outputDir, string.Format("{0}.xlsx", Guid.NewGuid().ToString("N")));
         }
     }
 }
