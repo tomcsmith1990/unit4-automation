@@ -30,7 +30,7 @@
                         <File Id="ReportEngineCore" Name="ReportEngine.Core.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Core.dll" />
                         <File Id="ReportEngineInterface" Name="ReportEngine.Interface.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Interface.dll" />
                         <File Id="ReportEngineWebProvider" Name="ReportEngine.Provider.WebService.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Provider.WebService.dll" />
-                        <File Id="ReportEngineReporterSpreadsheetML" Name="ReportEngine.Reporter.SpreadsheetML.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Reporter.SpreadsheetML.dll" />
+                        <File Id="ReportEngineReporterSpreadsheetML" Name="ReportEngine.Reporter.SpreadSheetML.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Reporter.SpreadSheetML.dll" />
                         <File Id="ReportEngineOpenXml" Name="DocumentFormat.OpenXml.dll" DiskId="1" Source="./Unit4/bin/Debug/DocumentFormat.OpenXml.dll" />
 
                         <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
