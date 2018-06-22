@@ -18,8 +18,8 @@ function Help {
 }
 
 function Installer {
-    candle.exe .\unit4-automation.wxs
-    light.exe .\unit4-automation.wixobj
+    & ".\packages\WiX.3.11.1\tools\candle.exe" .\unit4-automation.wxs
+    & ".\packages\WiX.3.11.1\tools\light.exe" .\unit4-automation.wixobj
 }
 
 export-modulemember -function Restore
