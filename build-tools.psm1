@@ -17,8 +17,14 @@ function Help {
     & ".\Unit4\bin\Debug\unit4-automation.exe" help
 }
 
+function Installer {
+    candle.exe .\unit4-automation.wxs
+    light.exe .\unit4-automation.wixobj
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
 export-modulemember -function Run
 export-modulemember -function Help
+export-modulemember -function Installer
