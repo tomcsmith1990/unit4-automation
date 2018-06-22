@@ -8,7 +8,8 @@ script:
   - mono ./packages/WiX.3.11.1/tools/candle.exe ./unit4-automation.wxs
   - WINEARCH=win32 winecfg
   - winetricks -q dotnet40
-  - wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj -sice:ICE91
+  - wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj
+  - mono ./packages/WiX.3.11.1/tools/smoke.exe ./unit4-automation.msi -sice:ICE91
 addons:
   apt:
     packages:
