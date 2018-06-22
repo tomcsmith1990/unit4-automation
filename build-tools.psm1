@@ -22,9 +22,19 @@ function Installer {
     & ".\packages\WiX.3.11.1\tools\light.exe" .\unit4-automation.wixobj -sice:ICE91
 }
 
+function Install {
+    msiexec.exe /i unit4-automation.msi /passive
+}
+
+function Uninstall {
+    msiexec.exe /x unit4-automation.msi /passive
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
 export-modulemember -function Run
 export-modulemember -function Help
 export-modulemember -function Installer
+export-modulemember -function Install
+export-modulemember -function Uninstall
