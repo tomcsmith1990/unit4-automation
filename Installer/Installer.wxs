@@ -24,6 +24,8 @@
                 <Directory Id="INSTALLDIR" Name="Unit4 Automation">
                     <Component Id="MainExecutable" Guid="D8CBE087-769C-40D6-AACE-9C08DC53770B">
                         <File Id="Unit4AutomationExe" Name="unit4-automation.exe" DiskId="1" Source="Unit4\bin\Debug\unit4-automation.exe" />
+
+                        <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
                         <RegistryKey Root="HKCU" Key="Software\Unit4Automation">
                             <RegistryValue Value="" Type="string" KeyPath="yes" />
                         </RegistryKey>
