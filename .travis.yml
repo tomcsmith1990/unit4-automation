@@ -5,5 +5,5 @@ install:
 script:
   - msbuild /p:Configuration=Debug ./Unit4.sln
   - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./Unit4.Automation.Tests/bin/Debug/Unit4.Automation.Tests.dll --where="cat != RequiresExcelInstall"
-  - ./packages/WiX.3.11.1/tools/candle.exe unit-automation.wxs
-  - ./packages/WiX.3.11.1/tools/light.exe unit-automation.wixobj -sice:ICE91
+  - ./packages/WiX.3.11.1/tools/candle.exe unit4-automation.wxs
+  - ./packages/WiX.3.11.1/tools/light.exe unit4-automation.wixobj -sice:ICE91
