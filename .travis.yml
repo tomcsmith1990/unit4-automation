@@ -10,7 +10,7 @@ script:
 - WINEARCH=win32 winecfg
 - winetricks -q dotnet40
 - wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj
-- ls -l ./unit4-automation.msi
+- chmod 754 ./unit4-automation.msi
 - mono ./packages/WiX.3.11.1/tools/smoke.exe ./unit4-automation.msi -sice:ICE91
 addons:
   apt:
