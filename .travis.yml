@@ -1,18 +1,26 @@
 language: csharp
-solution: ./Unit4.sln
+solution: "./Unit4.sln"
 install:
-  - nuget restore ./Unit4.sln
+- nuget restore ./Unit4.sln
 script:
-  - msbuild /p:Configuration=Debug ./Unit4.sln
-  - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./Unit4.Automation.Tests/bin/Debug/Unit4.Automation.Tests.dll --where="cat != RequiresExcelInstall"
-  - mono ./packages/WiX.3.11.1/tools/candle.exe ./unit4-automation.wxs
-  - WINEARCH=win32 winecfg
-  - winetricks -q dotnet40
-  - wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj
-  - ls -a ./unit4-automation.msi
-  - mono ./packages/WiX.3.11.1/tools/smoke.exe ./unit4-automation.msi -sice:ICE91
+- msbuild /p:Configuration=Debug ./Unit4.sln
+- mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./Unit4.Automation.Tests/bin/Debug/Unit4.Automation.Tests.dll
+  --where="cat != RequiresExcelInstall"
+- mono ./packages/WiX.3.11.1/tools/candle.exe ./unit4-automation.wxs
+- WINEARCH=win32 winecfg
+- winetricks -q dotnet40
+- wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj
+- ls -a ./unit4-automation.msi
+- mono ./packages/WiX.3.11.1/tools/smoke.exe ./unit4-automation.msi -sice:ICE91
 addons:
   apt:
-    packages:
-      wine
-      winetricks
+    packages: wine winetricks
+deploy:
+  provider: releases
+  api_key:
+    secure: rrXYBeKiNDIbTFnVFGuv64+vkUUSdmuihks88EaGA/HMa/vhfKaxrVAYA10vPOhOgVCud0pGrVV+XSwD//vbypczkjHCPSZW0d1/44oImTacXDb7hptkJCqbmCOD/MEaf8uoTqhVvLcSpJ7y01axMInWgPnSVAvUlitMANrklCP4FCrX+V8MxFUAwWYolIT4z+1ZBUrt1XjVBXuNVEvSYDm78lRt5rd5BwtSYDSBFOi62616FGNps5hvjW3gACBVndXzit1dTHAurUifFRAZxkwBNkpOFLf6T/lRz5VZ77NmcFyXAVfVb9HofCEJE19rr3AYCgsJ2HBM9Fn8GpLEE79XqAvpveuDiWtheOrWg+waWSeGlbP1dtpxXx6Bfghh+vzlhgy2jfW8w/IbSUyP1vUngIw4tUru6WP7p87QXXGrF/IQrZ6+HJ111G/C72cGFRPFcQR6iaQJvn52YzBJNSkRFjM4RuKxi6WEESe2bQNWLDzVcyEOLsTrBlli5okk1NjujV74h75ASRQuWDqx4doQnoGpJB9ysNAKAvCzamogWEnm5qXzPu1w5X6PKhMVAVWoEcr/Ibjqt0DwR66zDB5kd0Nts0UfPdYXQaHRJ9UBSGc5f2fRqfUDb2RkUCKyVXJd8z4mfUwDZzKEsl5LkcDFvlUbVIQXTDBdrdtOkLA=
+  file: unit4-automation.msi
+  on:
+    tags: true
+    repo: tomcsmith1990/unit4-automation
+    branch: master
