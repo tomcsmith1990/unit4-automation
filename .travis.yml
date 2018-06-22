@@ -11,7 +11,6 @@ script:
 - winetricks -q dotnet40
 - wine ./packages/WiX.3.11.1/tools/light.exe -sval ./unit4-automation.wixobj
 - chmod 754 ./unit4-automation.msi
-- wine ./packages/WiX.3.11.1/tools/smoke.exe ./unit4-automation.msi -sice:ICE91
 addons:
   apt:
     packages: wine winetricks

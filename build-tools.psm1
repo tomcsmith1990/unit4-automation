@@ -19,8 +19,7 @@ function Help {
 
 function Installer {
     & ".\packages\WiX.3.11.1\tools\candle.exe" .\unit4-automation.wxs
-    & ".\packages\WiX.3.11.1\tools\light.exe" -sval .\unit4-automation.wixobj
-    & ".\packages\WiX.3.11.1\tools\smoke.exe" .\unit4-automation.msi -sice:ICE91
+    & ".\packages\WiX.3.11.1\tools\light.exe" -sice:ICE91 .\unit4-automation.wixobj
 }
 
 function Install {
