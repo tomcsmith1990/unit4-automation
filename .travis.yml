@@ -23,4 +23,3 @@ deploy:
   on:
     tags: true
     repo: tomcsmith1990/unit4-automation
-    branch: installer
