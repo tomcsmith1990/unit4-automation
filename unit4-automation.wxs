@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product
+        Name="Unit4 Automation"
+        Manufacturer="Tom Smith"
+        Id="5B9D4119-8874-4573-A5D6-958F45C713E6" 
+        UpgradeCode="25340577-2567-4EE3-8619-36EC6A10FA79"
+        Language="1033"
+        Codepage="1252"
+        Version="1.0.0">
+        <Package 
+            Id="*"
+            Keywords="Installer"
+            Description="Automate commands in Unit4 Business World"
+            Manufacturer="Tom Smith"
+            InstallerVersion="100"
+            Languages="1033"
+            Compressed="yes"
+            SummaryCodepage="1252"
+            InstallScope="perUser" />
+        <Media Id="1" Cabinet="Installer.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="AppDataFolder">
+                <Directory Id="INSTALLDIR" Name="Unit4 Automation">
+                    <Component Id="MainExecutable" Guid="D8CBE087-769C-40D6-AACE-9C08DC53770B">
+                        <File Id="Unit4AutomationExe" Name="unit4-automation.exe" DiskId="1" Source="./Unit4/bin/Debug/unit4-automation.exe" />
+                        <File Id="CommandLineParser" Name="CommandLine.dll" DiskId="1" Source="./Unit4/bin/Debug/CommandLine.dll" />
+                        <File Id="NewtonsoftJson" Name="Newtonsoft.Json.dll" DiskId="1" Source="./Unit4/bin/Debug/Newtonsoft.Json.dll" />
+                        <File Id="ReportEngineBase" Name="ReportEngine.Base.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Base.dll" />
+                        <File Id="ReportEngineCore" Name="ReportEngine.Core.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Core.dll" />
+                        <File Id="ReportEngineInterface" Name="ReportEngine.Interface.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Interface.dll" />
+                        <File Id="ReportEngineWebProvider" Name="ReportEngine.Provider.WebService.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Provider.WebService.dll" />
+                        <File Id="ReportEngineReporterSpreadsheetML" Name="ReportEngine.Reporter.SpreadSheetML.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Reporter.SpreadSheetML.dll" />
+                        <File Id="ReportEngineOpenXml" Name="DocumentFormat.OpenXml.dll" DiskId="1" Source="./Unit4/bin/Debug/DocumentFormat.OpenXml.dll" />
+
+                        <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
+                        <RegistryKey Root="HKCU" Key="Software\Unit4Automation">
+                            <RegistryValue Value="" Type="string" KeyPath="yes" />
+                        </RegistryKey>
+                        <RemoveFolder Id="RemoveFolder" On="uninstall" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="Complete" Level="1">
+            <ComponentRef Id="MainExecutable" />
+        </Feature>
+    </Product>
+</Wix>
