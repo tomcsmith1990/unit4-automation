@@ -8,7 +8,7 @@ using Moq;
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
-    internal class Unit4WebProviderTests
+    internal class Unit4WebConnectorTests
     {
         [Test]
         public void TheConnector_ShouldHaveUsername()

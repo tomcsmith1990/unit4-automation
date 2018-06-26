@@ -88,7 +88,7 @@
     <Compile Include="Helpers\BcrLineBuilder.cs" />
     <Compile Include="Helpers\BcrFilterBuilder.cs" />
     <Compile Include="Helpers\IEnumerablePowersetExtension.cs" />
-    <Compile Include="Unit4WebProviderTests.cs" />
+    <Compile Include="Unit4WebConnectorTests.cs" />
     <Compile Include="ExcelTests.cs" />
     <Compile Include="CostCentreHierarchyTests.cs" />
     <Compile Include="BcrReportTests.cs" />
