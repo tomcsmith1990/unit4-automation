@@ -5,7 +5,7 @@ namespace Unit4.Automation
 {
     internal class WindowsCredentialManager : ICredentialManager
     {
-        public WindowsCredentials CredentialsOrDefault
+        public ICredentials CredentialsOrDefault
         {
             get
             {

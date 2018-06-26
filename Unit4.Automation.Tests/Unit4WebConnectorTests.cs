@@ -4,6 +4,7 @@ using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
 using Unit4.Automation.ReportEngine;
 using Moq;
+using System.Security;
 
 namespace Unit4.Automation.Tests
 {
@@ -26,7 +27,7 @@ namespace Unit4.Automation.Tests
             var connector = new Unit4WebConnector(credentials, Mock.Of<ICredentialManager>()).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(credentials.Password));
+            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(credentials.Password)));
         }
 
         [Test]
@@ -60,7 +61,7 @@ namespace Unit4.Automation.Tests
         private class FakeCredentials : ICredentials
         {
             public string Username { get { return "username"; } }
-            public string Password { get { return "password"; } }
+            public SecureString Password { get { return SecureStringHelper.ToSecureString("password"); } }
             public string Client { get { return "client"; } }
             public string SoapService { get { return "soapService"; } }
         }

@@ -18,8 +18,9 @@ namespace Unit4.Automation.ReportEngine
         public WebProviderConnector Create()
         {
             var c = _manager.CredentialsOrDefault;
+
             var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = SecureStringHelper.ToSecureString(_credentials.Password);
+            agressoAuthenticator.Password = _credentials.Password;
             
             var authenticators = new BaseAuthenticator[1]
             {

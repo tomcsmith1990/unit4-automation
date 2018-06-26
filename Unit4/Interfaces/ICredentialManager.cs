@@ -4,6 +4,6 @@ namespace Unit4.Automation.Interfaces
 {
     internal interface ICredentialManager
     {
-        WindowsCredentials CredentialsOrDefault { get; }
+        ICredentials CredentialsOrDefault { get; }
     }
 }
