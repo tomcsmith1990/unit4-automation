@@ -7,14 +7,17 @@ namespace Unit4.Automation.ReportEngine
     internal class Unit4WebConnector
     {
         private readonly ICredentials _credentials;
+        private readonly ICredentialManager _manager;
 
         public Unit4WebConnector(ICredentials credentials, ICredentialManager manager)
         {
             _credentials = credentials;
+            _manager = manager;
         }
         
         public WebProviderConnector Create()
         {
+            var c = _manager.CredentialsOrDefault;
             var agressoAuthenticator = new AgressoAuthenticator();
             agressoAuthenticator.Password = SecureStringHelper.ToSecureString(_credentials.Password);
             
