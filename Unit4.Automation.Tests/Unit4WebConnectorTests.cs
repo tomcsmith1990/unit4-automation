@@ -53,9 +53,12 @@ namespace Unit4.Automation.Tests
         public void TheConnector_ShouldAskCredentialsManagerForCredentials()
         {
             var manager = new Mock<ICredentialManager>();
+            var credentials = new Mock<ICredentials>();
+            credentials.Setup(x => x.Username).Returns("aDifferentUsername");
+            manager.Setup(x => x.CredentialsOrDefault).Returns(credentials.Object);
             var connector = new Unit4WebConnector(new FakeCredentials(), manager.Object).Create();
 
-            manager.Verify(x => x.CredentialsOrDefault, Times.Once);
+            Assert.That(connector.Authenticator.Name, Is.EqualTo(credentials.Object.Username));
         }
 
         private class FakeCredentials : ICredentials
