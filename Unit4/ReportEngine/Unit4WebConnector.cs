@@ -12,6 +12,7 @@ namespace Unit4.Automation.ReportEngine
         {
             _credentials = credentials;
         }
+        
         public WebProviderConnector Create()
         {
             var agressoAuthenticator = new AgressoAuthenticator();
