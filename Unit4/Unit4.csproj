@@ -83,6 +83,7 @@
     <Compile Include="Model\SerializableCostCentreList.cs" />
     <Compile Include="Model\NullOptions.cs" />
     <Compile Include="Model\BcrOptions.cs" />
+    <Compile Include="Model\WindowsCredentials.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Resql.cs" />
     <Compile Include="CommandParser.cs" />
     <Compile Include="PathProvider.cs" />
+    <Compile Include="WindowsCredentialManager.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
     <Compile Include="Interfaces\ICostCentresProvider.cs" />
     <Compile Include="Interfaces\IUnit4Engine.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Interfaces\IBcrWriter.cs" />
     <Compile Include="Interfaces\IBcrMiddleware.cs" />
     <Compile Include="Interfaces\IPathProvider.cs" />
+    <Compile Include="Interfaces\ICredentialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

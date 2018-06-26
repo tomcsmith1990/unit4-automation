@@ -8,7 +8,7 @@ namespace Unit4.Automation.ReportEngine
     {
         private readonly ICredentials _credentials;
 
-        public Unit4WebConnector(ICredentials credentials)
+        public Unit4WebConnector(ICredentials credentials, ICredentialManager manager)
         {
             _credentials = credentials;
         }
