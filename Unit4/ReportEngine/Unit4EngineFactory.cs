@@ -10,9 +10,7 @@ namespace Unit4.Automation.ReportEngine
         {
             lock (_lock) // probably not necessary?
             {
-                var credentials = new Credentials();
-
-                return new Unit4Engine(credentials);
+                return new Unit4Engine();
             }
         }
     }

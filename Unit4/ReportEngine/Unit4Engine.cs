@@ -8,16 +8,9 @@ namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4Engine : IUnit4Engine
     {
-        private readonly ICredentials _credentials;
-
-        public Unit4Engine(ICredentials credentials)
-        {
-            _credentials = credentials;
-        }
-
         public DataSet RunReport(string resql)
         {
-            using (var webProvider = new Unit4WebProvider(_credentials).Create())
+            using (var webProvider = new Unit4WebProvider().Create())
             {
                 var engine = new Engine(webProvider, ClientType.External);
                 engine.InProcess = true;

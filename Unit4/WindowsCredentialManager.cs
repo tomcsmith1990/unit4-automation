@@ -9,7 +9,7 @@ namespace Unit4.Automation
         {
             get
             {
-                throw new System.NotImplementedException();
+                return new Credentials();
             }
         }
     }
