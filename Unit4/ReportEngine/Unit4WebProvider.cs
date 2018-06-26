@@ -11,7 +11,7 @@ namespace Unit4.Automation.ReportEngine
 
         public Unit4WebProvider(ICredentials credentials)
         {
-            var connector = new Unit4WebConnector(credentials, new WindowsCredentialManager()).Create();
+            var connector = new Unit4WebConnector(new WindowsCredentialManager()).Create();
             _provider = new WebProvider(connector);
         }
 

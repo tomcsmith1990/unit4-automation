@@ -14,51 +14,44 @@ namespace Unit4.Automation.Tests
         [Test]
         public void TheConnector_ShouldHaveUsername()
         {
-            var credentials = new FakeCredentials();
-            var connector = new Unit4WebConnector(credentials, Mock.Of<ICredentialManager>()).Create();
+            var manager = new FakeCredentialManager();
+            var connector = new Unit4WebConnector(manager).Create();
 
-            Assert.That(connector.Authenticator.Name, Is.EqualTo(credentials.Username));
+            Assert.That(connector.Authenticator.Name, Is.EqualTo(manager.CredentialsOrDefault.Username));
         }
 
         [Test]
         public void TheConnector_ShouldHavePassword()
         {
-            var credentials = new FakeCredentials();
-            var connector = new Unit4WebConnector(credentials, Mock.Of<ICredentialManager>()).Create();
+            var manager = new FakeCredentialManager();
+            var connector = new Unit4WebConnector(manager).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(credentials.Password)));
+            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(manager.CredentialsOrDefault.Password)));
         }
 
         [Test]
         public void TheConnector_ShouldHaveClient()
         {
-            var credentials = new FakeCredentials();
-            var connector = new Unit4WebConnector(credentials, Mock.Of<ICredentialManager>()).Create();
+            var manager = new FakeCredentialManager();
+            var connector = new Unit4WebConnector(manager).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(authenticator.Client, Is.EqualTo(credentials.Client));
+            Assert.That(authenticator.Client, Is.EqualTo(manager.CredentialsOrDefault.Client));
         }
 
         [Test]
         public void TheConnector_ShouldHaveSoapService()
         {
-            var credentials = new FakeCredentials();
-            var connector = new Unit4WebConnector(credentials, Mock.Of<ICredentialManager>()).Create();
+            var manager = new FakeCredentialManager();
+            var connector = new Unit4WebConnector(manager).Create();
 
-            Assert.That(connector.Datasource, Is.EqualTo(credentials.SoapService));
+            Assert.That(connector.Datasource, Is.EqualTo(manager.CredentialsOrDefault.SoapService));
         }
 
-        [Test]
-        public void TheConnector_ShouldAskCredentialsManagerForCredentials()
+        private class FakeCredentialManager : ICredentialManager
         {
-            var manager = new Mock<ICredentialManager>();
-            var credentials = new Mock<ICredentials>();
-            credentials.Setup(x => x.Username).Returns("aDifferentUsername");
-            manager.Setup(x => x.CredentialsOrDefault).Returns(credentials.Object);
-            var connector = new Unit4WebConnector(new FakeCredentials(), manager.Object).Create();
-
-            Assert.That(connector.Authenticator.Name, Is.EqualTo(credentials.Object.Username));
+            public ICredentials CredentialsOrDefault { get { return new FakeCredentials(); } }
         }
 
         private class FakeCredentials : ICredentials
