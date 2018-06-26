@@ -1,5 +1,6 @@
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
+using CredentialManagement;
 
 namespace Unit4.Automation
 {
@@ -9,6 +10,14 @@ namespace Unit4.Automation
         {
             get
             {
+                using (var credential = new Credential() { Target = "Unit 4 Automation" })
+                {
+                    if (credential.Load())
+                    {
+                        return new Credentials(credential.Username, credential.SecurePassword.Copy());
+                    }
+                }
+
                 return new Credentials();
             }
         }
