@@ -27,5 +27,13 @@ namespace Unit4.Automation.Tests.Parser
         {
             Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(ConfigOptions)));
         }
+
+        [Test]
+        public void GivenTheConfigCommand_ThenTheClientOptionShouldBeRecognised()
+        {
+            var options = _parser.GetOptions("config", "--client=1234") as ConfigOptions;
+
+            Assert.That(options.Client, Is.EqualTo(1234));
+        }
     }
 }

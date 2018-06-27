@@ -8,6 +8,12 @@ namespace Unit4.Automation.Model
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
-
+        public int Client
+        {
+            get
+            {
+                throw new System.NotSupportedException();
+            }
+        }
     }
 }
