@@ -18,14 +18,13 @@ namespace Unit4.Automation.Commands.BcrCommand
         }
 
         public Tier Tier { get { return _tier; } }
-        public IGrouping<string, CostCentre> Hierarchy { get { return _hierarchy; } }
-        public string Parameter { get { return Hierarchy.Key; } }
+        public string Parameter { get { return _hierarchy.Key; } }
 
-        public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && Hierarchy.Any(); } }
+        public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && _hierarchy.Any(); } }
 
         public IEnumerable<Report> FallbackReports()
         {
-            var fallbackGroups = Hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
+            var fallbackGroups = _hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
 
             return fallbackGroups.Select(x => new Report(FallBackTier(Tier), x));
         }
