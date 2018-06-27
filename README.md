@@ -13,14 +13,34 @@ It uses the [commandlineparser](https://github.com/commandlineparser/commandline
 ```
 bcr        Produce a BCR.
 
+config     Configure the Unit4 connection details.
+
 help       Display more information on a specific command.
 
 version    Display version information.
 ```
 
+### Config Command
+
+This sets up the connection to Unit4 Business World.
+
+Options:
+```
+--client     Set the Unit4 client.
+
+--url        Set the Unit4 SOAP service URL.
+
+--help       Display this help screen.
+
+--version    Display version information.
+```
+
 ### BCR Command
 
 The `bcr` command produces an Excel spreadsheet with a bcr which matches the filters.
+
+Must use the `config` command first to set the client and url.
+Must add `Unit4 Automation` credentials in Credential Manager.
 
 Options:
 ```
