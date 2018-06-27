@@ -15,7 +15,17 @@ namespace Unit4.Automation
 
         public void Run()
         {
-            _options.Save();
+            var currentOptions = ConfigOptions.Load();
+
+            var updatedOptions = Merge(currentOptions, _options);
+            updatedOptions.Save();
+        }
+
+        private ConfigOptions Merge(ConfigOptions current, ConfigOptions newer)
+        {
+            var client = newer.Client == default(int) ? current.Client : newer.Client;
+            var url = newer.Url == default(string) ? current.Url : newer.Url;
+            return new ConfigOptions(client, url);
         }
     }
 }
