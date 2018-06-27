@@ -19,6 +19,12 @@ namespace Unit4.Automation
                 return new BcrReportRunner(log, reader, filter, writer, pathProvider);
             }
 
+            var configOptions = options as ConfigOptions;
+            if (configOptions != null)
+            {
+                return new ConfigRunner();
+            }
+
             return new NullRunner();
         }
     }
