@@ -39,7 +39,7 @@ namespace Unit4.Automation.Tests
         {
             _file.Save(new ConfigOptions(1234, "http://test.url"));
 
-            var loadedOptions = GetPersistedOptions(new ConfigOptions(9999));
+            var loadedOptions = GetPersistedOptions(new ConfigOptions(9999, "http://test.url"));
 
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(9999, "http://test.url")));
         }
@@ -49,7 +49,7 @@ namespace Unit4.Automation.Tests
         {
             _file.Save(new ConfigOptions(1234, "http://test.url"));
             
-            var loadedOptions = GetPersistedOptions(new ConfigOptions(url: "http://some/other/test.url"));
+            var loadedOptions = GetPersistedOptions(new ConfigOptions(1234, "http://some/other/test.url"));
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(1234, "http://some/other/test.url")));
         }
 
