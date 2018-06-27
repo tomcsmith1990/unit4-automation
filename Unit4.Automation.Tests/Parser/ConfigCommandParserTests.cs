@@ -11,7 +11,7 @@ using System.Text;
 namespace Unit4.Automation.Tests.Parser
 {
     [TestFixture]
-    internal class CommandParserTests
+    internal class ConfigCommandParserTests
     {
         private CommandParser<BcrOptions, ConfigOptions> _parser;
 
@@ -22,15 +22,10 @@ namespace Unit4.Automation.Tests.Parser
         }
 
         [Test]
-        public void GivenNoArguments_ThenTheCommandShouldBeHelp()
+        public void GivenTheConfigCommandInAnyCase_ThenTheCommandShouldBeConfig(
+            [Values("config", "CONFIG", "cOnFiG", "Config")] string command)
         {
-            Assert.That(_parser.GetOptions(), Is.TypeOf(typeof(NullOptions)));
-        }
-
-        [Test]
-        public void GivenAnUnknownCommand_ThenTheCommandShouldBeHelp()
-        {
-            Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
+            Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(ConfigOptions)));
         }
     }
 }

@@ -13,12 +13,12 @@ namespace Unit4.Automation.Tests.Parser
     [TestFixture]
     internal class BcrCommandParserTests
     {
-        private CommandParser<BcrOptions> _parser;
+        private CommandParser<BcrOptions, ConfigOptions> _parser;
 
         [SetUp]
         public void Setup()
         {
-            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
+            _parser = new CommandParser<BcrOptions, ConfigOptions>(TextWriter.Null);
         }
 
         [Test]

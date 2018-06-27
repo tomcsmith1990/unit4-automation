@@ -94,6 +94,7 @@
     <Compile Include="BcrReportTests.cs" />
     <Compile Include="ResqlTests.cs" />
     <Compile Include="Parser\BcrCommandParserTests.cs" />
+    <Compile Include="Parser\ConfigCommandParserTests.cs" />
     <Compile Include="Parser\CommandParserTests.cs" />
     <Compile Include="SerializableRoundTripTests.cs" />
     <Compile Include="CacheTests.cs" />

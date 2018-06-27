@@ -6,7 +6,9 @@ using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
-    internal class CommandParser<TVerb> where TVerb : IOptions
+    internal class CommandParser<TVerb, TVerb2>
+        where TVerb : IOptions
+        where TVerb2 : IOptions
     {
         private readonly Parser _parser;
 
@@ -22,8 +24,11 @@ namespace Unit4.Automation
         public IOptions GetOptions(params string[] args)
         {
             return _parser
-                .ParseArguments(args, typeof(TVerb))
-                .MapResult<TVerb, IOptions>(options => options, errors => new NullOptions());
+                .ParseArguments(args, typeof(TVerb), typeof(TVerb2))
+                .MapResult<TVerb, TVerb2, IOptions>(
+                    options => options, 
+                    options => new NullOptions(),
+                    errors => new NullOptions());
         }
     }
 }
