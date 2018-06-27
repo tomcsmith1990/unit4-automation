@@ -9,23 +9,25 @@ namespace Unit4.Automation
     {
         private readonly ILogging _log;
         private readonly CostCentreHierarchy _hierarchy;
+        private readonly ConfigOptions _config;
 
-        public BcrReader(ILogging log)
+        public BcrReader(ILogging log, ConfigOptions config)
         {
             _log = log;
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
-                        () => new CostCentresProvider().GetCostCentres(), 
+                        () => new CostCentresProvider(config).GetCostCentres(), 
                         new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
             _hierarchy = new CostCentreHierarchy(costCentreList);
+            _config = config;
         }
 
         public Bcr Read()
         {
             var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
-            var factory = new Unit4EngineFactory();
+            var factory = new Unit4EngineFactory(_config);
             var bcrReport = 
                 new Cache<Bcr>(
                     () => new BcrReport(factory, _log).RunBcr(tier3Hierarchy), 

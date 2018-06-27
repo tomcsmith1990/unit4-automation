@@ -7,9 +7,5 @@ namespace Unit4.Automation.Interfaces
         string Username { get; }
 
         SecureString Password { get; }
-
-        string Client { get; }
-
-        string SoapService { get; }
     }
 }

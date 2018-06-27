@@ -83,12 +83,15 @@
     <Compile Include="Model\SerializableCostCentreList.cs" />
     <Compile Include="Model\NullOptions.cs" />
     <Compile Include="Model\BcrOptions.cs" />
+    <Compile Include="Model\ConfigOptions.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
     <Compile Include="ReportEngine\Unit4WebProvider.cs" />
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="NullRunner.cs" />
+    <Compile Include="ConfigRunner.cs" />
+    <Compile Include="ConfigOptionsFile.cs" />
     <Compile Include="BcrReportRunner.cs" />
     <Compile Include="BcrReader.cs" />
     <Compile Include="BcrFilter.cs" />

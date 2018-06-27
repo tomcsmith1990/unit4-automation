@@ -8,29 +8,17 @@ using Unit4.Automation.Tests.Helpers;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Unit4.Automation.Tests
+namespace Unit4.Automation.Tests.Parser
 {
     [TestFixture]
-    internal class CommandParserTests
+    internal class BcrCommandParserTests
     {
-        private CommandParser<BcrOptions> _parser;
+        private CommandParser<BcrOptions, ConfigOptions> _parser;
 
         [SetUp]
         public void Setup()
         {
-            _parser = new CommandParser<BcrOptions>(TextWriter.Null);
-        }
-
-        [Test]
-        public void GivenNoArguments_ThenTheCommandShouldBeHelp()
-        {
-            Assert.That(_parser.GetOptions(), Is.TypeOf(typeof(NullOptions)));
-        }
-
-        [Test]
-        public void GivenAnUnknownCommand_ThenTheCommandShouldBeHelp()
-        {
-            Assert.That(_parser.GetOptions("unknown"), Is.TypeOf(typeof(NullOptions)));
+            _parser = new CommandParser<BcrOptions, ConfigOptions>(TextWriter.Null);
         }
 
         [Test]

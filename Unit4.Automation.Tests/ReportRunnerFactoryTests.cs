@@ -17,6 +17,16 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
+        public void GivenConfigOptions_ThenWeShouldGetConfigRunner()
+        {
+            var factory = new ReportRunnerFactory();
+
+            var options = new ConfigOptions();
+
+            Assert.That(factory.Create(options), Is.TypeOf(typeof(ConfigRunner)));
+        }
+
+        [Test]
         public void GivenNullOptions_ThenWeShouldGetNullRunner()
         {
             var factory = new ReportRunnerFactory();
