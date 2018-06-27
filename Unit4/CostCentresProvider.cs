@@ -10,9 +10,7 @@ namespace Unit4.Automation
     {
         private DataSet RunReport(string resql)
         {
-            var credentials = new Credentials();
-
-            var engine = new Unit4Engine(credentials);
+            var engine = new Unit4Engine();
             return engine.RunReport(resql);
         }
 

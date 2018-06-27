@@ -32,6 +32,7 @@
                         <File Id="ReportEngineWebProvider" Name="ReportEngine.Provider.WebService.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Provider.WebService.dll" />
                         <File Id="ReportEngineReporterSpreadsheetML" Name="ReportEngine.Reporter.SpreadSheetML.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Reporter.SpreadSheetML.dll" />
                         <File Id="ReportEngineOpenXml" Name="DocumentFormat.OpenXml.dll" DiskId="1" Source="./Unit4/bin/Debug/DocumentFormat.OpenXml.dll" />
+                        <File Id="CredentialManagement" Name="CredentialManagement.dll" DiskId="1" Source="./Unit4/bin/Debug/CredentialManagement.dll" />
 
                         <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
                         <RegistryKey Root="HKCU" Key="Software\Unit4Automation">

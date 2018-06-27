@@ -1,10 +1,12 @@
+using System.Security;
+
 namespace Unit4.Automation.Interfaces
 {
     internal interface ICredentials
     {
         string Username { get; }
 
-        string Password { get; }
+        SecureString Password { get; }
 
         string Client { get; }
 
