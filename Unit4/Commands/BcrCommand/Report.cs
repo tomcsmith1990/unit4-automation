@@ -8,9 +8,17 @@ namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class Report
     {
-        public Tier Tier { get; set; }
-        public IGrouping<string, CostCentre> Hierarchy { get; set; }
+        private readonly Tier _tier;
+        private readonly IGrouping<string, CostCentre> _hierarchy;
 
+        public Report(Tier tier, IGrouping<string, CostCentre> hierarchy)
+        {
+            _tier = tier;
+            _hierarchy = hierarchy;    
+        }
+
+        public Tier Tier { get { return _tier; } }
+        public IGrouping<string, CostCentre> Hierarchy { get { return _hierarchy; } }
         public string Parameter { get { return Hierarchy.Key; } }
 
         public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && Hierarchy.Any(); } }
@@ -19,7 +27,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         {
             var fallbackGroups = Hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
 
-            return fallbackGroups.Select(x => new Report() { Tier = FallBackTier(Tier), Hierarchy = x });
+            return fallbackGroups.Select(x => new Report(FallBackTier(Tier), x));
         }
 
         private Tier FallBackTier(Tier current)

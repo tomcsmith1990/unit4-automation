@@ -25,7 +25,7 @@ namespace Unit4.Automation.Commands.BcrCommand
 
         public Bcr RunBcr(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
-            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
+            var reportsToRun = hierarchy.Select(x => new Report(Tier.Tier3, x));
             
             return new Bcr(RunBcr(reportsToRun).ToList());
         }
