@@ -1,16 +1,19 @@
 using ReportEngine.Base.Security;
 using ReportEngine.Base.Data.Provider;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4WebConnector
     {
         private readonly ICredentialManager _manager;
+        private readonly ConfigOptions _config;
 
-        public Unit4WebConnector(ICredentialManager manager)
+        public Unit4WebConnector(ICredentialManager manager, ConfigOptions config)
         {
             _manager = manager;
+            _config = config;
         }
         
         public WebProviderConnector Create()
@@ -29,11 +32,11 @@ namespace Unit4.Automation.ReportEngine
                 Name = "WebService",
                 Authenticators = authenticators,
                 Authenticator = agressoAuthenticator,
-                Datasource = credentials.SoapService
+                Datasource = _config.Url
             };
             
             agressoAuthenticator.Name = credentials.Username;
-            agressoAuthenticator.Client = credentials.Client;
+            agressoAuthenticator.Client = _config.Client.ToString();
 
             return connector;
         }

@@ -9,11 +9,15 @@ namespace Unit4.Automation
     {
         public IRunner Create(IOptions options)
         {
+            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
+            var file = new ConfigOptionsFile(configPath);
+            
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {
                 var log = new Logging();
-                var reader = new BcrReader(log);
+                var config = file.Exists() ? file.Load() : new ConfigOptions();
+                var reader = new BcrReader(log, config);
                 var filter = new BcrFilter(bcrOptions);
                 var writer = new Excel();
                 var pathProvider = new PathProvider(bcrOptions);
@@ -23,8 +27,6 @@ namespace Unit4.Automation
             var configOptions = options as ConfigOptions;
             if (configOptions != null)
             {
-                var configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
-                var file = new ConfigOptionsFile(configPath);
                 return new ConfigRunner(configOptions, file);
             }
 

@@ -1,6 +1,7 @@
 using System;
 using ReportEngine.Provider.WebService;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 using Unit4.Automation;
 
 namespace Unit4.Automation.ReportEngine
@@ -9,9 +10,9 @@ namespace Unit4.Automation.ReportEngine
     {
         private readonly WebProvider _provider;
 
-        public Unit4WebProvider()
+        public Unit4WebProvider(ConfigOptions config)
         {
-            var connector = new Unit4WebConnector(new WindowsCredentialManager()).Create();
+            var connector = new Unit4WebConnector(new WindowsCredentialManager(), config).Create();
             _provider = new WebProvider(connector);
         }
 
