@@ -9,10 +9,12 @@ namespace Unit4.Automation.Model
     internal class ConfigOptions : IOptions
     {
         private readonly int _client;
+        private readonly string _url;
 
-        public ConfigOptions(int client = 0)
+        public ConfigOptions(int client = 0, string url = null)
         {
             _client = client;
+            _url = url;
         }
 
         [Option(HelpText = "Set the Unit4 client.")]
@@ -24,11 +26,12 @@ namespace Unit4.Automation.Model
             }
         }
 
+        [Option(HelpText = "Set the Unit4 SOAP service URL.")]
         public string Url
         {
             get
             {
-                throw new System.NotImplementedException();
+                return _url;
             }
         }
     }
