@@ -8,7 +8,7 @@ using Unit4.Automation.Tests.Helpers;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Unit4.Automation.Tests
+namespace Unit4.Automation.Tests.Parser
 {
     [TestFixture]
     internal class CommandParserTests

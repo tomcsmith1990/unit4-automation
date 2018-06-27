@@ -93,7 +93,7 @@
     <Compile Include="CostCentreHierarchyTests.cs" />
     <Compile Include="BcrReportTests.cs" />
     <Compile Include="ResqlTests.cs" />
-    <Compile Include="CommandParserTests.cs" />
+    <Compile Include="Parser\CommandParserTests.cs" />
     <Compile Include="SerializableRoundTripTests.cs" />
     <Compile Include="CacheTests.cs" />
     <Compile Include="ReportRunnerFactoryTests.cs" />
