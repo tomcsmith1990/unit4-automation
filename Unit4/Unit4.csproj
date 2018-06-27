@@ -89,7 +89,7 @@
     <Compile Include="ReportEngine\Unit4WebProvider.cs" />
     <Compile Include="ReportEngine\Unit4WebConnector.cs" />
     <Compile Include="NullRunner.cs" />
-    <Compile Include="ConfigRunner.cs" />
+    <Compile Include="Commands\ConfigCommand\ConfigRunner.cs" />
     <Compile Include="ConfigOptionsFile.cs" />
     <Compile Include="Commands\BcrCommand\BcrLineBuilder.cs" />
     <Compile Include="Commands\BcrCommand\BcrFilter.cs" />

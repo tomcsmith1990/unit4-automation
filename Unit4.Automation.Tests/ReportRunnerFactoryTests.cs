@@ -1,6 +1,7 @@
 using Unit4.Automation.Model;
 using NUnit.Framework;
 using Unit4.Automation.Commands.BcrCommand;
+using Unit4.Automation.Commands.ConfigCommand;
 
 namespace Unit4.Automation.Tests
 {

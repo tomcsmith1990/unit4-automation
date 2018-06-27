@@ -3,6 +3,7 @@ using Unit4.Automation.Model;
 using Unit4.Automation.ReportEngine;
 using System.IO;
 using Unit4.Automation.Commands.BcrCommand;
+using Unit4.Automation.Commands.ConfigCommand;
 
 namespace Unit4.Automation
 {

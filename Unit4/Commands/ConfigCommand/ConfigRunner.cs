@@ -2,7 +2,7 @@ using System;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.ConfigCommand
 {
     internal class ConfigRunner : IRunner
     {
