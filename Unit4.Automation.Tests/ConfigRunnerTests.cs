@@ -11,11 +11,8 @@ namespace Unit4.Automation.Tests
         public void GivenNoPriorConfigOptions_ThenTheNewOptionsShouldBeSaved()
         {
             var options = new ConfigOptions(1234, "http://test.url");
-            var runner = new ConfigRunner(options);
 
-            runner.Run();
-
-            var loadedOptions = ConfigOptions.Load();
+            var loadedOptions = GetPersistedOptions(options);
 
             Assert.That(loadedOptions, Is.EqualTo(options));
         }
@@ -23,16 +20,9 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenPriorOptionsAndNewClient_ThenTheUnchangedOptionsShouldBePersisted()
         {
-            var priorOptions = new ConfigOptions(1234, "http://test.url");
-            priorOptions.Save();
+            new ConfigOptions(1234, "http://test.url").Save();
 
-            var options = new ConfigOptions(9999);
-
-            var runner = new ConfigRunner(options);
-
-            runner.Run();
-
-            var loadedOptions = ConfigOptions.Load();
+            var loadedOptions = GetPersistedOptions(new ConfigOptions(9999));
 
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(9999, "http://test.url")));
         }
@@ -40,35 +30,26 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenPriorOptionsAndNewUrl_ThenTheUnchangedOptionsShouldBePersisted()
         {
-            var priorOptions = new ConfigOptions(1234, "http://test.url");
-            priorOptions.Save();
-
-            var options = new ConfigOptions(url: "http://some/other/test.url");
-
-            var runner = new ConfigRunner(options);
-
-            runner.Run();
-
-            var loadedOptions = ConfigOptions.Load();
-
+            new ConfigOptions(1234, "http://test.url").Save();
+            
+            var loadedOptions = GetPersistedOptions(new ConfigOptions(url: "http://some/other/test.url"));
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(1234, "http://some/other/test.url")));
         }
 
         [Test]
         public void GivenPriorOptionsAndAllNewOptions_ThenTheNewOptionsShouldBePersisted()
         {
-            var priorOptions = new ConfigOptions(1234, "http://test.url");
-            priorOptions.Save();
+            new ConfigOptions(1234, "http://test.url").Save();
 
-            var options = new ConfigOptions(9999, "http://some/other/test.url");
-
-            var runner = new ConfigRunner(options);
-
-            runner.Run();
-
-            var loadedOptions = ConfigOptions.Load();
+            var loadedOptions = GetPersistedOptions(new ConfigOptions(9999, "http://some/other/test.url"));
 
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(9999, "http://some/other/test.url")));
+        }
+
+        private ConfigOptions GetPersistedOptions(ConfigOptions optionsToSave)
+        {
+            new ConfigRunner(optionsToSave).Run();
+            return ConfigOptions.Load();
         }
     }
 }
