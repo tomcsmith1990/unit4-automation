@@ -19,8 +19,7 @@ namespace Unit4.Automation.ReportEngine
         {
             var credentials = _manager.Credentials;
 
-            var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = credentials.Password;
+            var agressoAuthenticator = new AgressoAuthenticator() { Password = credentials.Password };
             
             var authenticators = new BaseAuthenticator[1]
             {
