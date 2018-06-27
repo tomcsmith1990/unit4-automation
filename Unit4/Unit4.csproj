@@ -102,7 +102,7 @@
     <Compile Include="JsonFile.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />
-    <Compile Include="CommandParser.cs" />
+    <Compile Include="Commands\CommandParser.cs" />
     <Compile Include="PathProvider.cs" />
     <Compile Include="WindowsCredentialManager.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
