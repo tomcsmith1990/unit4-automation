@@ -27,7 +27,7 @@ namespace Unit4.Automation
                 .ParseArguments(args, typeof(TVerb), typeof(TVerb2))
                 .MapResult<TVerb, TVerb2, IOptions>(
                     options => options, 
-                    options => new NullOptions(),
+                    options => new ConfigOptions(),
                     errors => new NullOptions());
         }
     }
