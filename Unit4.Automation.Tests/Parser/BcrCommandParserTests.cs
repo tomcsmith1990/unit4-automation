@@ -32,7 +32,7 @@ namespace Unit4.Automation.Tests.Parser
         [TestCaseSource("CaseDifferences")]
         public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(Criteria criteria, string optionName)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--{0}=myTier", optionName));
+            var options = _parser.GetOptions("bcr", $"--{optionName}=myTier");
             var bcrOptions = options as BcrOptions;
             
             Assert.That(bcrOptions.ValueOf(criteria).Single(), Is.EqualTo("myTier"));
@@ -64,7 +64,7 @@ namespace Unit4.Automation.Tests.Parser
         {
             var commandSeparatedTiers = new [] { "firstTier", "secondTier" };
             
-            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), string.Join(",", commandSeparatedTiers)));
+            var options = _parser.GetOptions("bcr", $"--{criteria.Name()}={string.Join(",", commandSeparatedTiers)}");
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.ValueOf(criteria), Is.EquivalentTo(commandSeparatedTiers));
@@ -75,7 +75,7 @@ namespace Unit4.Automation.Tests.Parser
             [Values] Criteria criteria, 
             [Values("myTier,,,", ",myTier,,", ",,myTier,", ",,,myTier")] string option)
         {
-            var options = _parser.GetOptions("bcr", string.Format("--{0}={1}", criteria.Name(), option));
+            var options = _parser.GetOptions("bcr", $"--{criteria.Name()}={option}");
 
             var bcrOptions = options as BcrOptions;
 
@@ -87,7 +87,7 @@ namespace Unit4.Automation.Tests.Parser
         {
             var path = @"C:\my\path\to\output";
 
-            var options = _parser.GetOptions("bcr", string.Format("--output={0}", path));
+            var options = _parser.GetOptions("bcr", $"--output={path}");
             var bcrOptions = options as BcrOptions;
 
             Assert.That(bcrOptions.OutputDirectory, Is.EqualTo(path));

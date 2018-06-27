@@ -46,12 +46,12 @@ namespace Unit4.Automation
 
         private void AddSubtotals(MSExcel.Worksheet sheet, int totalRow, int startRow, int endRow)
         {
-            ((MSExcel.Range)sheet.Cells[totalRow, 13]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
-            ((MSExcel.Range)sheet.Cells[totalRow, 14]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
-            ((MSExcel.Range)sheet.Cells[totalRow, 15]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
-            ((MSExcel.Range)sheet.Cells[totalRow, 16]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
-            ((MSExcel.Range)sheet.Cells[totalRow, 17]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
-            ((MSExcel.Range)sheet.Cells[totalRow, 18]).FormulaR1C1 = string.Format("=SUBTOTAL(109, R{0}C:R{1}C", startRow, endRow);
+            ((MSExcel.Range)sheet.Cells[totalRow, 13]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range)sheet.Cells[totalRow, 14]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range)sheet.Cells[totalRow, 15]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range)sheet.Cells[totalRow, 16]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range)sheet.Cells[totalRow, 17]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range)sheet.Cells[totalRow, 18]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
 
             SetNumberFormat(sheet.Range[sheet.Cells[totalRow, 13], sheet.Cells[totalRow, 18]]);
         }

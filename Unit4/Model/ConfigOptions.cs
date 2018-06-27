@@ -62,7 +62,7 @@ namespace Unit4.Automation.Model
 
         public override string ToString()
         {
-            return string.Format("Client = {0}; Url = {1}", Client, Url);
+            return $"Client = {Client}; Url = {Url}";
         }
     }
 }

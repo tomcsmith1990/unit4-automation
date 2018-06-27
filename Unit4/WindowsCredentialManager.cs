@@ -28,7 +28,7 @@ namespace Unit4.Automation
         private class MissingCredentialsException : Exception
         {
             public MissingCredentialsException()
-                : this(string.Format("The {0} credential does not exist in Credential Manager. Please create it.", _credentialName))
+                : this($"The {_credentialName} credential does not exist in Credential Manager. Please create it.")
             {
             }
 
