@@ -71,7 +71,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         private class Progress : IDisposable
         {
             private readonly Stopwatch _stopwatch;
-            private long _elapsed = 0, _current = 0;
+            private long _elapsed, _current;
 
             private readonly TextWriter _output;
 
