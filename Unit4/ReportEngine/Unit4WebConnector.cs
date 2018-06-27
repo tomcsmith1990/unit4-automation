@@ -18,7 +18,7 @@ namespace Unit4.Automation.ReportEngine
         
         public WebProviderConnector Create()
         {
-            var credentials = _manager.CredentialsOrDefault;
+            var credentials = _manager.Credentials;
 
             var agressoAuthenticator = new AgressoAuthenticator();
             agressoAuthenticator.Password = credentials.Password;

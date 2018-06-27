@@ -9,7 +9,7 @@ namespace Unit4.Automation
     {
         private const string _credentialName = "Unit4 Automation";
 
-        public ICredentials CredentialsOrDefault
+        public ICredentials Credentials
         {
             get
             {
