@@ -23,5 +23,13 @@ namespace Unit4.Automation.Model
                 return _client;
             }
         }
+
+        public string Url
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+        }
     }
 }

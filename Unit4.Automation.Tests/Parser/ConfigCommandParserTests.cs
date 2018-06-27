@@ -35,5 +35,13 @@ namespace Unit4.Automation.Tests.Parser
 
             Assert.That(options.Client, Is.EqualTo(1234));
         }
+
+        [Test]
+        public void GivenTheConfigCommand_ThenTheUrlOptionShouldBeRecognised()
+        {
+            var options = _parser.GetOptions("config", "--url=http://foo.bar/Service/x.asmx") as ConfigOptions;
+
+            Assert.That(options.Url, Is.EqualTo("http://foo.bar/Service/x.asmx"));
+        }
     }
 }
