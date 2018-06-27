@@ -70,5 +70,10 @@ namespace Unit4.Automation.Model
                 return hash;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("Client = {0}; Url = {1}", Client, Url);
+        }
     }
 }
