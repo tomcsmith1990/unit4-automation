@@ -17,10 +17,16 @@ namespace Unit4.Automation
 
         public void Run()
         {
-            var currentOptions = _file.Load();
-
-            var updatedOptions = Merge(currentOptions, _options);
-            _file.Save(updatedOptions);
+            if (_file.Exists())
+            {
+                var currentOptions = _file.Load();
+                var updatedOptions = Merge(currentOptions, _options);
+                _file.Save(updatedOptions);
+            }
+            else
+            {
+                _file.Save(_options);
+            }
         }
 
         private ConfigOptions Merge(ConfigOptions current, ConfigOptions newer)

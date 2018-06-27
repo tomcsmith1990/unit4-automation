@@ -20,12 +20,17 @@ namespace Unit4.Automation
 
         public ConfigOptions Load()
         {
-            if (_file.Exists())
+            if (Exists())
             {
                 return _file.Read();
             }
 
-            return new ConfigOptions();
+            throw new System.IO.FileNotFoundException("Could not load config from file");
+        }
+
+        public bool Exists()
+        {
+            return _file.Exists();
         }
     }
 }
