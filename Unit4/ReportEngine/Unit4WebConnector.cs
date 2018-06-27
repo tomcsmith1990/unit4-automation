@@ -1,4 +1,3 @@
-using ReportEngine.Base.Security;
 using ReportEngine.Base.Data.Provider;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;

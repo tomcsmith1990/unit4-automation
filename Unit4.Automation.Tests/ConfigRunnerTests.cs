@@ -1,6 +1,4 @@
-using System;
 using Unit4.Automation.Model;
-using Unit4.Automation;
 using NUnit.Framework;
 using Unit4.Automation.Tests.Helpers;
 using Unit4.Automation.Commands.ConfigCommand;

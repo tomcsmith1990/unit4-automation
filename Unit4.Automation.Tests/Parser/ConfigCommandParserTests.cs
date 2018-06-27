@@ -1,12 +1,6 @@
-using System;
 using NUnit.Framework;
 using System.IO;
 using Unit4.Automation.Model;
-using System.Linq;
-using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
-using Unit4.Automation.Tests.Helpers;
-using System.Collections.Generic;
-using System.Text;
 using Unit4.Automation.Commands;
 
 namespace Unit4.Automation.Tests.Parser

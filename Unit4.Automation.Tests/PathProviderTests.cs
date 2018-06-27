@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Unit4.Automation;
 using Unit4.Automation.Model;
 using System.IO;
 

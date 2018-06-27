@@ -4,7 +4,6 @@ using Unit4.Automation.Model;
 using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
 using Unit4.Automation.ReportEngine;
-using Moq;
 using System.Security;
 
 namespace Unit4.Automation.Tests
