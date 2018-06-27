@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Model\BcrLine.cs" />
-    <Compile Include="BcrLineBuilder.cs" />
     <Compile Include="ReportEngine\Logging.cs" />
     <Compile Include="CostCentresProvider.cs" />
     <Compile Include="CostCentreHierarchy.cs" />
@@ -92,13 +91,14 @@
     <Compile Include="NullRunner.cs" />
     <Compile Include="ConfigRunner.cs" />
     <Compile Include="ConfigOptionsFile.cs" />
-    <Compile Include="BcrReportRunner.cs" />
-    <Compile Include="BcrReader.cs" />
-    <Compile Include="BcrFilter.cs" />
+    <Compile Include="Commands\BcrCommand\BcrLineBuilder.cs" />
+    <Compile Include="Commands\BcrCommand\BcrFilter.cs" />
+    <Compile Include="Commands\BcrCommand\BcrReader.cs" />
+    <Compile Include="Commands\BcrCommand\BcrReport.cs" />
+    <Compile Include="Commands\BcrCommand\BcrReportRunner.cs" />
+    <Compile Include="Commands\BcrCommand\Report.cs" />
     <Compile Include="ReportRunnerFactory.cs" />
-    <Compile Include="BcrReport.cs" />
     <Compile Include="Cache.cs" />
-    <Compile Include="Report.cs" />
     <Compile Include="JsonFile.cs" />
     <Compile Include="Excel.cs" />
     <Compile Include="Resql.cs" />

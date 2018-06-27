@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Moq;
 using System.IO;
 using System.Linq;
+using Unit4.Automation.Commands.BcrCommand;
 
 namespace Unit4.Automation.Tests
 {

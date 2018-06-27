@@ -3,7 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using Unit4.Automation.Interfaces;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrReportRunner : IRunner
     {

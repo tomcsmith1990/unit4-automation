@@ -3,7 +3,7 @@ using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrReader : IBcrReader
     {
