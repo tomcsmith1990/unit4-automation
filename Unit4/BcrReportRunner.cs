@@ -59,6 +59,7 @@ namespace Unit4.Automation
             catch (Exception e)
             {    
                 _log.Error(e);
+                _progress.WriteLine(e.Message);
                 _progress.WriteLine(_log.Path);        
             }
             finally
