@@ -6,14 +6,16 @@ namespace Unit4.Automation
 {
     internal class ConfigRunner : IRunner
     {
+        private readonly ConfigOptions _options;
+
         public ConfigRunner(ConfigOptions options)
         {
-
+            _options = options;
         }
 
         public void Run()
         {
-            throw new NotImplementedException();
+            _options.Save();
         }
     }
 }

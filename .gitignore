@@ -340,3 +340,4 @@ ASALocalRun/
 Installer.wixobj
 Installer.msi
 Installer.wixpdb
+config.json

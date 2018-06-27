@@ -2,12 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Interfaces;
 using CommandLine;
+using System.IO;
 
 namespace Unit4.Automation.Model
 {
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
+        private static readonly IFile<ConfigOptions> _file
+            = new JsonFile<ConfigOptions>(Path.Combine(Directory.GetCurrentDirectory(), "config.json"));
+        
         private readonly int _client;
         private readonly string _url;
 
@@ -35,9 +39,14 @@ namespace Unit4.Automation.Model
             }
         }
 
+        public void Save()
+        {
+            _file.Write(this);
+        }
+
         public static ConfigOptions Load()
         {
-            throw new System.NotImplementedException();
+            return _file.Read();
         }
 
         public override bool Equals(object o)
