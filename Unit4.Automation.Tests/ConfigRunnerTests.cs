@@ -6,6 +6,7 @@ using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
 {
+    [TestFixture]
     internal class ConfigRunnerTests
     {
         private TempFile _tempFile;
