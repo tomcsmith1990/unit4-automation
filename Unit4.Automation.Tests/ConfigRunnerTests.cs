@@ -63,6 +63,12 @@ namespace Unit4.Automation.Tests
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(9999, "http://some/other/test.url")));
         }
 
+        [Test]
+        public void GivenNoPriorOptions_ThenTheConfigOptionFileShouldThrowOnLoad()
+        {
+            Assert.Throws<System.IO.FileNotFoundException>(() => _file.Load());
+        }
+
         private ConfigOptions GetPersistedOptions(ConfigOptions optionsToSave)
         {
             new ConfigRunner(optionsToSave, _file).Run();
