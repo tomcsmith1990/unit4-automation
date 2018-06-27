@@ -20,11 +20,8 @@ namespace Unit4.Automation.ReportEngine
             var credentials = _manager.Credentials;
 
             var agressoAuthenticator = new AgressoAuthenticator() { Password = credentials.Password };
-            
-            var authenticators = new BaseAuthenticator[1]
-            {
-                agressoAuthenticator
-            };
+            var authenticators = new BaseAuthenticator[] { agressoAuthenticator };
+
             var connector = new WebProviderConnector() 
             { 
                 Name = "WebService",
