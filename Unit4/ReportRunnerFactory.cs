@@ -22,7 +22,7 @@ namespace Unit4.Automation
             var configOptions = options as ConfigOptions;
             if (configOptions != null)
             {
-                return new ConfigRunner();
+                return new ConfigRunner(configOptions);
             }
 
             return new NullRunner();

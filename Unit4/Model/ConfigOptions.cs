@@ -34,5 +34,32 @@ namespace Unit4.Automation.Model
                 return _url;
             }
         }
+
+        public static ConfigOptions Load()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool Equals(object o)
+        {
+            var otherConfig = o as ConfigOptions;
+            if (otherConfig == null)
+            {
+                return false;
+            }
+
+            return otherConfig.Client == this.Client && string.Equals(otherConfig.Url, this.Url);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = (int) 2166136261;
+                hash = hash * 16777619 + Client.GetHashCode();
+                hash = hash * 16777619 + (Url == null ? 0 : Url.GetHashCode());
+                return hash;
+            }
+        }
     }
 }
