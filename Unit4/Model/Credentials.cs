@@ -29,21 +29,5 @@ namespace Unit4.Automation.Model
                 return _password;
             }
         }
-
-        public string Client
-        { 
-            get 
-            { 
-                return ""; 
-            }
-        }
-
-        public string SoapService
-        { 
-            get 
-            { 
-                return ""; 
-            }
-        }
     }
 }

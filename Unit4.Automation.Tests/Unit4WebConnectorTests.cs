@@ -63,8 +63,6 @@ namespace Unit4.Automation.Tests
         {
             public string Username { get { return "username"; } }
             public SecureString Password { get { return SecureStringHelper.ToSecureString("password"); } }
-            public string Client { get { return "client"; } }
-            public string SoapService { get { return "soapService"; } }
         }
     }
 }
