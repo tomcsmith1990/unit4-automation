@@ -7,18 +7,20 @@ namespace Unit4.Automation
     internal class ConfigRunner : IRunner
     {
         private readonly ConfigOptions _options;
+        private readonly ConfigOptionsFile _file;
 
-        public ConfigRunner(ConfigOptions options)
+        public ConfigRunner(ConfigOptions options, ConfigOptionsFile file)
         {
             _options = options;
+            _file = file;
         }
 
         public void Run()
         {
-            var currentOptions = ConfigOptions.Load();
+            var currentOptions = _file.Load();
 
             var updatedOptions = Merge(currentOptions, _options);
-            updatedOptions.Save();
+            _file.Save(updatedOptions);
         }
 
         private ConfigOptions Merge(ConfigOptions current, ConfigOptions newer)

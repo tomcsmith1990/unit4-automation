@@ -9,9 +9,6 @@ namespace Unit4.Automation.Model
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
-        private static readonly IFile<ConfigOptions> _file
-            = new JsonFile<ConfigOptions>(Path.Combine(Directory.GetCurrentDirectory(), "config.json"));
-        
         private readonly int _client;
         private readonly string _url;
 
@@ -37,16 +34,6 @@ namespace Unit4.Automation.Model
             {
                 return _url;
             }
-        }
-
-        public void Save()
-        {
-            _file.Write(this);
-        }
-
-        public static ConfigOptions Load()
-        {
-            return _file.Read();
         }
 
         public override bool Equals(object o)

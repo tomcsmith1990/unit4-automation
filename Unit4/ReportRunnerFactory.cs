@@ -1,6 +1,7 @@
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 using Unit4.Automation.ReportEngine;
+using System.IO;
 
 namespace Unit4.Automation
 {
@@ -22,7 +23,9 @@ namespace Unit4.Automation
             var configOptions = options as ConfigOptions;
             if (configOptions != null)
             {
-                return new ConfigRunner(configOptions);
+                var configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
+                var file = new ConfigOptionsFile(configPath);
+                return new ConfigRunner(configOptions, file);
             }
 
             return new NullRunner();
