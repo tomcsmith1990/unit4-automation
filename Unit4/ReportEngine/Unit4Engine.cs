@@ -20,8 +20,7 @@ namespace Unit4.Automation.ReportEngine
         {
             using (var webProvider = new Unit4WebProvider(_config).Create())
             {
-                var engine = new Engine(webProvider, ClientType.External);
-                engine.InProcess = true;
+                var engine = new Engine(webProvider, ClientType.External) { InProcess = true };
 
                 using (engine)
                 {
