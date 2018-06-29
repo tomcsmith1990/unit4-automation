@@ -29,7 +29,7 @@ namespace Unit4.Automation.Tests.Parser
             Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(BcrOptions)));
         }
 
-        [TestCaseSource("CaseDifferences")]
+        [TestCaseSource(nameof(CaseDifferences))]
         public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(Criteria criteria, string optionName)
         {
             var options = _parser.GetOptions("bcr", $"--{optionName}=myTier");
