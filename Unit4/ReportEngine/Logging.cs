@@ -33,9 +33,10 @@ namespace Unit4.Automation.ReportEngine
 
         public void Error(Exception exception)
         {
-            if (exception is LineException)
+            var lineException = exception as LineException;
+            if (lineException != null)
             {
-                Log.Error(((LineException)exception).FullLine);
+                Log.Error(lineException.FullLine);
             }
 
             Log.Error(exception.Message);
