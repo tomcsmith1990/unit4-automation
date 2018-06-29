@@ -22,7 +22,7 @@ namespace Unit4.Automation
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {
-                return CreateBcrRunner(bcrOptions);
+                return CreateBcrRunner(bcrOptions, GetConfig());
             }
 
             var configOptions = options as ConfigOptions;
@@ -34,10 +34,9 @@ namespace Unit4.Automation
             return new NullRunner();
         }
 
-        private IRunner CreateBcrRunner(BcrOptions bcrOptions)
+        private IRunner CreateBcrRunner(BcrOptions bcrOptions, ProgramConfig config)
         {
             var log = new Logging();
-            var config = GetConfig();
             var reader = new BcrReader(log, config);
             var filter = new BcrFilter(bcrOptions);
             var writer = new Excel();
