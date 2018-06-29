@@ -9,9 +9,9 @@ namespace Unit4.Automation.ReportEngine
 {
     internal class Unit4Engine : IUnit4Engine
     {
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public Unit4Engine(ConfigOptions config)
+        public Unit4Engine(ProgramConfig config)
         {
             _config = config;
         }

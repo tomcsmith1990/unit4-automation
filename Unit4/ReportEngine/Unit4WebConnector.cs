@@ -7,9 +7,9 @@ namespace Unit4.Automation.ReportEngine
     internal class Unit4WebConnector
     {
         private readonly ICredentialManager _manager;
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public Unit4WebConnector(ICredentialManager manager, ConfigOptions config)
+        public Unit4WebConnector(ICredentialManager manager, ProgramConfig config)
         {
             _manager = manager;
             _config = config;

@@ -6,9 +6,9 @@ namespace Unit4.Automation.ReportEngine
     internal class Unit4EngineFactory : IUnit4EngineFactory
     {
         private readonly object _lock = new object();
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public Unit4EngineFactory(ConfigOptions config)
+        public Unit4EngineFactory(ProgramConfig config)
         {
             _config = config;
         }

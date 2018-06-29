@@ -38,7 +38,8 @@ namespace Unit4.Automation
         {
             var log = new Logging();
             var config = _file.Exists() ? _file.Load() : new ConfigOptions();
-            var reader = new BcrReader(log, config);
+            var programConfig = new ProgramConfig(config.Client, config.Url);
+            var reader = new BcrReader(log, programConfig);
             var filter = new BcrFilter(bcrOptions);
             var writer = new Excel();
             var pathProvider = new PathProvider(bcrOptions);
