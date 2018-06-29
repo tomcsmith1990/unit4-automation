@@ -55,7 +55,7 @@ namespace Unit4.Automation.Tests
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new [] { firstBcrLine, secondBcrLine }));
         }
 
-        [Test, TestCaseSource("CriteriaPowerset")]
+        [Test, TestCaseSource(nameof(CriteriaPowerset)]
         public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(IEnumerable<Criteria> criteria)
         {
             var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
