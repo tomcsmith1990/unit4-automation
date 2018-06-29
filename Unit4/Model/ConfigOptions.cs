@@ -7,17 +7,16 @@ namespace Unit4.Automation.Model
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
-        private readonly int _client;
         private readonly string _url;
 
         public ConfigOptions(int client = 0, string url = null)
         {
-            _client = client;
+            Client = client;
             _url = url;
         }
 
         [Option(HelpText = "Set the Unit4 client.")]
-        public int Client => _client;
+        public int Client { get; }
 
         [Option(HelpText = "Set the Unit4 SOAP service URL.")]
         public string Url

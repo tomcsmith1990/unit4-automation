@@ -8,16 +8,15 @@ namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class Report
     {
-        private readonly Tier _tier;
         private readonly IGrouping<string, CostCentre> _hierarchy;
 
         public Report(Tier tier, IGrouping<string, CostCentre> hierarchy)
         {
-            _tier = tier;
+            Tier = tier;
             _hierarchy = hierarchy;    
         }
 
-        public Tier Tier => _tier;
+        public Tier Tier { get; }
 
         public string Parameter => _hierarchy.Key;
 

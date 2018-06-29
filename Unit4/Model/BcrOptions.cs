@@ -13,7 +13,6 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
         private readonly IEnumerable<string> _costCentre;
-        private readonly string _outputDirectory;
 
         public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null)
         {}
@@ -28,7 +27,7 @@ namespace Unit4.Automation.Model
             _tier3 = tier3;
             _tier4 = tier4;
             _costCentre = costCentre;
-            _outputDirectory = outputDirectory;
+            OutputDirectory = outputDirectory;
         }
 
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
@@ -47,7 +46,7 @@ namespace Unit4.Automation.Model
         public IEnumerable<string> CostCentre => PreventNullAndRemoveEmptyStrings(_costCentre);
 
         [Option("output", HelpText = "The directory to save the bcr in. The directory must already exist.")]
-        public string OutputDirectory => _outputDirectory;
+        public string OutputDirectory { get; }
 
         private IEnumerable<string> PreventNullAndRemoveEmptyStrings(IEnumerable<string> enumerable)
         {
