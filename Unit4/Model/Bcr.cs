@@ -19,12 +19,6 @@ namespace Unit4.Automation.Model
             }
         }
 
-        public IEnumerable<BcrLine> Lines
-        {
-            get
-            {
-                return _lines;
-            }
-        }
+        public IEnumerable<BcrLine> Lines => _lines;
     }
 }

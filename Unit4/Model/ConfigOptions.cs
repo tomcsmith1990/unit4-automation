@@ -17,13 +17,7 @@ namespace Unit4.Automation.Model
         }
 
         [Option(HelpText = "Set the Unit4 client.")]
-        public int Client
-        {
-            get
-            {
-                return _client;
-            }
-        }
+        public int Client => _client;
 
         [Option(HelpText = "Set the Unit4 SOAP service URL.")]
         public string Url
@@ -60,9 +54,6 @@ namespace Unit4.Automation.Model
             }
         }
 
-        public override string ToString()
-        {
-            return $"Client = {Client}; Url = {Url}";
-        }
+        public override string ToString() => $"Client = {Client}; Url = {Url}";
     }
 }

@@ -28,10 +28,7 @@ namespace Unit4.Automation.Tests.Helpers
             return this;
         }
 
-        public BcrFilter Build()
-        {
-            return this;
-        }
+        public BcrFilter Build() => this;
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)
         {

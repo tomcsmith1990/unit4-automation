@@ -32,58 +32,22 @@ namespace Unit4.Automation.Model
         }
 
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
-        public IEnumerable<string> Tier1
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier1);
-            }
-        }
+        public IEnumerable<string> Tier1 => PreventNullAndRemoveEmptyStrings(_tier1);
 
         [Option(HelpText = "Filter by a tier 2 code.", Separator=',')]
-        public IEnumerable<string> Tier2
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier2);
-            }
-        }
+        public IEnumerable<string> Tier2 => PreventNullAndRemoveEmptyStrings(_tier2);
 
         [Option(HelpText = "Filter by a tier 3 code.", Separator=',')]
-        public IEnumerable<string> Tier3
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier3);
-            }
-        }
+        public IEnumerable<string> Tier3 => PreventNullAndRemoveEmptyStrings(_tier3);
 
         [Option(HelpText = "Filter by a tier 4 code.", Separator=',')]
-        public IEnumerable<string> Tier4
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier4);
-            }
-        }
+        public IEnumerable<string> Tier4 => PreventNullAndRemoveEmptyStrings(_tier4);
 
         [Option(HelpText = "Filter by a cost centre.", Separator=',')]
-        public IEnumerable<string> CostCentre
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_costCentre);
-            }
-        }
+        public IEnumerable<string> CostCentre => PreventNullAndRemoveEmptyStrings(_costCentre);
 
         [Option("output", HelpText = "The directory to save the bcr in. The directory must already exist.")]
-        public string OutputDirectory
-        {
-            get
-            {
-                return _outputDirectory;
-            }
-        }
+        public string OutputDirectory => _outputDirectory;
 
         private IEnumerable<string> PreventNullAndRemoveEmptyStrings(IEnumerable<string> enumerable)
         {

@@ -14,14 +14,8 @@ namespace Unit4.Automation.ReportEngine
             _provider = new WebProvider(connector);
         }
 
-        public WebProvider Create()
-        {
-            return _provider;
-        }
+        public WebProvider Create() => _provider;
 
-        public void Dispose()
-        {
-            _provider.Dispose();
-        }
+        public void Dispose() => _provider.Dispose();
     }
 }

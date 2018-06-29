@@ -14,20 +14,8 @@ namespace Unit4.Automation.Model
             _password = password ?? new SecureString();
         }
 
-        public string Username
-        { 
-            get 
-            { 
-                return _username; 
-            }
-        }
+        public string Username => _username; 
 
-        public SecureString Password
-        {
-            get
-            {
-                return _password;
-            }
-        }
+        public SecureString Password => _password;
     }
 }

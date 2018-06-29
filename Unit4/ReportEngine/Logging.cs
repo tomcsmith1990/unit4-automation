@@ -25,20 +25,11 @@ namespace Unit4.Automation.ReportEngine
             Log.Open(logFile);
         }
 
-        public void Close()
-        {
-            Log.Close();
-        }
+        public void Close() => Log.Close();
 
-        public void Info(string message)
-        {
-            Log.Info(message);
-        }
+        public void Info(string message) => Log.Info(message);
 
-        public void Error(string message)
-        {
-            Log.Error(message);
-        }
+        public void Error(string message) => Log.Error(message);
 
         public void Error(Exception exception)
         {
