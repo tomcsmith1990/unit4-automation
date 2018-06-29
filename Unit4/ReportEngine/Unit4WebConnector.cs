@@ -22,6 +22,11 @@ namespace Unit4.Automation.ReportEngine
             var agressoAuthenticator = new AgressoAuthenticator() { Password = credentials.Password };
             var authenticators = new BaseAuthenticator[] { agressoAuthenticator };
 
+            if (_config.Url == null)
+            {
+                throw new System.ApplicationException("The Unit4 SOAP service URL is not set in the config file.");
+            }
+
             var connector = new WebProviderConnector() 
             { 
                 Name = "WebService",

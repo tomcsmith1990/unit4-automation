@@ -90,7 +90,6 @@
     <Compile Include="Helpers\IEnumerablePowersetExtension.cs" />
     <Compile Include="Helpers\TempFile.cs" />
     <Compile Include="Unit4WebConnectorTests.cs" />
-    <Compile Include="ConfigOptionsTests.cs" />
     <Compile Include="ExcelTests.cs" />
     <Compile Include="CostCentreHierarchyTests.cs" />
     <Compile Include="BcrReportTests.cs" />
