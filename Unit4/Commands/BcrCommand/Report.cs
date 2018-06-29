@@ -17,10 +17,11 @@ namespace Unit4.Automation.Commands.BcrCommand
             _hierarchy = hierarchy;    
         }
 
-        public Tier Tier { get { return _tier; } }
-        public string Parameter { get { return _hierarchy.Key; } }
+        public Tier Tier => _tier;
 
-        public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && _hierarchy.Any(); } }
+        public string Parameter => _hierarchy.Key;
+
+        public bool ShouldFallBack => (Tier == Tier.Tier3 || Tier == Tier.Tier4) && _hierarchy.Any();
 
         public IEnumerable<Report> FallbackReports()
         {
