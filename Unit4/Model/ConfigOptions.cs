@@ -39,7 +39,7 @@ namespace Unit4.Automation.Model
                 return false;
             }
 
-            return otherConfig.Client == this.Client && string.Equals(otherConfig.Url, this.Url);
+            return otherConfig.Client == Client && string.Equals(otherConfig.Url, Url);
         }
 
         public override int GetHashCode()
