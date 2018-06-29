@@ -55,13 +55,13 @@ namespace Unit4.Automation.Tests
 
         private class FakeCredentialManager : ICredentialManager
         {
-            public ICredentials Credentials { get { return new FakeCredentials(); } }
+            public ICredentials Credentials => new FakeCredentials();
         }
 
         private class FakeCredentials : ICredentials
         {
-            public string Username { get { return "username"; } }
-            public SecureString Password { get { return SecureStringHelper.ToSecureString("password"); } }
+            public string Username => "username";
+            public SecureString Password => SecureStringHelper.ToSecureString("password");
         }
     }
 }
