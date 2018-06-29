@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Diagnostics;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
+using Unit4.Automation.ReportEngine;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {
@@ -66,6 +68,16 @@ namespace Unit4.Automation.Commands.BcrCommand
             {
                 _log.Close();
             }
+        }
+
+        public static BcrReportRunner Create(BcrOptions bcrOptions, ProgramConfig config)
+        { 
+            var log = new Logging();
+            var reader = new BcrReader(log, config);
+            var filter = new BcrFilter(bcrOptions);
+            var writer = new Excel();
+            var pathProvider = new PathProvider(bcrOptions);
+            return new BcrReportRunner(log, reader, filter, writer, pathProvider);
         }
 
         private class Progress : IDisposable
