@@ -12,7 +12,7 @@ namespace Unit4.Automation.ReportEngine
     {
         private readonly string _logFilePath;
 
-        public string Path { get { return _logFilePath; } }
+        public string Path => _logFilePath;
 
         public Logging()
         {
