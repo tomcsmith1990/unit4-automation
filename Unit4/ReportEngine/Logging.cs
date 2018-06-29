@@ -12,7 +12,7 @@ namespace Unit4.Automation.ReportEngine
     {
         private readonly string _logFilePath;
 
-        public string Path { get { return _logFilePath; } }
+        public string Path => _logFilePath;
 
         public Logging()
         {
@@ -25,26 +25,18 @@ namespace Unit4.Automation.ReportEngine
             Log.Open(logFile);
         }
 
-        public void Close()
-        {
-            Log.Close();
-        }
+        public void Close() => Log.Close();
 
-        public void Info(string message)
-        {
-            Log.Info(message);
-        }
+        public void Info(string message) => Log.Info(message);
 
-        public void Error(string message)
-        {
-            Log.Error(message);
-        }
+        public void Error(string message) => Log.Error(message);
 
         public void Error(Exception exception)
         {
-            if (exception is LineException)
+            var lineException = exception as LineException;
+            if (lineException != null)
             {
-                Log.Error(((LineException)exception).FullLine);
+                Log.Error(lineException.FullLine);
             }
 
             Log.Error(exception.Message);

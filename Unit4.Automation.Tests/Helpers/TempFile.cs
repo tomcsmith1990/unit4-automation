@@ -7,13 +7,13 @@ namespace Unit4.Automation.Tests.Helpers
     {
         private readonly string _path;
 
-        public string Path { get { return _path; } }
+        public string Path => _path;
         
         public TempFile(string extension)
         {
             var tempDirectory = System.IO.Path.GetTempPath();
 
-            var fileName = string.Format("{0}.{1}", Guid.NewGuid().ToString("N"), extension);
+            var fileName = $"{Guid.NewGuid().ToString("N")}.{extension}";
 
             _path = System.IO.Path.Combine(tempDirectory, fileName);
         }

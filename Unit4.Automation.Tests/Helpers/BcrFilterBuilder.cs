@@ -1,6 +1,7 @@
 using System;
 using Unit4.Automation.Model;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
+using Unit4.Automation.Commands.BcrCommand;
 
 namespace Unit4.Automation.Tests.Helpers
 {
@@ -27,10 +28,7 @@ namespace Unit4.Automation.Tests.Helpers
             return this;
         }
 
-        public BcrFilter Build()
-        {
-            return this;
-        }
+        public BcrFilter Build() => this;
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)
         {

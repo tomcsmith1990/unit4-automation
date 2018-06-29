@@ -2,7 +2,7 @@ using System.Data;
 using System.Collections.Generic;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrLineBuilder
     {

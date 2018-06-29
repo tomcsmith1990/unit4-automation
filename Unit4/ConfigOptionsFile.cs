@@ -1,4 +1,3 @@
-using System;
 using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 
@@ -13,10 +12,7 @@ namespace Unit4.Automation
             _file = new JsonFile<ConfigOptions>(path);
         }
 
-        public void Save(ConfigOptions options)
-        {
-            _file.Write(options);
-        }
+        public void Save(ConfigOptions options) => _file.Write(options);
 
         public ConfigOptions Load()
         {
@@ -28,9 +24,6 @@ namespace Unit4.Automation
             throw new System.IO.FileNotFoundException("Could not load config from file");
         }
 
-        public bool Exists()
-        {
-            return _file.Exists();
-        }
+        public bool Exists() => _file.Exists();
     }
 }

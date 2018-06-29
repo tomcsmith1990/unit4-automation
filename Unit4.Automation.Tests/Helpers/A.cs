@@ -8,15 +8,9 @@ namespace Unit4.Automation.Tests.Helpers
     {
         public enum Criteria { Tier1, Tier2, Tier3, Tier4, CostCentre }
 
-        public static BcrLineBuilder BcrLine()
-        {
-            return new BcrLineBuilder();
-        }
+        public static BcrLineBuilder BcrLine() => new BcrLineBuilder();
 
-        public static BcrFilterBuilder BcrFilter()
-        {
-            return new BcrFilterBuilder();
-        }
+        public static BcrFilterBuilder BcrFilter() => new BcrFilterBuilder();
 
         public static IEnumerable<string> ValueOf(this BcrOptions options, Criteria criteria)
         {

@@ -3,7 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using Unit4.Automation.Interfaces;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrReportRunner : IRunner
     {
@@ -71,7 +71,7 @@ namespace Unit4.Automation
         private class Progress : IDisposable
         {
             private readonly Stopwatch _stopwatch;
-            private long _elapsed = 0, _current = 0;
+            private long _elapsed, _current;
 
             private readonly TextWriter _output;
 

@@ -1,25 +1,32 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Tier = Unit4.Automation.BcrReport.Tier;
+using Tier = Unit4.Automation.Commands.BcrCommand.BcrReport.Tier;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class Report
     {
-        public Tier Tier { get; set; }
-        public IGrouping<string, CostCentre> Hierarchy { get; set; }
+        private readonly IGrouping<string, CostCentre> _hierarchy;
 
-        public string Parameter { get { return Hierarchy.Key; } }
+        public Report(Tier tier, IGrouping<string, CostCentre> hierarchy)
+        {
+            Tier = tier;
+            _hierarchy = hierarchy;    
+        }
 
-        public bool ShouldFallBack { get { return (Tier == Tier.Tier3 || Tier == Tier.Tier4) && Hierarchy.Any(); } }
+        public Tier Tier { get; }
+
+        public string Parameter => _hierarchy.Key;
+
+        public bool ShouldFallBack => (Tier == Tier.Tier3 || Tier == Tier.Tier4) && _hierarchy.Any();
 
         public IEnumerable<Report> FallbackReports()
         {
-            var fallbackGroups = Hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
+            var fallbackGroups = _hierarchy.GroupBy(FallBackGroupingFunction(Tier), x => x);
 
-            return fallbackGroups.Select(x => new Report() { Tier = FallBackTier(Tier), Hierarchy = x });
+            return fallbackGroups.Select(x => new Report(FallBackTier(Tier), x));
         }
 
         private Tier FallBackTier(Tier current)

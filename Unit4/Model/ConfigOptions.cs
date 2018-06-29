@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Unit4.Automation.Interfaces;
 using CommandLine;
-using System.IO;
 using System;
 
 namespace Unit4.Automation.Model
@@ -10,23 +7,16 @@ namespace Unit4.Automation.Model
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
-        private readonly int _client;
         private readonly string _url;
 
         public ConfigOptions(int client = 0, string url = null)
         {
-            _client = client;
+            Client = client;
             _url = url;
         }
 
         [Option(HelpText = "Set the Unit4 client.")]
-        public int Client
-        {
-            get
-            {
-                return _client;
-            }
-        }
+        public int Client { get; }
 
         [Option(HelpText = "Set the Unit4 SOAP service URL.")]
         public string Url
@@ -49,7 +39,7 @@ namespace Unit4.Automation.Model
                 return false;
             }
 
-            return otherConfig.Client == this.Client && string.Equals(otherConfig.Url, this.Url);
+            return otherConfig.Client == Client && string.Equals(otherConfig.Url, Url);
         }
 
         public override int GetHashCode()
@@ -63,9 +53,6 @@ namespace Unit4.Automation.Model
             }
         }
 
-        public override string ToString()
-        {
-            return string.Format("Client = {0}; Url = {1}", Client, Url);
-        }
+        public override string ToString() => $"Client = {Client}; Url = {Url}";
     }
 }

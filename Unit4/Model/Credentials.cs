@@ -5,29 +5,14 @@ namespace Unit4.Automation.Model
 {
     internal class Credentials : ICredentials
     {
-        private readonly string _username;
-        private readonly SecureString _password;
-
         public Credentials(string username = "", SecureString password = null)
         {
-            _username = username;
-            _password = password ?? new SecureString();
+            Username = username;
+            Password = password ?? new SecureString();
         }
 
-        public string Username
-        { 
-            get 
-            { 
-                return _username; 
-            }
-        }
+        public string Username { get; } 
 
-        public SecureString Password
-        {
-            get
-            {
-                return _password;
-            }
-        }
+        public SecureString Password { get; }
     }
 }

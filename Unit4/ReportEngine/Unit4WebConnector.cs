@@ -1,4 +1,3 @@
-using ReportEngine.Base.Security;
 using ReportEngine.Base.Data.Provider;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
@@ -18,15 +17,11 @@ namespace Unit4.Automation.ReportEngine
         
         public WebProviderConnector Create()
         {
-            var credentials = _manager.CredentialsOrDefault;
+            var credentials = _manager.Credentials;
 
-            var agressoAuthenticator = new AgressoAuthenticator();
-            agressoAuthenticator.Password = credentials.Password;
-            
-            var authenticators = new BaseAuthenticator[1]
-            {
-                agressoAuthenticator
-            };
+            var agressoAuthenticator = new AgressoAuthenticator() { Password = credentials.Password };
+            var authenticators = new BaseAuthenticator[] { agressoAuthenticator };
+
             var connector = new WebProviderConnector() 
             { 
                 Name = "WebService",

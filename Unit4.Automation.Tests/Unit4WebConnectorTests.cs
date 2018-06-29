@@ -4,7 +4,6 @@ using Unit4.Automation.Model;
 using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
 using Unit4.Automation.ReportEngine;
-using Moq;
 using System.Security;
 
 namespace Unit4.Automation.Tests
@@ -19,7 +18,7 @@ namespace Unit4.Automation.Tests
             var config = new ConfigOptions(0, "foo");
             var connector = new Unit4WebConnector(manager, config).Create();
 
-            Assert.That(connector.Authenticator.Name, Is.EqualTo(manager.CredentialsOrDefault.Username));
+            Assert.That(connector.Authenticator.Name, Is.EqualTo(manager.Credentials.Username));
         }
 
         [Test]
@@ -30,7 +29,7 @@ namespace Unit4.Automation.Tests
             var connector = new Unit4WebConnector(manager, config).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(manager.CredentialsOrDefault.Password)));
+            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(manager.Credentials.Password)));
         }
 
         [Test]
@@ -56,13 +55,13 @@ namespace Unit4.Automation.Tests
 
         private class FakeCredentialManager : ICredentialManager
         {
-            public ICredentials CredentialsOrDefault { get { return new FakeCredentials(); } }
+            public ICredentials Credentials => new FakeCredentials();
         }
 
         private class FakeCredentials : ICredentials
         {
-            public string Username { get { return "username"; } }
-            public SecureString Password { get { return SecureStringHelper.ToSecureString("password"); } }
+            public string Username => "username";
+            public SecureString Password => SecureStringHelper.ToSecureString("password");
         }
     }
 }

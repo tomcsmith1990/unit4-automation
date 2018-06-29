@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrReport
     {
@@ -25,7 +25,7 @@ namespace Unit4.Automation
 
         public Bcr RunBcr(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
-            var reportsToRun = hierarchy.Select(x => new Report() { Tier = Tier.Tier3, Hierarchy = x });
+            var reportsToRun = hierarchy.Select(x => new Report(Tier.Tier3, x));
             
             return new Bcr(RunBcr(reportsToRun).ToList());
         }

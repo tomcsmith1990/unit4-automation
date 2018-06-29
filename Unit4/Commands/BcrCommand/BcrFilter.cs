@@ -3,7 +3,7 @@ using Unit4.Automation.Interfaces;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrFilter : IBcrMiddleware
     {

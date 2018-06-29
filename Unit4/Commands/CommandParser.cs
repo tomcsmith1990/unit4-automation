@@ -4,7 +4,7 @@ using CommandLine;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.Automation.Commands
 {
     internal class CommandParser<TVerb, TVerb2>
         where TVerb : IOptions

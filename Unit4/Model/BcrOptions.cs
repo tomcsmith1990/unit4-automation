@@ -13,7 +13,6 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
         private readonly IEnumerable<string> _costCentre;
-        private readonly string _outputDirectory;
 
         public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null)
         {}
@@ -28,62 +27,26 @@ namespace Unit4.Automation.Model
             _tier3 = tier3;
             _tier4 = tier4;
             _costCentre = costCentre;
-            _outputDirectory = outputDirectory;
+            OutputDirectory = outputDirectory;
         }
 
         [Option(HelpText = "Filter by a tier 1 code.", Separator=',')]
-        public IEnumerable<string> Tier1
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier1);
-            }
-        }
+        public IEnumerable<string> Tier1 => PreventNullAndRemoveEmptyStrings(_tier1);
 
         [Option(HelpText = "Filter by a tier 2 code.", Separator=',')]
-        public IEnumerable<string> Tier2
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier2);
-            }
-        }
+        public IEnumerable<string> Tier2 => PreventNullAndRemoveEmptyStrings(_tier2);
 
         [Option(HelpText = "Filter by a tier 3 code.", Separator=',')]
-        public IEnumerable<string> Tier3
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier3);
-            }
-        }
+        public IEnumerable<string> Tier3 => PreventNullAndRemoveEmptyStrings(_tier3);
 
         [Option(HelpText = "Filter by a tier 4 code.", Separator=',')]
-        public IEnumerable<string> Tier4
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_tier4);
-            }
-        }
+        public IEnumerable<string> Tier4 => PreventNullAndRemoveEmptyStrings(_tier4);
 
         [Option(HelpText = "Filter by a cost centre.", Separator=',')]
-        public IEnumerable<string> CostCentre
-        {
-            get
-            {
-                return PreventNullAndRemoveEmptyStrings(_costCentre);
-            }
-        }
+        public IEnumerable<string> CostCentre => PreventNullAndRemoveEmptyStrings(_costCentre);
 
         [Option("output", HelpText = "The directory to save the bcr in. The directory must already exist.")]
-        public string OutputDirectory
-        {
-            get
-            {
-                return _outputDirectory;
-            }
-        }
+        public string OutputDirectory { get; }
 
         private IEnumerable<string> PreventNullAndRemoveEmptyStrings(IEnumerable<string> enumerable)
         {

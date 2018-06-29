@@ -6,6 +6,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Model;
+using Unit4.Automation.Commands.BcrCommand;
 
 namespace Unit4.Automation.Tests
 {
@@ -89,7 +90,7 @@ namespace Unit4.Automation.Tests
         {
             private readonly Mock<IUnit4Engine> _mock;
 
-            public Mock<IUnit4Engine> Mock { get { return _mock; } }
+            public Mock<IUnit4Engine> Mock => _mock;
 
             public DummyEngineFactory(IEnumerable<string> returnEmpty, IEnumerable<string> throws = null)
             {
@@ -108,15 +109,12 @@ namespace Unit4.Automation.Tests
                 return dataset;
             }
 
-            public IUnit4Engine Create()
-            {
-                return _mock.Object;
-            }
+            public IUnit4Engine Create() =>  _mock.Object;
         }
 
         private class NullLogging : ILogging
         {
-            public string Path { get { return string.Empty; } }
+            public string Path => string.Empty;
 
             public void Start() {}
             public void Close() {}

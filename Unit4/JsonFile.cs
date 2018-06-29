@@ -23,14 +23,8 @@ namespace Unit4.Automation
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(_path));
         }
 
-        public bool Exists()
-        {
-            return File.Exists(_path);
-        }
+        public bool Exists() => File.Exists(_path);
 
-        public bool IsDirty()
-        {
-            return false;
-        }
+        public bool IsDirty() => false;
     }
 }
