@@ -7,14 +7,7 @@ namespace Unit4.Automation.Model
     {
         public Bcr(IEnumerable<BcrLine> lines)
         {
-            if (lines == null)
-            {
-                Lines = Enumerable.Empty<BcrLine>();
-            }
-            else
-            {
-                Lines = lines;
-            }
+            Lines = lines ?? Enumerable.Empty<BcrLine>();
         }
 
         public IEnumerable<BcrLine> Lines { get; }
