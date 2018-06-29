@@ -39,6 +39,8 @@
                             <RegistryValue Value="" Type="string" KeyPath="yes" />
                         </RegistryKey>
                         <RemoveFolder Id="RemoveFolder" On="uninstall" />
+
+                        <Environment Id="Path" Action="set" Name="Path" Part="last" Permanent="no" Value="[INSTALLDIR]" System="no" />
                     </Component>
                 </Directory>
             </Directory>
