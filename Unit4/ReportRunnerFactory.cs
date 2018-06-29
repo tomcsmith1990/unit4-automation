@@ -13,7 +13,7 @@ namespace Unit4.Automation
 
         public ReportRunnerFactory()
         {
-            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
+            var configPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");
             _file = new ConfigOptionsFile(configPath);
         }
 
