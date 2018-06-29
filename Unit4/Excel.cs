@@ -24,15 +24,15 @@ namespace Unit4.Automation
 
             var data = bcr.Lines.ToList();
 
-            Parallel.For(0, data.Count(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
+            Parallel.For(0, data.Count, new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
             {
                 var rowNumber = i + rowToStartData;
                 AddRow(sheet, rowNumber, data.ElementAt(i));
             });
 
-            SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count() - 1, 18]]);
+            SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count - 1, 18]]);
 
-            var lastRow = rowToStartData + data.Count() - 1;
+            var lastRow = rowToStartData + data.Count - 1;
             AutoFilter(sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[lastRow, 18]]);
 
             AddSubtotals(sheet, 1, rowToStartData, lastRow);
