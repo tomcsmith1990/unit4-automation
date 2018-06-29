@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 using Unit4.Automation.ReportEngine;
+using System.Linq;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {
@@ -43,11 +44,23 @@ namespace Unit4.Automation.Commands.BcrCommand
                 {
                     progress.Update("Getting BCRs");
 
-                    var bcr = _reader.Read();
+                    var costCentreList = _reader.GetCostCentres();
+                    var filteredCostCentres = _middleware.Use(costCentreList);
 
+                    var cached = _reader.Read().Lines;
+
+                    var missing = filteredCostCentres.Where(x => !cached.Select(y => y.CostCentre.Code).Contains(x.Code));
+
+                    var toFetch = missing.GroupBy(x => x.Tier3, x => x).ToList();
+                    
+                    var newLines = _reader.Read(toFetch).Lines;
+                    var stillNeedCached = cached.Where(x => !newLines.Select(y => y.CostCentre.Code).Contains(x.CostCentre.Code));
                     progress.Complete();
 
-                    var finalBcr = _middleware.Use(bcr);
+                    var updatedCache = new Bcr(stillNeedCached.Union(newLines).ToList());
+                    new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")).Write(updatedCache);
+
+                    var finalBcr = _middleware.Use(updatedCache);
 
                     progress.Update("Writing to Excel");
 

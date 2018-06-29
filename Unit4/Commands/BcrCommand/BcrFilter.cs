@@ -19,6 +19,11 @@ namespace Unit4.Automation.Commands.BcrCommand
             return new Bcr(bcr.Lines.Where(x => Matches(x.CostCentre)).ToList());
         }
 
+        public IEnumerable<CostCentre> Use(IEnumerable<CostCentre> costCentres)
+        {
+            return costCentres.Where(Matches);
+        }
+
         private bool Matches(CostCentre costCentre)
         {
             if (!HasOption(_options.Tier1) && !HasOption(_options.Tier2) && !HasOption(_options.Tier3) && !HasOption(_options.Tier4) && !HasOption(_options.CostCentre))

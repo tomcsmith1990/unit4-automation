@@ -14,6 +14,11 @@ namespace Unit4.Automation
             _costCentres = costCentres;
         }
 
+        public IEnumerable<CostCentre> GetHierarchy()
+        {
+            return _costCentres.Fetch().CostCentres;
+        }
+
         public IEnumerable<IGrouping<string, CostCentre>> GetHierarchyByTier3()
         {
             var costCentres = _costCentres.Fetch().CostCentres;
