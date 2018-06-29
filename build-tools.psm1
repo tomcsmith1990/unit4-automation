@@ -30,6 +30,11 @@ function Uninstall {
     msiexec.exe /x unit4-automation.msi /passive
 }
 
+function Inspect {
+    inspectcode.exe -f=Html --output=InspectCodeReport.Html .\Unit4.sln
+    .\InspectCodeReport.html
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
@@ -38,3 +43,4 @@ export-modulemember -function Help
 export-modulemember -function Installer
 export-modulemember -function Install
 export-modulemember -function Uninstall
+export-modulemember -function Inspect
