@@ -37,7 +37,7 @@ namespace Unit4.Automation
         private ProgramConfig GetConfig()
         {
             var config = _file.Exists() ? _file.Load() : new ConfigOptions();
-            return new ProgramConfig(config.Client, config.Url);
+            return new ProgramConfig(() => config.Client, () => config.Url);
         }
     }
 }

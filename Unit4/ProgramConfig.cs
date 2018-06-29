@@ -1,15 +1,20 @@
+using System;
+
 namespace Unit4.Automation
 {
     internal class ProgramConfig
     {
-        public ProgramConfig(int client, string url)
+        private readonly Func<int> _client;
+        private readonly Func<string> _url;
+
+        public ProgramConfig(Func<int> client, Func<string> url)
         {
-            Client = client;
-            Url = url;
+            _client = client;
+            _url = url;
         }
 
-        public int Client { get; }
+        public int Client => _client();
 
-        public string Url { get; }
+        public string Url => _url();
     }
 }
