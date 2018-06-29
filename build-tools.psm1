@@ -31,7 +31,7 @@ function Uninstall {
 }
 
 function Inspect {
-    inspectcode.exe -f=Html --output=InspectCodeReport.Html .\Unit4.sln
+    inspectcode.exe -f=Html --output=InspectCodeReport.html --profile=Unit4.DotSettings .\Unit4.sln
     .\InspectCodeReport.html
 }
 

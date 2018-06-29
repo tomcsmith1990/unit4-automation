@@ -341,4 +341,4 @@ Installer.wixobj
 Installer.msi
 Installer.wixpdb
 config.json
-InspectCodeReport.Html
+InspectCodeReport.html
