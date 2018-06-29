@@ -13,7 +13,7 @@ namespace Unit4.Automation
 
         public ReportRunnerFactory()
         {
-            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
+            var configPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");
             _file = new ConfigOptionsFile(configPath);
         }
 
@@ -22,7 +22,7 @@ namespace Unit4.Automation
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {
-                return CreateBcrRunner(bcrOptions);
+                return BcrReportRunner.Create(bcrOptions, GetConfig());
             }
 
             var configOptions = options as ConfigOptions;
@@ -34,15 +34,10 @@ namespace Unit4.Automation
             return new NullRunner();
         }
 
-        private IRunner CreateBcrRunner(BcrOptions bcrOptions)
+        private ProgramConfig GetConfig()
         {
-            var log = new Logging();
             var config = _file.Exists() ? _file.Load() : new ConfigOptions();
-            var reader = new BcrReader(log, config);
-            var filter = new BcrFilter(bcrOptions);
-            var writer = new Excel();
-            var pathProvider = new PathProvider(bcrOptions);
-            return new BcrReportRunner(log, reader, filter, writer, pathProvider);
+            return new ProgramConfig(() => config.Client, () => config.Url);
         }
     }
 }

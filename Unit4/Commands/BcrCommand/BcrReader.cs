@@ -9,9 +9,9 @@ namespace Unit4.Automation.Commands.BcrCommand
     {
         private readonly ILogging _log;
         private readonly CostCentreHierarchy _hierarchy;
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public BcrReader(ILogging log, ConfigOptions config)
+        public BcrReader(ILogging log, ProgramConfig config)
         {
             _log = log;
 

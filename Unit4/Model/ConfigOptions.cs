@@ -23,10 +23,6 @@ namespace Unit4.Automation.Model
         {
             get
             {
-                if (_url == null)
-                {
-                    throw new ApplicationException("The Unit4 SOAP service URL is not set in the config file.");
-                }
                 return _url;
             }
         }

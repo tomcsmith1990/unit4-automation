@@ -8,9 +8,9 @@ namespace Unit4.Automation
 {
     internal class CostCentresProvider : ICostCentresProvider
     {
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public CostCentresProvider(ConfigOptions config)
+        public CostCentresProvider(ProgramConfig config)
         {
             _config = config;
         }

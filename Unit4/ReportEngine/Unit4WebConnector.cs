@@ -7,9 +7,9 @@ namespace Unit4.Automation.ReportEngine
     internal class Unit4WebConnector
     {
         private readonly ICredentialManager _manager;
-        private readonly ConfigOptions _config;
+        private readonly ProgramConfig _config;
 
-        public Unit4WebConnector(ICredentialManager manager, ConfigOptions config)
+        public Unit4WebConnector(ICredentialManager manager, ProgramConfig config)
         {
             _manager = manager;
             _config = config;
@@ -21,6 +21,11 @@ namespace Unit4.Automation.ReportEngine
 
             var agressoAuthenticator = new AgressoAuthenticator() { Password = credentials.Password };
             var authenticators = new BaseAuthenticator[] { agressoAuthenticator };
+
+            if (_config.Url == null)
+            {
+                throw new System.ApplicationException("The Unit4 SOAP service URL is not set in the config file.");
+            }
 
             var connector = new WebProviderConnector() 
             { 

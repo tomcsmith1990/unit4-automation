@@ -104,6 +104,7 @@
     <Compile Include="Resql.cs" />
     <Compile Include="Commands\CommandParser.cs" />
     <Compile Include="PathProvider.cs" />
+    <Compile Include="ProgramConfig.cs" />
     <Compile Include="WindowsCredentialManager.cs" />
     <Compile Include="Interfaces\ICredentials.cs" />
     <Compile Include="Interfaces\ICostCentresProvider.cs" />

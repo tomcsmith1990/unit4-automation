@@ -8,7 +8,7 @@ namespace Unit4.Automation.ReportEngine
     {
         private readonly WebProvider _provider;
 
-        public Unit4WebProvider(ConfigOptions config)
+        public Unit4WebProvider(ProgramConfig config)
         {
             var connector = new Unit4WebConnector(new WindowsCredentialManager(), config).Create();
             _provider = new WebProvider(connector);

@@ -15,7 +15,7 @@ namespace Unit4.Automation.Tests
         public void TheConnector_ShouldHaveUsername()
         {
             var manager = new FakeCredentialManager();
-            var config = new ConfigOptions(0, "foo");
+            var config = new ProgramConfig(() => 0, () => "foo");
             var connector = new Unit4WebConnector(manager, config).Create();
 
             Assert.That(connector.Authenticator.Name, Is.EqualTo(manager.Credentials.Username));
@@ -25,7 +25,7 @@ namespace Unit4.Automation.Tests
         public void TheConnector_ShouldHavePassword()
         {
             var manager = new FakeCredentialManager();
-            var config = new ConfigOptions(0, "foo");
+            var config = new ProgramConfig(() => 0, () => "foo");
             var connector = new Unit4WebConnector(manager, config).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
@@ -36,7 +36,7 @@ namespace Unit4.Automation.Tests
         public void TheConnector_ShouldHaveClient()
         {
             var manager = new FakeCredentialManager();
-            var config = new ConfigOptions(1234, "foo");
+            var config = new ProgramConfig(() => 1234, () => "foo");
             var connector = new Unit4WebConnector(manager, config).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
@@ -47,7 +47,7 @@ namespace Unit4.Automation.Tests
         public void TheConnector_ShouldHaveSoapService()
         {
             var manager = new FakeCredentialManager();
-            var config = new ConfigOptions(0, "foo");
+            var config = new ProgramConfig(() => 0, () => "foo");
             var connector = new Unit4WebConnector(manager, config).Create();
 
             Assert.That(connector.Datasource, Is.EqualTo(config.Url));
