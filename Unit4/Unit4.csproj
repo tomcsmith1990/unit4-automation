@@ -97,6 +97,7 @@
     <Compile Include="Commands\BcrCommand\BcrReport.cs" />
     <Compile Include="Commands\BcrCommand\BcrReportRunner.cs" />
     <Compile Include="Commands\BcrCommand\Report.cs" />
+    <Compile Include="Commands\BcrCommand\CostCentreExtensions.cs" />
     <Compile Include="ReportRunnerFactory.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="JsonFile.cs" />
