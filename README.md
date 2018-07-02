@@ -44,15 +44,21 @@ Must add `Unit4 Automation` credentials in Credential Manager.
 
 Options:
 ```
---tier1         Filter by a tier 1 code.
+--tier1          Filter by a tier 1 code.
 
---tier2         Filter by a tier 2 code.
+--tier2          Filter by a tier 2 code.
 
---tier3         Filter by a tier 3 code.
+--tier3          Filter by a tier 3 code.
 
---tier4         Filter by a tier 4 code.
+--tier4          Filter by a tier 4 code.
 
---costcentre    Filter by a cost centre.
+--costcentre     Filter by a cost centre.
 
---output        The directory to save the bcr in. The directory must already exist.
+--output         The directory to save the bcr in. The directory must already exist.
+
+--updatecache    Fetch all lines from the server.
+
+--help           Display this help screen.
+
+--version        Display version information.
 ```
