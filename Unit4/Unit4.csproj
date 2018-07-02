@@ -76,7 +76,7 @@
     <Compile Include="Model\BcrLine.cs" />
     <Compile Include="ReportEngine\Logging.cs" />
     <Compile Include="CostCentresProvider.cs" />
-    <Compile Include="CostCentreHierarchy.cs" />
+    <Compile Include="Commands\BcrCommand\CostCentreHierarchy.cs" />
     <Compile Include="Model\CostCentre.cs" />
     <Compile Include="Model\Bcr.cs" />
     <Compile Include="Model\SerializableCostCentreList.cs" />
