@@ -71,7 +71,8 @@ namespace Unit4.Automation.Commands.BcrCommand
         }
 
         public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
-        { 
+        {
+            var assemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var log = new Logging();
             var factory = new Unit4EngineFactory(config);
             var reader = 
@@ -79,8 +80,8 @@ namespace Unit4.Automation.Commands.BcrCommand
                     log, 
                     options, 
                     config, 
-                    new JsonFile<Bcr>(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "cache", "bcr.json")),
-                    new JsonFile<SerializableCostCentreList>(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "cache", "costCentres.json")),
+                    new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
+                    new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache", "costCentres.json")),
                     factory,
                     new CostCentresProvider(config, factory));
             var filter = new BcrFilter(options);
