@@ -73,6 +73,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
         {
             var assemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
             var log = new Logging();
             var factory = new Unit4EngineFactory(config);
             var reader = 

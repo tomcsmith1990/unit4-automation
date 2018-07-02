@@ -15,6 +15,7 @@ namespace Unit4.Automation
 
         public void Write(T value)
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(_path));
             File.WriteAllText(_path, JsonConvert.SerializeObject(value));
         }
 

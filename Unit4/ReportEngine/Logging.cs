@@ -16,10 +16,12 @@ namespace Unit4.Automation.ReportEngine
 
         public Logging()
         {
-            _logFilePath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
+            var assemblyDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            _logFilePath = System.IO.Path.Combine(assemblyDirectory, "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
         }
         public void Start()
         {
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(_logFilePath));
             var logFile = new LogFileListener(_logFilePath, true);
             Log.Level = TraceLevel.Verbose;
             Log.Open(logFile);
