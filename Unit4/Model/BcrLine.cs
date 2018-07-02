@@ -22,7 +22,7 @@ namespace Unit4.Automation.Model
                 return false;
             }
 
-            return CostCentre == other.CostCentre &&
+            return CostCentre.Equals(other.CostCentre) &&
                 Account == other.Account &&
                 AccountName == other.AccountName &&
                 Budget == other.Budget &&
