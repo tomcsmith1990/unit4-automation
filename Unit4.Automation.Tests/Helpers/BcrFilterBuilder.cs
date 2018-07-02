@@ -32,7 +32,7 @@ namespace Unit4.Automation.Tests.Helpers
 
         public static implicit operator BcrFilter(BcrFilterBuilder builder)
         {
-            return new BcrFilter(new BcrOptions(builder._tier1, builder._tier2, builder._tier3, builder._tier4, builder._costCentre, null));
+            return new BcrFilter(new BcrOptions(builder._tier1, builder._tier2, builder._tier3, builder._tier4, builder._costCentre, null, false));
         }
     }
 }

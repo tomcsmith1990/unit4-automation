@@ -11,7 +11,7 @@ namespace Unit4.Automation.Tests
         [TestCase("")]
         public void GivenNullOrEmptyBcrOptions_TheTheFileShouldBeInTheCurrentDirectory(string outputDir)
         {
-            var options = new BcrOptions(null, null, null, null, null, outputDir);
+            var options = new BcrOptions(null, null, null, null, null, outputDir, false);
             var provider = new PathProvider(options);
 
             var actualPath = provider.NewPath();
@@ -24,7 +24,7 @@ namespace Unit4.Automation.Tests
         public void GivenBcrOptions_ThenTheFileShouldBeInTheOutputDirectory()
         {
             var outputPath = @"C:\some\path\to\dir";
-            var options = new BcrOptions(null, null, null, null, null, outputPath);
+            var options = new BcrOptions(null, null, null, null, null, outputPath, false);
             var provider = new PathProvider(options);
 
             var actualPath = provider.NewPath();
