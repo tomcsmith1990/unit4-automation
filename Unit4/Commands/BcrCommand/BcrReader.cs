@@ -34,9 +34,9 @@ namespace Unit4.Automation.Commands.BcrCommand
             var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
             var cachedLines = GetCachedLines();
-            var cachedTier3s = cachedLines.Select(x => x.CostCentre.Tier3).Distinct();
+            var cachedCostCentres = cachedLines.Select(x => x.CostCentre.Code).Distinct();
 
-            var hierarchyToFetch = tier3Hierarchy.Where(x => !cachedTier3s.Contains(x.Key));
+            var hierarchyToFetch = tier3Hierarchy.Where(x => x.Any(y => !cachedCostCentres.Contains(y.Code)));
 
             if (!hierarchyToFetch.Any())
             {
@@ -45,7 +45,9 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             var fetchedLines = new BcrReport(_factory, _log).RunBcr(hierarchyToFetch).Lines;
 
-            var allLines = fetchedLines.Union(cachedLines);
+            var fetchedCostCentres = fetchedLines.Select(x => x.CostCentre.Code).Distinct();
+            var cachedLinesNotUpdated = cachedLines.Where(x => !fetchedCostCentres.Contains(x.CostCentre.Code));
+            var allLines = fetchedLines.Union(cachedLinesNotUpdated);
 
             return new Bcr(allLines);
         }
