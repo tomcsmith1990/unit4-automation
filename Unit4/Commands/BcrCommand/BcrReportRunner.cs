@@ -70,13 +70,22 @@ namespace Unit4.Automation.Commands.BcrCommand
             }
         }
 
-        public static BcrReportRunner Create(BcrOptions bcrOptions, ProgramConfig config)
-        { 
+        public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
+        {
+            var assemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var log = new Logging();
-            var reader = new BcrReader(log, config);
-            var filter = new BcrFilter(bcrOptions);
+            var factory = new Unit4EngineFactory(config);
+            var reader = 
+                new BcrReader(
+                    log, 
+                    options, 
+                    new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
+                    new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache", "costCentres.json")),
+                    factory,
+                    new CostCentresProvider(factory));
+            var filter = new BcrFilter(options);
             var writer = new Excel();
-            var pathProvider = new PathProvider(bcrOptions);
+            var pathProvider = new PathProvider(options);
             return new BcrReportRunner(log, reader, filter, writer, pathProvider);
         }
 

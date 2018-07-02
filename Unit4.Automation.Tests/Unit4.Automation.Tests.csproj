@@ -89,10 +89,12 @@
     <Compile Include="Helpers\BcrFilterBuilder.cs" />
     <Compile Include="Helpers\IEnumerablePowersetExtension.cs" />
     <Compile Include="Helpers\TempFile.cs" />
+    <Compile Include="Helpers\BcrDataSetBuilder.cs" />
     <Compile Include="Unit4WebConnectorTests.cs" />
     <Compile Include="ExcelTests.cs" />
     <Compile Include="CostCentreHierarchyTests.cs" />
     <Compile Include="BcrReportTests.cs" />
+    <Compile Include="BcrReaderTests.cs" />
     <Compile Include="ConfigRunnerTests.cs" />
     <Compile Include="ResqlTests.cs" />
     <Compile Include="Parser\BcrCommandParserTests.cs" />

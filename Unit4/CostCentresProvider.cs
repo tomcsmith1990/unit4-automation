@@ -1,23 +1,22 @@
 using System.Data;
 using System.Linq;
-using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
-using Unit4.Automation.ReportEngine;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation
 {
     internal class CostCentresProvider : ICostCentresProvider
     {
-        private readonly ProgramConfig _config;
+        private readonly IUnit4EngineFactory _factory;
 
-        public CostCentresProvider(ProgramConfig config)
+        public CostCentresProvider(IUnit4EngineFactory factory)
         {
-            _config = config;
+            _factory = factory;
         }
 
         private DataSet RunReport(string resql)
         {
-            var engine = new Unit4Engine(_config);
+            var engine = _factory.Create();
             return engine.RunReport(resql);
         }
 

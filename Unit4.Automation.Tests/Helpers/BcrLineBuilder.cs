@@ -11,6 +11,8 @@ namespace Unit4.Automation.Tests.Helpers
         private string _tier3;
         private string _tier4;
         private string _costCentre;
+
+        private double _actuals;
         
         public BcrLineBuilder With(Criteria criteria, string value)
         {
@@ -27,6 +29,12 @@ namespace Unit4.Automation.Tests.Helpers
             return this;
         }
 
+        public BcrLineBuilder Actuals(double actuals)
+        {
+            _actuals = actuals;
+            return this;
+        }
+
         public BcrLine Build() => this;
 
         public static implicit operator BcrLine(BcrLineBuilder builder)
@@ -38,7 +46,15 @@ namespace Unit4.Automation.Tests.Helpers
                     Tier3 = builder._tier3,
                     Tier4 = builder._tier4,
                     Code = builder._costCentre,
-                }
+                },
+                Account = null,
+                AccountName = null,
+                Budget = 0,
+                Profile = 0,
+                Actuals = builder._actuals,
+                Variance = 0,
+                Forecast = 0,
+                OutturnVariance = 0
             };
         }
     }
