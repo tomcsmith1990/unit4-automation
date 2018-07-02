@@ -43,7 +43,11 @@ namespace Unit4.Automation.Commands.BcrCommand
                 return new Bcr(cachedLines);
             }
 
-            return new BcrReport(_factory, _log).RunBcr(hierarchyToFetch);
+            var fetchedLines = new BcrReport(_factory, _log).RunBcr(hierarchyToFetch).Lines;
+
+            var allLines = fetchedLines.Union(cachedLines);
+
+            return new Bcr(allLines);
         }
 
         private IEnumerable<BcrLine> GetCachedLines()
