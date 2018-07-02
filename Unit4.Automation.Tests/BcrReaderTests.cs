@@ -48,16 +48,17 @@ namespace Unit4.Automation.Tests
             var engine = new Mock<IUnit4Engine>();
             engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(lines.AsDataSet());
 
-            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a"));
+            var cachedLines = new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a") };
+            var cache = CreateCache(cachedLines);
 
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, cache, engine.Object);
 
-            var tier3sInBcr = reader.Read().Lines.Select(x => x.CostCentre.Tier3);
+            var actualLines = reader.Read().Lines;
 
             engine.Verify(x => x.RunReport(Resql.BcrTier3("b")), Times.Once);
             engine.Verify(x => x.RunReport(Resql.BcrTier3("a")), Times.Never);
 
-            Assert.That(tier3sInBcr, Is.EquivalentTo(new [] { "a", "b" }));
+            Assert.That(actualLines, Is.EquivalentTo(lines.Union(cachedLines)));
         }
 
         [Test]
@@ -74,11 +75,11 @@ namespace Unit4.Automation.Tests
 
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, cache, engine.Object);
 
-            var costCentresInBcr = reader.Read().Lines.Select(x => x.CostCentre.Code);
+            var actualLines = reader.Read().Lines;
 
             engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Once);
 
-            Assert.That(costCentresInBcr, Is.EquivalentTo(new [] { "a", "b" }));
+            Assert.That(actualLines, Is.EquivalentTo(lines));
         }
 
         private IFile<Bcr> CreateCache(params BcrLine[] lines)
