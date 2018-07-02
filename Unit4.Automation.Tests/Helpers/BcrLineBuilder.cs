@@ -38,7 +38,15 @@ namespace Unit4.Automation.Tests.Helpers
                     Tier3 = builder._tier3,
                     Tier4 = builder._tier4,
                     Code = builder._costCentre,
-                }
+                },
+                Account = null,
+                AccountName = null,
+                Budget = 0,
+                Profile = 0,
+                Actuals = 0,
+                Variance = 0,
+                Forecast = 0,
+                OutturnVariance = 0
             };
         }
     }
