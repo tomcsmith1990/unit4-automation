@@ -12,12 +12,10 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly ProgramConfig _config;
         private readonly IFile<Bcr> _bcrFile;
 
-        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile)
+        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile)
         {
             _log = log;
             _bcrFile = bcrFile;
-
-            var costCentreFile = new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json"));
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
