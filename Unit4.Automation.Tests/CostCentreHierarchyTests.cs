@@ -11,7 +11,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenNoCostCentres_ThenThereShouldBeNoGroups()
         {
-            var hierarchy = new CostCentreHierarchy(new DummyCostCentres());
+            var hierarchy = new CostCentreHierarchy(new DummyCostCentres(), new BcrOptions());
             
             var tier3Hierarchy = hierarchy.GetHierarchyByTier3();
 
@@ -26,7 +26,7 @@ namespace Unit4.Automation.Tests
                                     new CostCentre() { Tier3 = "A", Tier4 = "B" },
                                     new CostCentre() { Tier3 = "A", Tier4 = "C" },
                                     new CostCentre() { Tier3 = "A", Tier4 = "D" }
-                                ));
+                                ), new BcrOptions());
             
             var tier3Hierarchy = hierarchy.GetHierarchyByTier3();
 
@@ -40,7 +40,7 @@ namespace Unit4.Automation.Tests
                                 new DummyCostCentres(
                                     new CostCentre() { Tier3 = "A", Tier4 = "B" },
                                     new CostCentre() { Tier3 = "C", Tier4 = "D" }
-                                ));
+                                ), new BcrOptions());
             
             var tier3Hierarchy = hierarchy.GetHierarchyByTier3();
 
@@ -55,7 +55,7 @@ namespace Unit4.Automation.Tests
                 new CostCentre() { Tier3 = "A", Tier4 = "C" },
                 new CostCentre() { Tier3 = "A", Tier4 = "D" }
             };
-            var hierarchy = new CostCentreHierarchy(new DummyCostCentres(costCentres));
+            var hierarchy = new CostCentreHierarchy(new DummyCostCentres(costCentres), new BcrOptions());
             
             var actualCostCentres = hierarchy.GetHierarchyByTier3().Single().ToList();
 

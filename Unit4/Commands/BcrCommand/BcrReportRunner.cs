@@ -73,7 +73,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         public static BcrReportRunner Create(BcrOptions bcrOptions, ProgramConfig config)
         { 
             var log = new Logging();
-            var reader = new BcrReader(log, config);
+            var reader = new BcrReader(log, bcrOptions, config);
             var filter = new BcrFilter(bcrOptions);
             var writer = new Excel();
             var pathProvider = new PathProvider(bcrOptions);

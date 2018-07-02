@@ -11,7 +11,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly CostCentreHierarchy _hierarchy;
         private readonly ProgramConfig _config;
 
-        public BcrReader(ILogging log, ProgramConfig config)
+        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config)
         {
             _log = log;
 
@@ -19,7 +19,7 @@ namespace Unit4.Automation.Commands.BcrCommand
                 new Cache<SerializableCostCentreList>(
                         () => new CostCentresProvider(config).GetCostCentres(), 
                         new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
-            _hierarchy = new CostCentreHierarchy(costCentreList);
+            _hierarchy = new CostCentreHierarchy(costCentreList, options);
             _config = config;
         }
 

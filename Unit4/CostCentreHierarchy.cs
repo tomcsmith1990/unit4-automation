@@ -9,7 +9,7 @@ namespace Unit4.Automation
     {
         private readonly ICache<SerializableCostCentreList> _costCentres;
 
-        public CostCentreHierarchy(ICache<SerializableCostCentreList> costCentres)
+        public CostCentreHierarchy(ICache<SerializableCostCentreList> costCentres, BcrOptions options)
         {
             _costCentres = costCentres;
         }
