@@ -48,6 +48,8 @@ namespace Unit4.Automation.Model
         [Option("output", HelpText = "The directory to save the bcr in. The directory must already exist.")]
         public string OutputDirectory { get; }
 
+        public bool UpdateCache { get; }
+
         private IEnumerable<string> PreventNullAndRemoveEmptyStrings(IEnumerable<string> enumerable)
         {
             if (enumerable == null)

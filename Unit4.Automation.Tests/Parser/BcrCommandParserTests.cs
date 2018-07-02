@@ -92,5 +92,14 @@ namespace Unit4.Automation.Tests.Parser
 
             Assert.That(bcrOptions.OutputDirectory, Is.EqualTo(path));
         }
+
+        [Test]
+        public void GivenTheBcrCommand_ThenTheUpdateCacheOptionShouldBeRecognised()
+        {
+            var options = _parser.GetOptions("bcr", "--updatecache");
+            var bcrOptions = options as BcrOptions;
+
+            Assert.That(bcrOptions.UpdateCache, Is.True);
+        }
     }
 }
