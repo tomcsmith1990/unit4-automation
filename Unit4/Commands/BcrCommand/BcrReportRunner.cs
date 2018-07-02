@@ -73,6 +73,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
         { 
             var log = new Logging();
+            var factory = new Unit4EngineFactory(config);
             var reader = 
                 new BcrReader(
                     log, 
@@ -80,7 +81,8 @@ namespace Unit4.Automation.Commands.BcrCommand
                     config, 
                     new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")),
                     new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")),
-                    new Unit4EngineFactory(config));
+                    factory,
+                    new CostCentresProvider(config, factory));
             var filter = new BcrFilter(options);
             var writer = new Excel();
             var pathProvider = new PathProvider(options);

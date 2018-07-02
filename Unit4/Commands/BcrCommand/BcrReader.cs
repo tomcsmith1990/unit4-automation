@@ -13,7 +13,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly IFile<Bcr> _bcrFile;
         private readonly IUnit4EngineFactory _factory;
 
-        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory)
+        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory, ICostCentresProvider provider)
         {
             _log = log;
             _bcrFile = bcrFile;
@@ -21,7 +21,7 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
-                        () => new CostCentresProvider(config, factory).GetCostCentres(), 
+                        () => provider.GetCostCentres(), 
                         costCentreFile);
             _hierarchy = new CostCentreHierarchy(costCentreList, options);
             _config = config;
