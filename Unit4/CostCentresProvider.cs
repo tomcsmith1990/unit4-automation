@@ -6,12 +6,10 @@ namespace Unit4.Automation
 {
     internal class CostCentresProvider : ICostCentresProvider
     {
-        private readonly ProgramConfig _config;
         private readonly IUnit4EngineFactory _factory;
 
-        public CostCentresProvider(ProgramConfig config, IUnit4EngineFactory factory)
+        public CostCentresProvider(IUnit4EngineFactory factory)
         {
-            _config = config;
             _factory = factory;
         }
 

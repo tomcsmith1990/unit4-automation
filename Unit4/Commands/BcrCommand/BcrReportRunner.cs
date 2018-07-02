@@ -82,7 +82,7 @@ namespace Unit4.Automation.Commands.BcrCommand
                     new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
                     new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache", "costCentres.json")),
                     factory,
-                    new CostCentresProvider(config, factory));
+                    new CostCentresProvider(factory));
             var filter = new BcrFilter(options);
             var writer = new Excel();
             var pathProvider = new PathProvider(options);
