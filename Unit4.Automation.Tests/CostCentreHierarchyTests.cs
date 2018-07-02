@@ -83,11 +83,11 @@ namespace Unit4.Automation.Tests
         {
             get
             {
-                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A5" }, null);
-                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A4" }, Enumerable.Empty<string>(), null);
-                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A3" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), null);
-                yield return new BcrOptions(Enumerable.Empty<string>(), new [] { "A2" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null);
-                yield return new BcrOptions(new [] { "A1" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null);
+                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A5" }, null, false);
+                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A4" }, Enumerable.Empty<string>(), null, false);
+                yield return new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), new [] { "A3" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, false);
+                yield return new BcrOptions(Enumerable.Empty<string>(), new [] { "A2" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, false);
+                yield return new BcrOptions(new [] { "A1" }, Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, false);
             }
         }
 

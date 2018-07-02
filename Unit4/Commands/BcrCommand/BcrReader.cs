@@ -11,12 +11,14 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly CostCentreHierarchy _hierarchy;
         private readonly IFile<Bcr> _bcrFile;
         private readonly IUnit4EngineFactory _factory;
+        private readonly bool _updateCache;
 
         public BcrReader(ILogging log, BcrOptions options, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory, ICostCentresProvider provider)
         {
             _log = log;
             _bcrFile = bcrFile;
             _factory = factory;
+            _updateCache = options.UpdateCache;
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
@@ -32,7 +34,7 @@ namespace Unit4.Automation.Commands.BcrCommand
             var cachedLines = GetCachedLines();
             var cachedCostCentres = cachedLines.Select(x => x.CostCentre.Code).Distinct();
 
-            var hierarchyToFetch = tier3Hierarchy.Where(x => x.Any(y => !cachedCostCentres.Contains(y.Code)));
+            var hierarchyToFetch = _updateCache ? tier3Hierarchy : tier3Hierarchy.Where(x => x.Any(y => !cachedCostCentres.Contains(y.Code)));
 
             if (!hierarchyToFetch.Any())
             {
