@@ -10,19 +10,17 @@ namespace Unit4.Automation.ReportEngine
 {
     internal class Logging : ILogging
     {
-        private readonly string _logFilePath;
-
-        public string Path => _logFilePath;
+        public string Path { get; }
 
         public Logging()
         {
             var assemblyDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            _logFilePath = System.IO.Path.Combine(assemblyDirectory, "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
+            Path = System.IO.Path.Combine(assemblyDirectory, "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
         }
         public void Start()
         {
-            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(_logFilePath));
-            var logFile = new LogFileListener(_logFilePath, true);
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(Path));
+            var logFile = new LogFileListener(Path, true);
             Log.Level = TraceLevel.Verbose;
             Log.Open(logFile);
         }
