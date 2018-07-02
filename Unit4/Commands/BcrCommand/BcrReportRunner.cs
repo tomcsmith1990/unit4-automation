@@ -79,7 +79,8 @@ namespace Unit4.Automation.Commands.BcrCommand
                     options, 
                     config, 
                     new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")),
-                    new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")));
+                    new JsonFile<SerializableCostCentreList>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "costCentres.json")),
+                    new Unit4EngineFactory(config));
             var filter = new BcrFilter(options);
             var writer = new Excel();
             var pathProvider = new PathProvider(options);

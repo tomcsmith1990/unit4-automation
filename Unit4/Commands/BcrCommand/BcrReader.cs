@@ -11,11 +11,13 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly CostCentreHierarchy _hierarchy;
         private readonly ProgramConfig _config;
         private readonly IFile<Bcr> _bcrFile;
+        private readonly IUnit4EngineFactory _factory;
 
-        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile)
+        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory)
         {
             _log = log;
             _bcrFile = bcrFile;
+            _factory = factory;
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
@@ -29,10 +31,9 @@ namespace Unit4.Automation.Commands.BcrCommand
         {
             var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
-            var factory = new Unit4EngineFactory(_config);
             var bcrReport = 
                 new Cache<Bcr>(
-                    () => new BcrReport(factory, _log).RunBcr(tier3Hierarchy), 
+                    () => new BcrReport(_factory, _log).RunBcr(tier3Hierarchy), 
                     _bcrFile);
 
             return bcrReport.Fetch();
