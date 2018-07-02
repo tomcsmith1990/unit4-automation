@@ -21,7 +21,7 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             var costCentreList = 
                 new Cache<SerializableCostCentreList>(
-                        () => new CostCentresProvider(config).GetCostCentres(), 
+                        () => new CostCentresProvider(config, factory).GetCostCentres(), 
                         costCentreFile);
             _hierarchy = new CostCentreHierarchy(costCentreList, options);
             _config = config;

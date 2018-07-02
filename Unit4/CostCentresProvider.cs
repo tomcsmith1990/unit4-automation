@@ -9,15 +9,17 @@ namespace Unit4.Automation
     internal class CostCentresProvider : ICostCentresProvider
     {
         private readonly ProgramConfig _config;
+        private readonly IUnit4EngineFactory _factory;
 
-        public CostCentresProvider(ProgramConfig config)
+        public CostCentresProvider(ProgramConfig config, IUnit4EngineFactory factory)
         {
             _config = config;
+            _factory = factory;
         }
 
         private DataSet RunReport(string resql)
         {
-            var engine = new Unit4Engine(_config);
+            var engine = _factory.Create();
             return engine.RunReport(resql);
         }
 
