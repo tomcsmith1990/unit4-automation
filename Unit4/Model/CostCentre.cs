@@ -39,16 +39,16 @@ namespace Unit4.Automation.Model
             unchecked
             {
                 int hash = (int) 2166136261;
-                hash = hash * 16777619 + Tier1?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier2?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier3?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier4?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Code?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier1Name?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier2Name?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier3Name?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + Tier4Name?.GetHashCode() ?? 0;
-                hash = hash * 16777619 + CostCentreName?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier1?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier2?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier3?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier4?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Code?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier1Name?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier2Name?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier3Name?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ Tier4Name?.GetHashCode() ?? 0;
+                hash = hash * 16777619 ^ CostCentreName?.GetHashCode() ?? 0;
                 return hash;
             }
         }

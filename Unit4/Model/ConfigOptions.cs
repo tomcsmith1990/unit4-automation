@@ -43,8 +43,8 @@ namespace Unit4.Automation.Model
             unchecked
             {
                 int hash = (int) 2166136261;
-                hash = hash * 16777619 + Client.GetHashCode();
-                hash = hash * 16777619 + (Url == null ? 0 : Url.GetHashCode());
+                hash = hash * 16777619 ^ Client.GetHashCode();
+                hash = hash * 16777619 ^ (Url == null ? 0 : Url.GetHashCode());
                 return hash;
             }
         }
