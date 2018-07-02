@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Unit4.Automation.Commands.BcrCommand;
 using System.Collections.Generic;
+using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
 {
@@ -23,6 +24,21 @@ namespace Unit4.Automation.Tests
             engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Once);
         }
 
+        [Test]
+        public void GivenTier3WithAllCostCentresCached_ThenItShouldNotFetchThatTier3()
+        {
+            var engine = new Mock<IUnit4Engine>();
+            var bcrCache = new Mock<IFile<Bcr>>();
+            bcrCache.Setup(x => x.Exists()).Returns(true);
+            bcrCache.Setup(x => x.IsDirty()).Returns(false);
+            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3") }));
+
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+
+            reader.Read();
+
+            engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Never);
+        }
 
         private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, BcrOptions options, IFile<Bcr> bcrCache, IUnit4Engine engine)
         {
