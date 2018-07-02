@@ -27,11 +27,12 @@ namespace Unit4.Automation.Commands.BcrCommand
         {
             var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
+            var file = new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json"));
             var factory = new Unit4EngineFactory(_config);
             var bcrReport = 
                 new Cache<Bcr>(
                     () => new BcrReport(factory, _log).RunBcr(tier3Hierarchy), 
-                    new JsonFile<Bcr>(Path.Combine(Directory.GetCurrentDirectory(), "cache", "bcr.json")));
+                    file);
 
             return bcrReport.Fetch();
         }
