@@ -70,13 +70,13 @@ namespace Unit4.Automation.Commands.BcrCommand
             }
         }
 
-        public static BcrReportRunner Create(BcrOptions bcrOptions, ProgramConfig config)
+        public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
         { 
             var log = new Logging();
-            var reader = new BcrReader(log, bcrOptions, config);
-            var filter = new BcrFilter(bcrOptions);
+            var reader = new BcrReader(log, options, config);
+            var filter = new BcrFilter(options);
             var writer = new Excel();
-            var pathProvider = new PathProvider(bcrOptions);
+            var pathProvider = new PathProvider(options);
             return new BcrReportRunner(log, reader, filter, writer, pathProvider);
         }
 
