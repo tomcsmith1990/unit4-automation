@@ -31,12 +31,9 @@ namespace Unit4.Automation.Tests
         {
             var engine = new Mock<IUnit4Engine>();
 
-            var bcrCache = new Mock<IFile<Bcr>>();
-            bcrCache.Setup(x => x.Exists()).Returns(true);
-            bcrCache.Setup(x => x.IsDirty()).Returns(false);
-            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3").Build() }));
+            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), cache, engine.Object);
 
             reader.Read();
 
@@ -49,12 +46,9 @@ namespace Unit4.Automation.Tests
             var engine = new Mock<IUnit4Engine>();
             engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "b", Code = "b" }));
 
-            var bcrCache = new Mock<IFile<Bcr>>();
-            bcrCache.Setup(x => x.Exists()).Returns(true);
-            bcrCache.Setup(x => x.IsDirty()).Returns(false);
-            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a").Build() }));
+            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, new BcrOptions(), cache, engine.Object);
 
             var tier3sInBcr = reader.Read().Lines.Select(x => x.CostCentre.Tier3);
 
@@ -70,18 +64,24 @@ namespace Unit4.Automation.Tests
             var engine = new Mock<IUnit4Engine>();
             engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" }));
 
-            var bcrCache = new Mock<IFile<Bcr>>();
-            bcrCache.Setup(x => x.Exists()).Returns(true);
-            bcrCache.Setup(x => x.IsDirty()).Returns(false);
-            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a").Build() }));
+            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, new BcrOptions(), cache, engine.Object);
 
             var costCentresInBcr = reader.Read().Lines.Select(x => x.CostCentre.Code);
 
             engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Once);
 
             Assert.That(costCentresInBcr, Is.EquivalentTo(new [] { "a", "b" }));
+        }
+
+        private IFile<Bcr> CreateCache(params BcrLine[] lines)
+        {
+            var cache = new Mock<IFile<Bcr>>();
+            cache.Setup(x => x.Exists()).Returns(true);
+            cache.Setup(x => x.IsDirty()).Returns(false);
+            cache.Setup(x => x.Read()).Returns(new Bcr(lines));
+            return cache.Object;
         }
 
         private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, BcrOptions options, IFile<Bcr> bcrCache, IUnit4Engine engine)
