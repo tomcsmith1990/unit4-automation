@@ -123,7 +123,6 @@ namespace Unit4.Automation.Tests
             return new BcrReader(
                 Mock.Of<ILogging>(),
                 new BcrOptions(),
-                new ProgramConfig(() => 0, () => string.Empty),
                 bcrCache,
                 Mock.Of<IFile<SerializableCostCentreList>>(),
                 factory.Object,

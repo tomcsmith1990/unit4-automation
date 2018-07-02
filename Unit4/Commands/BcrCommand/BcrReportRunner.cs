@@ -79,7 +79,6 @@ namespace Unit4.Automation.Commands.BcrCommand
                 new BcrReader(
                     log, 
                     options, 
-                    config, 
                     new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
                     new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache", "costCentres.json")),
                     factory,

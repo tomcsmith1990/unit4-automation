@@ -9,11 +9,10 @@ namespace Unit4.Automation.Commands.BcrCommand
     {
         private readonly ILogging _log;
         private readonly CostCentreHierarchy _hierarchy;
-        private readonly ProgramConfig _config;
         private readonly IFile<Bcr> _bcrFile;
         private readonly IUnit4EngineFactory _factory;
 
-        public BcrReader(ILogging log, BcrOptions options, ProgramConfig config, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory, ICostCentresProvider provider)
+        public BcrReader(ILogging log, BcrOptions options, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory, ICostCentresProvider provider)
         {
             _log = log;
             _bcrFile = bcrFile;
@@ -24,7 +23,6 @@ namespace Unit4.Automation.Commands.BcrCommand
                         () => provider.GetCostCentres(), 
                         costCentreFile);
             _hierarchy = new CostCentreHierarchy(costCentreList, options);
-            _config = config;
         }
 
         public Bcr Read()
