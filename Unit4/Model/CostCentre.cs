@@ -52,6 +52,5 @@ namespace Unit4.Automation.Model
                 return hash;
             }
         }
-
     }
 }
