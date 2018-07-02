@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
-using Unit4.Automation;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {

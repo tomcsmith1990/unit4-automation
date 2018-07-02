@@ -2,12 +2,10 @@ using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
 using NUnit.Framework;
 using Moq;
-using System.IO;
 using System.Linq;
 using Unit4.Automation.Commands.BcrCommand;
 using System.Collections.Generic;
 using Unit4.Automation.Tests.Helpers;
-using System.Data;
 
 namespace Unit4.Automation.Tests
 {
