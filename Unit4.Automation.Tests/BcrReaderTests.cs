@@ -83,7 +83,7 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenCachedAndFetchedLines_ThenTheOldCacheAndNewLinesShouldBeWrittenToCache()
+        public void GivenTheFinalBcr_ThenItShouldBeWrittenToTheCache()
         {
             var lines = new BcrLine[] { 
                 A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"), 
