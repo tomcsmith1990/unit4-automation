@@ -47,14 +47,14 @@ namespace Unit4.Automation.Tests
         public void GivenTier3WithOneCostCentresCached_ThenItShouldOnlyFetchTheUncachedTier3()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "b" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "b", Code = "b" }));
 
             var bcrCache = new Mock<IFile<Bcr>>();
             bcrCache.Setup(x => x.Exists()).Returns(true);
             bcrCache.Setup(x => x.IsDirty()).Returns(false);
-            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "a").Build() }));
+            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a").Build() }));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a" }, new CostCentre() { Tier3 = "b" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, new BcrOptions(), bcrCache.Object, engine.Object);
 
             var tier3sInBcr = reader.Read().Lines.Select(x => x.CostCentre.Tier3);
 
