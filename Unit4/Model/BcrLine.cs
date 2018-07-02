@@ -38,9 +38,9 @@ namespace Unit4.Automation.Model
             unchecked
             {
                 int hash = (int) 2166136261;
-                hash = hash * 16777619 + CostCentre.GetHashCode();
-                hash = hash * 16777619 + Account.GetHashCode();
-                hash = hash * 16777619 + AccountName.GetHashCode();
+                hash = hash * 16777619 + CostCentre?.GetHashCode() ?? 0;
+                hash = hash * 16777619 + Account?.GetHashCode() ?? 0;
+                hash = hash * 16777619 + AccountName?.GetHashCode() ?? 0;
                 hash = hash * 16777619 + Budget.GetHashCode();
                 hash = hash * 16777619 + Profile.GetHashCode();
                 hash = hash * 16777619 + Actuals.GetHashCode();
