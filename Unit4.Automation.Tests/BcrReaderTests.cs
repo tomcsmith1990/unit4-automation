@@ -19,7 +19,7 @@ namespace Unit4.Automation.Tests
         {
             var engine = new Mock<IUnit4Engine>();
             engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3" }));
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), Mock.Of<IFile<Bcr>>(), engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, Mock.Of<IFile<Bcr>>(), engine.Object);
 
             reader.Read();
 
@@ -33,7 +33,7 @@ namespace Unit4.Automation.Tests
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), cache, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, cache, engine.Object);
 
             reader.Read();
 
@@ -48,7 +48,7 @@ namespace Unit4.Automation.Tests
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, new BcrOptions(), cache, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "a", Code = "a" }, new CostCentre() { Tier3 = "b", Code = "b" } }, cache, engine.Object);
 
             var tier3sInBcr = reader.Read().Lines.Select(x => x.CostCentre.Tier3);
 
@@ -66,7 +66,7 @@ namespace Unit4.Automation.Tests
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"));
 
-            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, new BcrOptions(), cache, engine.Object);
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, cache, engine.Object);
 
             var costCentresInBcr = reader.Read().Lines.Select(x => x.CostCentre.Code);
 
@@ -84,7 +84,7 @@ namespace Unit4.Automation.Tests
             return cache.Object;
         }
 
-        private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, BcrOptions options, IFile<Bcr> bcrCache, IUnit4Engine engine)
+        private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, IFile<Bcr> bcrCache, IUnit4Engine engine)
         {
             var factory = new Mock<IUnit4EngineFactory>();
             factory.Setup(x => x.Create()).Returns(engine);
@@ -95,7 +95,7 @@ namespace Unit4.Automation.Tests
 
             return new BcrReader(
                 Mock.Of<ILogging>(),
-                options,
+                new BcrOptions(),
                 new ProgramConfig(() => 0, () => string.Empty),
                 bcrCache,
                 Mock.Of<IFile<SerializableCostCentreList>>(),
