@@ -47,9 +47,10 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             var fetchedCostCentres = fetchedLines.Select(x => x.CostCentre.Code).Distinct();
             var cachedLinesNotUpdated = cachedLines.Where(x => !fetchedCostCentres.Contains(x.CostCentre.Code));
-            var allLines = fetchedLines.Union(cachedLinesNotUpdated);
 
-            return new Bcr(allLines);
+            var bcr = new Bcr(fetchedLines.Union(cachedLinesNotUpdated));
+            _bcrFile.Write(bcr);
+            return bcr;
         }
 
         private IEnumerable<BcrLine> GetCachedLines()
