@@ -11,6 +11,8 @@ namespace Unit4.Automation.Tests.Helpers
         private string _tier3;
         private string _tier4;
         private string _costCentre;
+
+        private double _actuals;
         
         public BcrLineBuilder With(Criteria criteria, string value)
         {
@@ -24,6 +26,12 @@ namespace Unit4.Automation.Tests.Helpers
                 default: throw new NotSupportedException(criteria.ToString());
             }
 
+            return this;
+        }
+
+        public BcrLineBuilder Actuals(double actuals)
+        {
+            _actuals = actuals;
             return this;
         }
 
@@ -43,7 +51,7 @@ namespace Unit4.Automation.Tests.Helpers
                 AccountName = null,
                 Budget = 0,
                 Profile = 0,
-                Actuals = 0,
+                Actuals = builder._actuals,
                 Variance = 0,
                 Forecast = 0,
                 OutturnVariance = 0

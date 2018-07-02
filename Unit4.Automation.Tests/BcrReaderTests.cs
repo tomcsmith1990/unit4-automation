@@ -65,13 +65,13 @@ namespace Unit4.Automation.Tests
         public void GivenCachedCostCentreInOneTier3AndUncachedCostCentreInSameTier3_ThenItShouldFetchTheTier3()
         {
             var lines = new BcrLine[] { 
-                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"), 
+                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a").Actuals(100), 
                 A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "b")
             };
             var engine = new Mock<IUnit4Engine>();
             engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(lines.AsDataSet());
 
-            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"));
+            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a").Actuals(50));
 
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, cache, engine.Object);
 
