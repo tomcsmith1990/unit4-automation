@@ -18,7 +18,7 @@ namespace Unit4.Automation.Tests
         public void GivenNoCache_ThenItShouldFetchAllTier3Hierarchies()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "tier3" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3" }));
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), Mock.Of<IFile<Bcr>>(), engine.Object);
 
             reader.Read();
@@ -47,7 +47,7 @@ namespace Unit4.Automation.Tests
         public void GivenTier3WithOneCostCentresCached_ThenItShouldOnlyFetchTheUncachedTier3()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "b", Code = "b" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "b", Code = "b" }));
 
             var bcrCache = new Mock<IFile<Bcr>>();
             bcrCache.Setup(x => x.Exists()).Returns(true);
@@ -68,7 +68,7 @@ namespace Unit4.Automation.Tests
         public void GivenCachedCostCentreInOneTier3AndUncachedCostCentreInSameTier3_ThenItShouldFetchTheTier3()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" }));
 
             var bcrCache = new Mock<IFile<Bcr>>();
             bcrCache.Setup(x => x.Exists()).Returns(true);
@@ -101,37 +101,6 @@ namespace Unit4.Automation.Tests
                 Mock.Of<IFile<SerializableCostCentreList>>(),
                 factory.Object,
                 costCentresProvider.Object);
-        }
-
-        private DataSet CreateDataSet(params CostCentre[] costCentres)
-        {
-            var dataset = new DataSet();
-            var table = dataset.Tables.Add("foo");
-            table.Columns.Add("r0r0r0r3dim2", typeof(string));
-            table.Columns.Add("r0r0r3dim2", typeof(string));
-            table.Columns.Add("r0r3dim2", typeof(string));
-            table.Columns.Add("r3dim2", typeof(string));
-            table.Columns.Add("dim2", typeof(string));
-            table.Columns.Add("xr0r0r0r3dim2", typeof(string));
-            table.Columns.Add("xr0r0r3dim2", typeof(string));
-            table.Columns.Add("xr0r3dim2", typeof(string));
-            table.Columns.Add("xr3dim2", typeof(string));
-            table.Columns.Add("xdim2", typeof(string));
-            table.Columns.Add("dim1", typeof(string));
-            table.Columns.Add("xdim1", typeof(string));
-            table.Columns.Add("plb_amount", typeof(double));
-            table.Columns.Add("f0_budget_to_da13", typeof(double));
-            table.Columns.Add("f1_total_exp_to16", typeof(double));
-            table.Columns.Add("f3_variance_to_15", typeof(double));
-            table.Columns.Add("plf_amount", typeof(double));
-            table.Columns.Add("f2_outturn_vari18", typeof(double));
-
-            foreach (var code in costCentres)
-            {
-                var row = table.NewRow();
-                table.Rows.Add(string.Empty, string.Empty, code.Tier3, string.Empty, code.Code, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, 0);
-            }
-            return dataset;
         }
     }
 }
