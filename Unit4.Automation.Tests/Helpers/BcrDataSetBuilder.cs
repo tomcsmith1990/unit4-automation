@@ -2,17 +2,13 @@ using System;
 using System.Data;
 using Unit4.Automation.Model;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests.Helpers
 {
-    internal class BcrDataSetBuilder
+    internal static class BcrDataSetBuilder
     {
-        public static DataSet Build(params CostCentre[] costCentres)
-        {
-            return Build(costCentres.Select(x => new BcrLine() { CostCentre = x }).ToArray());
-        }
-
-        private static DataSet Build(params BcrLine[] lines)
+        public static DataSet AsDataSet(this IEnumerable<BcrLine> lines)
         {
             var dataset = new DataSet();
             var table = dataset.Tables.Add("foo");

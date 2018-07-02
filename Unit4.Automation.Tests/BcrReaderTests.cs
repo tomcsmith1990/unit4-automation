@@ -17,8 +17,9 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenNoCache_ThenItShouldFetchAllTier3Hierarchies()
         {
+            var lines = new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3") };
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(lines.AsDataSet());
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, Mock.Of<IFile<Bcr>>(), engine.Object);
 
             reader.Read();
@@ -43,8 +44,9 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenTier3WithOneCostCentresCached_ThenItShouldOnlyFetchTheUncachedTier3()
         {
+            var lines = new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "b").With(A.Criteria.CostCentre, "b") };
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "b", Code = "b" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(lines.AsDataSet());
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "a").With(A.Criteria.CostCentre, "a"));
 
@@ -61,8 +63,12 @@ namespace Unit4.Automation.Tests
         [Test]
         public void GivenCachedCostCentreInOneTier3AndUncachedCostCentreInSameTier3_ThenItShouldFetchTheTier3()
         {
+            var lines = new BcrLine[] { 
+                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"), 
+                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "b")
+            };
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(BcrDataSetBuilder.Build(new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" }));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(lines.AsDataSet());
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"));
 
