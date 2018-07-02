@@ -32,6 +32,20 @@ namespace Unit4.Automation.Tests
 
             var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3"));
 
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, cache, engine.Object, true);
+
+            reader.Read();
+
+            engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Once);
+        }
+
+        [Test]
+        public void GivenTier3WithAllCostCentresCachedAndUpdateCacheOption_ThenItShouldFetchThatTier3()
+        {
+            var engine = new Mock<IUnit4Engine>();
+
+            var cache = CreateCache(A.BcrLine().With(A.Criteria.Tier3, "tier3"));
+
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, cache, engine.Object);
 
             reader.Read();
@@ -111,7 +125,7 @@ namespace Unit4.Automation.Tests
             return cache.Object;
         }
 
-        private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, IFile<Bcr> bcrCache, IUnit4Engine engine)
+        private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, IFile<Bcr> bcrCache, IUnit4Engine engine, bool updateCache = false)
         {
             var factory = new Mock<IUnit4EngineFactory>();
             factory.Setup(x => x.Create()).Returns(engine);
@@ -122,7 +136,7 @@ namespace Unit4.Automation.Tests
 
             return new BcrReader(
                 Mock.Of<ILogging>(),
-                new BcrOptions(),
+                new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, updateCache),
                 bcrCache,
                 Mock.Of<IFile<SerializableCostCentreList>>(),
                 factory.Object,
