@@ -18,7 +18,7 @@ namespace Unit4.Automation.Tests
         public void GivenNoCache_ThenItShouldFetchAllTier3Hierarchies()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(CreateDataSet("tier3"));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "tier3" }));
             var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3" } }, new BcrOptions(), Mock.Of<IFile<Bcr>>(), engine.Object);
 
             reader.Read();
@@ -47,7 +47,7 @@ namespace Unit4.Automation.Tests
         public void GivenTier3WithOneCostCentresCached_ThenItShouldOnlyFetchTheUncachedTier3()
         {
             var engine = new Mock<IUnit4Engine>();
-            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(CreateDataSet("b"));
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("b"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "b" }));
 
             var bcrCache = new Mock<IFile<Bcr>>();
             bcrCache.Setup(x => x.Exists()).Returns(true);
@@ -62,6 +62,26 @@ namespace Unit4.Automation.Tests
             engine.Verify(x => x.RunReport(Resql.BcrTier3("a")), Times.Never);
 
             Assert.That(tier3sInBcr, Is.EquivalentTo(new [] { "a", "b" }));
+        }
+
+        [Test]
+        public void GivenCachedCostCentreInOneTier3AndUncachedCostCentreInSameTier3_ThenItShouldFetchTheTier3()
+        {
+            var engine = new Mock<IUnit4Engine>();
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(CreateDataSet(new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" }));
+
+            var bcrCache = new Mock<IFile<Bcr>>();
+            bcrCache.Setup(x => x.Exists()).Returns(true);
+            bcrCache.Setup(x => x.IsDirty()).Returns(false);
+            bcrCache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a").Build() }));
+
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, new BcrOptions(), bcrCache.Object, engine.Object);
+
+            var costCentresInBcr = reader.Read().Lines.Select(x => x.CostCentre.Code);
+
+            engine.Verify(x => x.RunReport(Resql.BcrTier3("tier3")), Times.Once);
+
+            Assert.That(costCentresInBcr, Is.EquivalentTo(new [] { "a", "b" }));
         }
 
         private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, BcrOptions options, IFile<Bcr> bcrCache, IUnit4Engine engine)
@@ -83,7 +103,7 @@ namespace Unit4.Automation.Tests
                 costCentresProvider.Object);
         }
 
-        private DataSet CreateDataSet(string tier3)
+        private DataSet CreateDataSet(params CostCentre[] costCentres)
         {
             var dataset = new DataSet();
             var table = dataset.Tables.Add("foo");
@@ -106,8 +126,11 @@ namespace Unit4.Automation.Tests
             table.Columns.Add("plf_amount", typeof(double));
             table.Columns.Add("f2_outturn_vari18", typeof(double));
 
-            var row = table.NewRow();
-            table.Rows.Add(string.Empty, string.Empty, tier3, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, 0);
+            foreach (var code in costCentres)
+            {
+                var row = table.NewRow();
+                table.Rows.Add(string.Empty, string.Empty, code.Tier3, string.Empty, code.Code, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, 0);
+            }
             return dataset;
         }
     }
