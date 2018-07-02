@@ -38,16 +38,44 @@
                         <RegistryKey Root="HKCU" Key="Software\Unit4Automation">
                             <RegistryValue Value="" Type="string" KeyPath="yes" />
                         </RegistryKey>
+
                         <RemoveFolder Id="RemoveFolder" On="uninstall" />
+                        <RemoveFile Id="RemoveConfig" On="uninstall" Name="config.json" />
 
                         <Environment Id="Path" Action="set" Name="Path" Part="last" Permanent="no" Value="[INSTALLDIR]" System="no" />
                     </Component>
+
+                    <Directory Id="LOGDIR" Name="log">
+                        <Component Id="RemoveLogFolder" Guid="723CAD38-D53F-4708-A86C-B54C77174D33">
+                            <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
+                            <RegistryKey Root="HKCU" Key="Software\Unit4Automation">
+                                <RegistryValue Value="" Type="string" KeyPath="yes" />
+                            </RegistryKey>
+
+                            <RemoveFile Id="RemoveLogFile" On="uninstall" Name="*" />
+                            <RemoveFolder Id="RemoveLog" On="uninstall" />
+                        </Component>
+                    </Directory>
+
+                    <Directory Id="CACHEDIR" Name="cache">
+                        <Component Id="RemoveCacheFolder" Guid="762C97FF-6E2F-4BBE-A227-1E1F3B07DFC0">
+                            <!-- https://stackoverflow.com/questions/12860316/ice38-component-installs-to-user-profile-error-for-a-specific-component -->
+                            <RegistryKey Root="HKCU" Key="Software\Unit4Automation">
+                                <RegistryValue Value="" Type="string" KeyPath="yes" />
+                            </RegistryKey>
+
+                            <RemoveFile Id="RemoveCacheFile" On="uninstall" Name="*" />
+                            <RemoveFolder Id="RemoveCache" On="uninstall" />
+                        </Component>
+                    </Directory>
                 </Directory>
             </Directory>
         </Directory>
 
         <Feature Id="Complete" Level="1">
             <ComponentRef Id="MainExecutable" />
+            <ComponentRef Id="RemoveLogFolder" />
+            <ComponentRef Id="RemoveCacheFolder" />
         </Feature>
     </Product>
 </Wix>
