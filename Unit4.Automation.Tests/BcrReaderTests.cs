@@ -82,6 +82,28 @@ namespace Unit4.Automation.Tests
             Assert.That(actualLines, Is.EquivalentTo(lines));
         }
 
+        [Test]
+        public void GivenCachedAndFetchedLines_ThenTheOldCacheAndNewLinesShouldBeWrittenToCache()
+        {
+            var lines = new BcrLine[] { 
+                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a"), 
+                A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "b")
+            };
+            var engine = new Mock<IUnit4Engine>();
+            engine.Setup(x => x.RunReport(Resql.BcrTier3("tier3"))).Returns(lines.AsDataSet());
+
+            var cache = new Mock<IFile<Bcr>>();
+            cache.Setup(x => x.Exists()).Returns(true);
+            cache.Setup(x => x.IsDirty()).Returns(false);
+            cache.Setup(x => x.Read()).Returns(new Bcr(new BcrLine[] { A.BcrLine().With(A.Criteria.Tier3, "tier3").With(A.Criteria.CostCentre, "a") }));
+
+            var reader = CreateReader(new [] { new CostCentre() { Tier3 = "tier3", Code = "a" }, new CostCentre() { Tier3 = "tier3", Code = "b" } }, cache.Object, engine.Object);
+
+            var bcr = reader.Read();
+
+            cache.Verify(x => x.Write(bcr), Times.Once);
+        }
+
         private IFile<Bcr> CreateCache(params BcrLine[] lines)
         {
             var cache = new Mock<IFile<Bcr>>();
