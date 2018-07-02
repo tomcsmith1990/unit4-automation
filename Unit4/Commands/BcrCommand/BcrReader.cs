@@ -2,6 +2,8 @@ using System.IO;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
 using Unit4.Automation.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {
@@ -31,12 +33,22 @@ namespace Unit4.Automation.Commands.BcrCommand
         {
             var tier3Hierarchy = _hierarchy.GetHierarchyByTier3();
 
-            var bcrReport = 
-                new Cache<Bcr>(
-                    () => new BcrReport(_factory, _log).RunBcr(tier3Hierarchy), 
-                    _bcrFile);
+            var cachedLines = GetCachedLines();
+            var cachedTier3s = cachedLines.Select(x => x.CostCentre.Tier3).Distinct();
 
-            return bcrReport.Fetch();
+            var hierarchyToFetch = tier3Hierarchy.Where(x => !cachedTier3s.Contains(x.Key));
+
+            if (!hierarchyToFetch.Any())
+            {
+                return new Bcr(cachedLines);
+            }
+
+            return new BcrReport(_factory, _log).RunBcr(hierarchyToFetch);
+        }
+
+        private IEnumerable<BcrLine> GetCachedLines()
+        {
+            return new Cache<Bcr>(() => new Bcr(Enumerable.Empty<BcrLine>()), _bcrFile).Fetch().Lines;
         }
     }
 }
