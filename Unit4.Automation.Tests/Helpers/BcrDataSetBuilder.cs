@@ -1,12 +1,18 @@
 using System;
 using System.Data;
 using Unit4.Automation.Model;
+using System.Linq;
 
 namespace Unit4.Automation.Tests.Helpers
 {
     internal class BcrDataSetBuilder
     {
         public static DataSet Build(params CostCentre[] costCentres)
+        {
+            return Build(costCentres.Select(x => new BcrLine() { CostCentre = x }).ToArray());
+        }
+
+        private static DataSet Build(params BcrLine[] lines)
         {
             var dataset = new DataSet();
             var table = dataset.Tables.Add("foo");
@@ -29,10 +35,11 @@ namespace Unit4.Automation.Tests.Helpers
             table.Columns.Add("plf_amount", typeof(double));
             table.Columns.Add("f2_outturn_vari18", typeof(double));
 
-            foreach (var code in costCentres)
+            foreach (var line in lines)
             {
                 var row = table.NewRow();
-                table.Rows.Add(code.Tier1, code.Tier2, code.Tier3, code.Tier3, code.Code, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, 0);
+                var code = line.CostCentre;
+                table.Rows.Add(code.Tier1, code.Tier2, code.Tier3, code.Tier3, code.Code, code.Tier1Name, code.Tier2Name, code.Tier3Name, code.Tier4Name, code.CostCentreName, line.Account, line.AccountName, line.Budget, line.Profile, line.Actuals, line.Variance, line.Forecast, line.OutturnVariance);
             }
             return dataset;
         }
