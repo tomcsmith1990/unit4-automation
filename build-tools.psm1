@@ -35,6 +35,20 @@ function Inspect {
     .\InspectCodeReport.html
 }
 
+function Release([string] $version) {
+    If (-Not ($version -Match "^[0-9]+.[0-9]+.[0-9]+$")) {
+        Write-Host "Invalid version"
+        Return
+    }
+
+    If (-Not (git branch | Where { $_ -match "(\* )(.*)" } | ForEach { $matches[2] -eq "master" })) {
+        Write-Host "Not on master"
+        Return
+    }
+
+
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
@@ -44,3 +58,4 @@ export-modulemember -function Installer
 export-modulemember -function Install
 export-modulemember -function Uninstall
 export-modulemember -function Inspect
+export-modulemember -function Release
