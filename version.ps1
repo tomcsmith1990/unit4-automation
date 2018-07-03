@@ -8,14 +8,13 @@ function Update-Version([string] $version, [string] $assemblyInfoPath) {
     Move-Item $tmpFile $assemblyInfoPath -Force
 }
 
-function Set-Version ([string] $version) {
+function Set-Version () {
+    $version = if (Test-Path env:UNIT4_AUTOMATION_VERSION) { $env:UNIT4_AUTOMATION_VERSION } else { "1.0.0" }
     $build = if (Test-Path env:TRAVIS_BUILD_NUMBER) { $env:TRAVIS_BUILD_NUMBER } else { 0 }
     
     $assemblyVersion = "$version.$build"
     
     Get-ChildItem -Path AssemblyInfo.cs -Recurse | ForEach-Object { Update-Version $assemblyVersion $_ }
-
-    $env:UNIT4_AUTOMATION_VERSION = $version
 }
 
-Set-Version "1.0.1"
+Set-Version
