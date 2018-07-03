@@ -12,8 +12,10 @@ function Set-Version ([string] $version) {
     $build = if (Test-Path env:TRAVIS_BUILD_NUMBER) { $env:TRAVIS_BUILD_NUMBER } else { 0 }
     
     $assemblyVersion = "$version.$build"
-
+    
     Get-ChildItem -Path AssemblyInfo.cs -Recurse | ForEach-Object { Update-Version $assemblyVersion $_ }
+
+    $env:UNIT4_AUTOMATION_VERSION = $version
 }
 
 Set-Version "1.0.0"
