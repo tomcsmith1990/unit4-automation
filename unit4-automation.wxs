@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <?define ProductVersion="1.0.0"?>
+
     <Product
         Name="Unit4 Automation"
         Manufacturer="Tom Smith"
-        Id="5B9D4119-8874-4573-A5D6-958F45C713E6" 
+        Id="*" 
         UpgradeCode="25340577-2567-4EE3-8619-36EC6A10FA79"
         Language="1033"
         Codepage="1252"
-        Version="1.0.0">
+        Version="$(var.ProductVersion)">
         <Package 
             Id="*"
             Keywords="Installer"
