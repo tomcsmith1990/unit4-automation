@@ -18,4 +18,4 @@ function Set-Version ([string] $version) {
     $env:UNIT4_AUTOMATION_VERSION = $version
 }
 
-Set-Version "1.0.0"
+Set-Version "1.0.1"
