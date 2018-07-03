@@ -48,6 +48,12 @@ function Release([string] $version) {
         Return
     }
 
+    $lastVersion = git tag | Select -First 1
+    If (-Not ([System.Version]$version -gt [System.Version]$lastVersion)) {
+        Write-Host "$version is not greater than $lastVersion"
+        Return
+    }
+
     $tmpFile = "updated-travis.wxs"
     $path = ".\.travis.yml"
 
