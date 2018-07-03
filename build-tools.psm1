@@ -35,6 +35,41 @@ function Inspect {
     .\InspectCodeReport.html
 }
 
+function Release([string] $version) {
+    If (-Not ($version -Match "^[0-9]+.[0-9]+.[0-9]+$")) {
+        Write-Host "Invalid version"
+        Return
+    }
+
+    $releaseBranch = "master"
+
+    If (-Not (git branch | Where { $_ -match "(\* )(.*)" } | ForEach { $matches[2] -eq $releaseBranch })) {
+        Write-Host "Not on $releaseBranch"
+        Return
+    }
+
+    $lastVersion = git tag | Select -First 1
+    If (-Not ([System.Version]$version -gt [System.Version]$lastVersion)) {
+        Write-Host "$version is not greater than $lastVersion"
+        Return
+    }
+
+    $tmpFile = "updated-travis.wxs"
+    $path = ".\.travis.yml"
+
+    Get-Content $path | 
+    % { $_ -replace "- UNIT4_AUTOMATION_VERSION=0.0.0", "- UNIT4_AUTOMATION_VERSION=$version" } |
+    Set-Content $tmpFile
+    Move-Item $tmpFile $path -Force
+
+    git stage .travis.yml
+    git commit -m "Update version to $version"
+    git tag -a $version -m "$version"
+
+    git push origin $releaseBranch
+    git push origin $version
+}
+
 export-modulemember -function Restore
 export-modulemember -function Build
 export-modulemember -function Test
@@ -44,3 +79,4 @@ export-modulemember -function Installer
 export-modulemember -function Install
 export-modulemember -function Uninstall
 export-modulemember -function Inspect
+export-modulemember -function Release
