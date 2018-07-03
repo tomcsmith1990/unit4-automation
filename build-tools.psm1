@@ -41,8 +41,10 @@ function Release([string] $version) {
         Return
     }
 
-    If (-Not (git branch | Where { $_ -match "(\* )(.*)" } | ForEach { $matches[2] -eq "master" })) {
-        Write-Host "Not on master"
+    $releaseBranch = "master"
+
+    If (-Not (git branch | Where { $_ -match "(\* )(.*)" } | ForEach { $matches[2] -eq $releaseBranch })) {
+        Write-Host "Not on $releaseBranch"
         Return
     }
 
@@ -58,7 +60,7 @@ function Release([string] $version) {
     git commit -m "Update version to $version"
     git tag -a $version -m "Release version $version"
 
-    git push origin master
+    git push origin $releaseBranch
     git push origin $version
 }
 
