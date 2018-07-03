@@ -64,7 +64,7 @@ function Release([string] $version) {
 
     git stage .travis.yml
     git commit -m "Update version to $version"
-    git tag -a $version -m "Release version $version"
+    git tag -a $version -m "$version"
 
     git push origin $releaseBranch
     git push origin $version
