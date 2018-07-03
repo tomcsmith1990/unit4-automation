@@ -58,7 +58,7 @@ function Release([string] $version) {
     $path = ".\.travis.yml"
 
     Get-Content $path | 
-    % { $_ -replace "- UNIT4_AUTOMATION_VERSION=0.0.0", "- UNIT4_AUTOMATION_VERSION=$version" } |
+    % { $_ -replace "- UNIT4_AUTOMATION_VERSION=[0-9]+.[0-9]+.[0-9]+", "- UNIT4_AUTOMATION_VERSION=$version" } |
     Set-Content $tmpFile
     Move-Item $tmpFile $path -Force
 
