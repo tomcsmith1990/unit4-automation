@@ -46,7 +46,20 @@ function Release([string] $version) {
         Return
     }
 
+    $tmpFile = "updated-travis.wxs"
+    $path = ".\.travis.yml"
 
+    Get-Content $path | 
+    % { $_ -replace "- UNIT4_AUTOMATION_VERSION=0.0.0", "- UNIT4_AUTOMATION_VERSION=$version" } |
+    Set-Content $tmpFile
+    Move-Item $tmpFile $path -Force
+
+    git stage .travis.yml
+    git commit -m "Update version to $version"
+    git tag -a $version -m "Release version $version"
+
+    git push origin master
+    git push origin $version
 }
 
 export-modulemember -function Restore
