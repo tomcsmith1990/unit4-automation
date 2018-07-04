@@ -16,10 +16,12 @@ namespace Unit4.Automation.Model
 
         public int CompareTo(CostCentre other)
         {
-            var tier1 = Tier1.CompareTo(other.Tier1);
-            if (tier1 != 0) return tier1;
+            var result = 0;
+            if (result == 0) result = Tier1.CompareTo(other.Tier1);
+            if (result == 0) result = Tier2.CompareTo(other.Tier2);
+            if (result == 0) result = Tier3.CompareTo(other.Tier3);
 
-            return Tier2.CompareTo(other.Tier2);
+            return result;
         }
 
         public override bool Equals(object obj)
