@@ -16,6 +16,13 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
+        public void GivenCostCentresWithNullValues_ThenTheyAreEqual()
+        {
+            var costCentre1 = new CostCentre();
+            Assert.That(new CostCentre(), Is.Not.LessThan(costCentre1).And.Not.GreaterThan(costCentre1));
+        }
+
+        [Test]
         public void CostCentreComparisonShouldUseTier1Comparison()
         {
             var costCentre1 = new CostCentre() { Tier1 = "1" };
