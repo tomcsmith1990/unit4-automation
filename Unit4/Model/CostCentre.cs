@@ -19,11 +19,11 @@ namespace Unit4.Automation.Model
             if (other == null) return 1;
 
             var result = 0;
-            if (result == 0) result = Tier1.NullSafeCompareTo(other?.Tier1);
-            if (result == 0) result = Tier2.NullSafeCompareTo(other?.Tier2);
-            if (result == 0) result = Tier3.NullSafeCompareTo(other?.Tier3);
-            if (result == 0) result = Tier4.NullSafeCompareTo(other?.Tier4);
-            if (result == 0) result = Code.NullSafeCompareTo(other?.Code);
+            if (result == 0) result = Tier1.NullSafeCompareTo(other.Tier1);
+            if (result == 0) result = Tier2.NullSafeCompareTo(other.Tier2);
+            if (result == 0) result = Tier3.NullSafeCompareTo(other.Tier3);
+            if (result == 0) result = Tier4.NullSafeCompareTo(other.Tier4);
+            if (result == 0) result = Code.NullSafeCompareTo(other.Code);
 
             return result;
         }
