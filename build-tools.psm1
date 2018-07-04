@@ -48,7 +48,7 @@ function Release([string] $version) {
         Return
     }
 
-    $lastVersion = git tag | Select -First 1
+    $lastVersion = git tag | Select -Last 1
     If (-Not ([System.Version]$version -gt [System.Version]$lastVersion)) {
         Write-Host "$version is not greater than $lastVersion"
         Return
