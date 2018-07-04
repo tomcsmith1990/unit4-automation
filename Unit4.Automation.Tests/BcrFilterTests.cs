@@ -98,5 +98,15 @@ namespace Unit4.Automation.Tests
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
         }
+
+        [Test]
+        public void GivenTwoLines_ThenTheyShouldBeSorted()
+        {
+            var bcr = new Bcr(new BcrLine[] { A.BcrLine().Account("B"), A.BcrLine().Account("A") });
+
+            var orderedLines = new BcrLine[] { A.BcrLine().Account("A"), A.BcrLine().Account("B") };
+
+            Assert.That(A.BcrFilter().Build().Use(bcr).Lines, Is.EqualTo(orderedLines));
+        }
     }
 }
