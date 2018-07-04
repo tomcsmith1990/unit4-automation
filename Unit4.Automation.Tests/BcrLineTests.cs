@@ -14,5 +14,14 @@ namespace Unit4.Automation.Tests
 
             Assert.That(result, Is.True);
         }
+
+        [Test]
+        public void GivenLesserCostCentreThen_TheBcrLineShouldBeLesser()
+        {
+            var line1 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } };
+            var line2 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } };
+
+            Assert.That(line1, Is.LessThan(line2));
+        }
     }
 }
