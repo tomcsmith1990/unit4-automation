@@ -94,6 +94,7 @@
     <Compile Include="ExcelTests.cs" />
     <Compile Include="CostCentreHierarchyTests.cs" />
     <Compile Include="CostCentreTests.cs" />
+    <Compile Include="BcrLineTests.cs" />
     <Compile Include="BcrReportTests.cs" />
     <Compile Include="BcrReaderTests.cs" />
     <Compile Include="ConfigRunnerTests.cs" />

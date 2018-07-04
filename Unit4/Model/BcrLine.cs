@@ -1,6 +1,6 @@
 namespace Unit4.Automation.Model
 {
-    internal class BcrLine
+    internal class BcrLine : System.IComparable<BcrLine>
     {
         public CostCentre CostCentre { get; set; }
         
@@ -14,6 +14,11 @@ namespace Unit4.Automation.Model
         public double Forecast { get; set; }
         public double OutturnVariance { get; set; }
 
+        public int CompareTo(BcrLine other)
+        {
+            return 0;
+        }
+        
         public override bool Equals(object obj)
         {
             var other = obj as BcrLine;
