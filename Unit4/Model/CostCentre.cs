@@ -21,6 +21,7 @@ namespace Unit4.Automation.Model
             if (result == 0) result = Tier2.CompareTo(other.Tier2);
             if (result == 0) result = Tier3.CompareTo(other.Tier3);
             if (result == 0) result = Tier4.CompareTo(other.Tier4);
+            if (result == 0) result = Code.CompareTo(other.Code);
 
             return result;
         }
