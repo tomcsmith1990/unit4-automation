@@ -23,5 +23,14 @@ namespace Unit4.Automation.Tests
 
             Assert.That(line1, Is.LessThan(line2));
         }
+
+        [Test]
+        public void GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed()
+        {
+            var line1 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "1" };
+            var line2 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" };
+
+            Assert.That(line1, Is.LessThan(line2));
+        }
     }
 }
