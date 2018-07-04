@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Unit4.Automation.Model;
+using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests
 {
@@ -22,49 +23,22 @@ namespace Unit4.Automation.Tests
             Assert.That(new CostCentre(), Is.Not.LessThan(costCentre1).And.Not.GreaterThan(costCentre1));
         }
 
-        [Test]
-        public void CostCentreComparisonShouldUseTier1Comparison()
+        [Test, TestCaseSource(nameof(Comparisons))]
+        public void CostCentreComparisonShouldUseTier1Comparison(CostCentre first, CostCentre second)
         {
-            var costCentre1 = new CostCentre() { Tier1 = "1" };
-            var costCentre2 = new CostCentre() { Tier1 = "2" };
-
-            Assert.That(costCentre1, Is.LessThan(costCentre2));
+            Assert.That(first, Is.LessThan(second));
         }
 
-        [Test]
-        public void GivenEqualTier1_ThenCostCentreComparisonShouldUseTier2Comparison()
+        private static IEnumerable<TestCaseData> Comparisons
         {
-            var costCentre1 = new CostCentre() { Tier1 = "1", Tier2 = "1" };
-            var costCentre2 = new CostCentre() { Tier1 = "1", Tier2 = "2" };
-
-            Assert.That(costCentre1, Is.LessThan(costCentre2));
-        }
-
-        [Test]
-        public void GivenEqualTier2_ThenCostCentreComparisonShouldUseTier3Comparison()
-        {
-            var costCentre1 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1" };
-            var costCentre2 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "2" };
-
-            Assert.That(costCentre1, Is.LessThan(costCentre2));
-        }
-
-        [Test]
-        public void GivenEqualTier3_ThenCostCentreComparisonShouldUseTier4Comparison()
-        {
-            var costCentre1 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1" };
-            var costCentre2 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "2" };
-
-            Assert.That(costCentre1, Is.LessThan(costCentre2));
-        }
-
-        [Test]
-        public void GivenEqualTier4_ThenCostCentreComparisonShouldUseCostCentreComparison()
-        {
-            var costCentre1 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "1" };
-            var costCentre2 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "2" };
-
-            Assert.That(costCentre1, Is.LessThan(costCentre2));
+            get
+            {
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1" }, new CostCentre() { Tier1 = "2" }).SetName("GivenLesserTier1_ThenTheCostCentreShouldBeLesser");
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "2" }).SetName("GivenEqualTier1_ThenLesserTier2ShouldBeUsed");
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "2" }).SetName("GivenEqualTier2_ThenLesserTier3ShouldBeUsed");
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "2" }).SetName("GivenEqualTier3_ThenLesserTier4ShouldBeUsed");
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "2" }).SetName("GivenEqualTier4_ThenLesserCostCentreShouldBeUsed");
+            }
         }
     }
 }
