@@ -83,6 +83,7 @@
     <Compile Include="Model\NullOptions.cs" />
     <Compile Include="Model\BcrOptions.cs" />
     <Compile Include="Model\ConfigOptions.cs" />
+    <Compile Include="Model\ObjectExtensions.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="ReportEngine\Unit4Engine.cs" />
     <Compile Include="ReportEngine\Unit4EngineFactory.cs" />
