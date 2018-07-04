@@ -16,7 +16,7 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenLesserCostCentreThen_TheBcrLineShouldBeLesser()
+        public void GivenLesserCostCentre_ThenTheBcrLineShouldBeLesser()
         {
             var line1 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } };
             var line2 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } };
