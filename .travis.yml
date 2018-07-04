@@ -1,6 +1,6 @@
 language: csharp
 env:
-  - UNIT4_AUTOMATION_VERSION=1.0.1
+  - UNIT4_AUTOMATION_VERSION=1.0.2
 solution: "./Unit4.sln"
 install:
 - nuget restore ./Unit4.sln
