@@ -7,6 +7,15 @@ namespace Unit4.Automation.Tests
     internal class CostCentreTests
     {
         [Test]
+        public void GivenNullValue_ThenTheCostCentreShouldBeGreater()
+        {
+            var costCentre1 = new CostCentre() { Tier1 = "1" };
+            var result = costCentre1.CompareTo(null) > 0;
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
         public void CostCentreComparisonShouldUseTier1Comparison()
         {
             var costCentre1 = new CostCentre() { Tier1 = "1" };
