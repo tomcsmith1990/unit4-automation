@@ -32,5 +32,14 @@ namespace Unit4.Automation.Tests
 
             Assert.That(costCentre1, Is.LessThan(costCentre2));
         }
+
+        [Test]
+        public void GivenEqualTier3_ThenCostCentreComparisonShouldUseTier4Comparison()
+        {
+            var costCentre1 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1" };
+            var costCentre2 = new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "2" };
+
+            Assert.That(costCentre1, Is.LessThan(costCentre2));
+        }
     }
 }
