@@ -18,7 +18,7 @@ namespace Unit4.Automation.Model
         {
             if (other == null) return 1;
 
-            return 0;
+            return CostCentre.NullSafeCompareTo(other.CostCentre);
         }
 
         public override bool Equals(object obj)
