@@ -17,15 +17,23 @@ namespace Unit4.Automation.Model
         public int CompareTo(CostCentre other)
         {
             if (other == null) return 1;
-            
+
             var result = 0;
-            if (result == 0) result = Tier1.CompareTo(other.Tier1);
-            if (result == 0) result = Tier2.CompareTo(other.Tier2);
-            if (result == 0) result = Tier3.CompareTo(other.Tier3);
-            if (result == 0) result = Tier4.CompareTo(other.Tier4);
-            if (result == 0) result = Code.CompareTo(other.Code);
+            if (result == 0) result = Compare(Tier1, other?.Tier1);
+            if (result == 0) result = Compare(Tier2, other?.Tier2);
+            if (result == 0) result = Compare(Tier3, other?.Tier3);
+            if (result == 0) result = Compare(Tier4, other?.Tier4);
+            if (result == 0) result = Compare(Code, other?.Code);
 
             return result;
+        }
+
+        private int Compare<T>(T a, T b) where T : System.IComparable<T>
+        {
+            if (a == null && b == null) return 0;
+            if (a == null) return -1;
+            if (b == null) return 1;
+            return a.CompareTo(b);
         }
 
         public override bool Equals(object obj)
