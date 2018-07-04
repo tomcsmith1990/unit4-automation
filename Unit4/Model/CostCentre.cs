@@ -1,6 +1,6 @@
 namespace Unit4.Automation.Model
 {
-    internal class CostCentre
+    internal class CostCentre : System.IComparable<CostCentre>
     {
         public string Tier1 { get; set; }
         public string Tier2 { get; set; }
@@ -13,6 +13,11 @@ namespace Unit4.Automation.Model
         public string Tier3Name { get; set; }
         public string Tier4Name { get; set; }
         public string CostCentreName { get; set; }
+
+        public int CompareTo(CostCentre other)
+        {
+            return Tier1.CompareTo(other.Tier1);
+        }
 
         public override bool Equals(object obj)
         {
