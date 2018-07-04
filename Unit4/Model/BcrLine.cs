@@ -16,9 +16,11 @@ namespace Unit4.Automation.Model
 
         public int CompareTo(BcrLine other)
         {
+            if (other == null) return 1;
+
             return 0;
         }
-        
+
         public override bool Equals(object obj)
         {
             var other = obj as BcrLine;
