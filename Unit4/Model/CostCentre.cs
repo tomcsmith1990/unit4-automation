@@ -16,6 +16,8 @@ namespace Unit4.Automation.Model
 
         public int CompareTo(CostCentre other)
         {
+            if (other == null) return 1;
+            
             var result = 0;
             if (result == 0) result = Tier1.CompareTo(other.Tier1);
             if (result == 0) result = Tier2.CompareTo(other.Tier2);
