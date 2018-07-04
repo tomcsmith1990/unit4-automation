@@ -16,7 +16,7 @@ namespace Unit4.Automation.Commands.BcrCommand
 
         public Bcr Use(Bcr bcr)
         {
-            return new Bcr(bcr.Lines.Where(x => Matches(x.CostCentre)).ToList());
+            return new Bcr(bcr.Lines.Where(x => Matches(x.CostCentre)).OrderBy(x => x).ToList());
         }
 
         private bool Matches(CostCentre costCentre)
