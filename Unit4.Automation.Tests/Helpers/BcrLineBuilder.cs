@@ -11,6 +11,7 @@ namespace Unit4.Automation.Tests.Helpers
         private string _tier3;
         private string _tier4;
         private string _costCentre;
+        private string _account;
 
         private double _actuals;
         
@@ -26,6 +27,12 @@ namespace Unit4.Automation.Tests.Helpers
                 default: throw new NotSupportedException(criteria.ToString());
             }
 
+            return this;
+        }
+
+        public BcrLineBuilder Account(string account)
+        {
+            _account = account;
             return this;
         }
 
@@ -47,7 +54,7 @@ namespace Unit4.Automation.Tests.Helpers
                     Tier4 = builder._tier4,
                     Code = builder._costCentre,
                 },
-                Account = null,
+                Account = builder._account,
                 AccountName = null,
                 Budget = 0,
                 Profile = 0,
