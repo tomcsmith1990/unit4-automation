@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Unit4.Automation.Model;
+using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests
 {
@@ -15,22 +16,19 @@ namespace Unit4.Automation.Tests
             Assert.That(result, Is.True);
         }
 
-        [Test]
-        public void GivenLesserCostCentre_ThenTheBcrLineShouldBeLesser()
+        [Test, TestCaseSource(nameof(Comparisons))]
+        public void TestBcrLineCompareTo(BcrLine first, BcrLine second)
         {
-            var line1 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } };
-            var line2 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } };
-
-            Assert.That(line1, Is.LessThan(line2));
+            Assert.That(first, Is.LessThan(second));
         }
 
-        [Test]
-        public void GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed()
+        private static IEnumerable<TestCaseData> Comparisons
         {
-            var line1 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "1" };
-            var line2 = new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" };
-
-            Assert.That(line1, Is.LessThan(line2));
+            get
+            {
+                yield return new TestCaseData(new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } }, new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } }).SetName("GivenLesserCostCentre_ThenTheBcrLineShouldBeLesser");
+                yield return new TestCaseData(new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "1" }, new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" }).SetName("GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed");
+            }
         }
     }
 }
