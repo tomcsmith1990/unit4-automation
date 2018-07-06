@@ -17,7 +17,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly IBcrReader _reader;
         private readonly IBcrWriter _writer;
 
-        public BcrReportRunner(
+        private BcrReportRunner(
             ILogging log,
             IBcrReader reader,
             IBcrMiddleware middleware,
