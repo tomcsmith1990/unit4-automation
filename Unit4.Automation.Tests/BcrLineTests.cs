@@ -26,8 +26,14 @@ namespace Unit4.Automation.Tests
         {
             get
             {
-                yield return new TestCaseData(new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } }, new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } }).SetName("GivenLesserCostCentre_ThenTheBcrLineShouldBeLesser");
-                yield return new TestCaseData(new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "1" }, new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" }).SetName("GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed");
+                yield return new TestCaseData(
+                        new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" } },
+                        new BcrLine() { CostCentre = new CostCentre() { Tier1 = "2" } })
+                    .SetName("GivenLesserCostCentre_ThenTheBcrLineShouldBeLesser");
+                yield return new TestCaseData(
+                        new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "1" },
+                        new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" })
+                    .SetName("GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed");
             }
         }
     }

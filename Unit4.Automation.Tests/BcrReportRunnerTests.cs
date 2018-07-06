@@ -59,7 +59,12 @@ namespace Unit4.Automation.Tests
             writer.Verify(x => x.Write(path, It.IsAny<Bcr>()), Times.Once);
         }
 
-        private BcrReportRunner Create(ILogging log = null, IBcrReader reader = null, IBcrMiddleware middleware = null, IBcrWriter writer = null, IPathProvider pathProvider = null)
+        private BcrReportRunner Create(
+            ILogging log = null,
+            IBcrReader reader = null,
+            IBcrMiddleware middleware = null,
+            IBcrWriter writer = null,
+            IPathProvider pathProvider = null)
         {
             log = log ?? Mock.Of<ILogging>();
             reader = reader ?? Mock.Of<IBcrReader>();

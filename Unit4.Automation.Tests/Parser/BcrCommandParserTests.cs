@@ -1,13 +1,13 @@
 using System;
-using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
-using Unit4.Automation.Model;
 using System.Linq;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
-using Unit4.Automation.Tests.Helpers;
-using System.Collections.Generic;
 using System.Text;
+using NUnit.Framework;
 using Unit4.Automation.Commands;
+using Unit4.Automation.Model;
+using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests.Parser
 {
@@ -30,7 +30,7 @@ namespace Unit4.Automation.Tests.Parser
         }
 
         [TestCaseSource(nameof(CaseDifferences))]
-        public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(Criteria criteria, string optionName)
+        public void GivenTheBcrCommand_ThenTheTierOptionShouldBeRecognised(A.Criteria criteria, string optionName)
         {
             var options = _parser.GetOptions("bcr", $"--{optionName}=myTier");
             var bcrOptions = options as BcrOptions;

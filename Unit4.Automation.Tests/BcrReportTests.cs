@@ -90,8 +90,6 @@ namespace Unit4.Automation.Tests
         {
             private readonly Mock<IUnit4Engine> _mock;
 
-            public Mock<IUnit4Engine> Mock => _mock;
-
             public DummyEngineFactory(IEnumerable<string> returnEmpty, IEnumerable<string> throws = null)
             {
                 throws = throws ?? new string[0];
@@ -102,14 +100,16 @@ namespace Unit4.Automation.Tests
                 _mock = mockEngine;
             }
 
+            public Mock<IUnit4Engine> Mock => _mock;
+
+            public IUnit4Engine Create() => _mock.Object;
+
             private DataSet EmptyDataSet()
             {
                 var dataset = new DataSet();
                 dataset.Tables.Add("foo");
                 return dataset;
             }
-
-            public IUnit4Engine Create() =>  _mock.Object;
         }
 
         private class NullLogging : ILogging

@@ -125,7 +125,11 @@ namespace Unit4.Automation.Tests
             return cache.Object;
         }
 
-        private BcrReader CreateReader(IEnumerable<CostCentre> allCostCentres, IFile<Bcr> bcrCache, IUnit4Engine engine, bool updateCache = false)
+        private BcrReader CreateReader(
+            IEnumerable<CostCentre> allCostCentres,
+            IFile<Bcr> bcrCache,
+            IUnit4Engine engine,
+            bool updateCache = false)
         {
             var factory = new Mock<IUnit4EngineFactory>();
             factory.Setup(x => x.Create()).Returns(engine);
@@ -136,7 +140,14 @@ namespace Unit4.Automation.Tests
 
             return new BcrReader(
                 Mock.Of<ILogging>(),
-                new BcrOptions(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, updateCache),
+                new BcrOptions(
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    null,
+                    updateCache),
                 bcrCache,
                 Mock.Of<IFile<SerializableCostCentreList>>(),
                 factory.Object,

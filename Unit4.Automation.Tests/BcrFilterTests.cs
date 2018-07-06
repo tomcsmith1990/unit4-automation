@@ -32,7 +32,7 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded([Values] Criteria criteria)
+        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded([Values] A.Criteria criteria)
         {
             var filter = A.BcrFilter().Build();
 

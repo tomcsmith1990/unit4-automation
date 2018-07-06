@@ -33,11 +33,24 @@ namespace Unit4.Automation.Tests
         {
             get
             {
-                yield return new TestCaseData(new CostCentre() { Tier1 = "1" }, new CostCentre() { Tier1 = "2" }).SetName("GivenLesserTier1_ThenTheCostCentreShouldBeLesser");
-                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "2" }).SetName("GivenEqualTier1_ThenLesserTier2ShouldBeUsed");
-                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "2" }).SetName("GivenEqualTier2_ThenLesserTier3ShouldBeUsed");
-                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "2" }).SetName("GivenEqualTier3_ThenLesserTier4ShouldBeUsed");
-                yield return new TestCaseData(new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "1" }, new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "2" }).SetName("GivenEqualTier4_ThenLesserCostCentreShouldBeUsed");
+                yield return new TestCaseData(new CostCentre() { Tier1 = "1" }, new CostCentre() { Tier1 = "2" })
+                    .SetName("GivenLesserTier1_ThenTheCostCentreShouldBeLesser");
+                yield return new TestCaseData(
+                        new CostCentre() { Tier1 = "1", Tier2 = "1" },
+                        new CostCentre() { Tier1 = "1", Tier2 = "2" })
+                    .SetName("GivenEqualTier1_ThenLesserTier2ShouldBeUsed");
+                yield return new TestCaseData(
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1" },
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "2" })
+                    .SetName("GivenEqualTier2_ThenLesserTier3ShouldBeUsed");
+                yield return new TestCaseData(
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1" },
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "2" })
+                    .SetName("GivenEqualTier3_ThenLesserTier4ShouldBeUsed");
+                yield return new TestCaseData(
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "1" },
+                        new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "2" })
+                    .SetName("GivenEqualTier4_ThenLesserCostCentreShouldBeUsed");
             }
         }
     }
