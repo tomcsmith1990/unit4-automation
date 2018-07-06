@@ -17,14 +17,23 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly IBcrReader _reader;
         private readonly IBcrWriter _writer;
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer,
+        public BcrReportRunner(
+            ILogging log,
+            IBcrReader reader,
+            IBcrMiddleware middleware,
+            IBcrWriter writer,
             IPathProvider pathProvider)
             : this(log, reader, middleware, writer, pathProvider, Console.Out)
         {
         }
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer,
-            IPathProvider pathProvider, TextWriter progress)
+        public BcrReportRunner(
+            ILogging log,
+            IBcrReader reader,
+            IBcrMiddleware middleware,
+            IBcrWriter writer,
+            IPathProvider pathProvider,
+            TextWriter progress)
         {
             _log = log;
             _reader = reader;

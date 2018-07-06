@@ -14,16 +14,28 @@ namespace Unit4.Automation.Model
         private readonly IEnumerable<string> _tier3;
         private readonly IEnumerable<string> _tier4;
 
-        public BcrOptions() : this(Enumerable.Empty<string>(), Enumerable.Empty<string>(), Enumerable.Empty<string>(),
-            Enumerable.Empty<string>(), Enumerable.Empty<string>(), null, false)
+        public BcrOptions() : this(
+            Enumerable.Empty<string>(),
+            Enumerable.Empty<string>(),
+            Enumerable.Empty<string>(),
+            Enumerable.Empty<string>(),
+            Enumerable.Empty<string>(),
+            null,
+            false)
         {
         }
 
         // https://github.com/commandlineparser/commandline/issues/188
         // Constructor parameter order must be the same order as properties are defined in class.
         // It also looks like the parameter name must match the property name, not the option name.
-        public BcrOptions(IEnumerable<string> tier1, IEnumerable<string> tier2, IEnumerable<string> tier3,
-            IEnumerable<string> tier4, IEnumerable<string> costCentre, string outputDirectory, bool updateCache)
+        public BcrOptions(
+            IEnumerable<string> tier1,
+            IEnumerable<string> tier2,
+            IEnumerable<string> tier3,
+            IEnumerable<string> tier4,
+            IEnumerable<string> costCentre,
+            string outputDirectory,
+            bool updateCache)
         {
             _tier1 = tier1;
             _tier2 = tier2;

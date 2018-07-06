@@ -13,7 +13,13 @@ namespace Unit4.Automation.Commands.BcrCommand
         private readonly ILogging _log;
         private readonly bool _updateCache;
 
-        public BcrReader(ILogging log, BcrOptions options, IFile<Bcr> bcrFile, IFile<SerializableCostCentreList> costCentreFile, IUnit4EngineFactory factory, ICostCentresProvider provider)
+        public BcrReader(
+            ILogging log,
+            BcrOptions options,
+            IFile<Bcr> bcrFile,
+            IFile<SerializableCostCentreList> costCentreFile,
+            IUnit4EngineFactory factory,
+            ICostCentresProvider provider)
         {
             _log = log;
             _bcrFile = bcrFile;

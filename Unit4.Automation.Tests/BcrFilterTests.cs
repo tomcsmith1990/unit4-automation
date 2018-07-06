@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using System.Linq;
 using Unit4.Automation.Tests.Helpers;
-using System.Collections.Generic;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 
 namespace Unit4.Automation.Tests
