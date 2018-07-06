@@ -36,7 +36,7 @@ function Inspect {
 }
 
 function Cleanup {
-    cleanupcode.exe .\Unit4.sln --settings=.\Unit4.DotSettings
+    cleanupcode.exe .\Unit4.sln --settings=.\Unit4.DotSettings --profile="Built-in: Reformat Code"
 }
 
 function Release([string] $version) {
