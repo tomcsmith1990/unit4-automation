@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using System.Linq;
 using Unit4.Automation.Tests.Helpers;
-using System.Collections.Generic;
 using Criteria = Unit4.Automation.Tests.Helpers.A.Criteria;
 
 namespace Unit4.Automation.Tests
@@ -32,7 +32,7 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded([Values] Criteria criteria)
+        public void GivenNoTierOption_ThenAllLinesShouldBeIncluded([Values] A.Criteria criteria)
         {
             var filter = A.BcrFilter().Build();
 
@@ -42,7 +42,8 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
-        public void GivenTierOptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded([Values] Criteria criteria)
+        public void GivenTierOptionWithMultipleValues_ThenLinesMatchingThatAnyOfThoseValuesShouldBeIncluded(
+            [Values] Criteria criteria)
         {
             var filter = A.BcrFilter().With(criteria, "firstTier", "secondTier").Build();
 
@@ -50,25 +51,25 @@ namespace Unit4.Automation.Tests
             var secondBcrLine = A.BcrLine().With(criteria, "secondTier").Build();
             var thirdBcrLine = A.BcrLine().With(criteria, "thirdTier").Build();
 
-            var bcr = new Bcr(new [] { firstBcrLine, secondBcrLine, thirdBcrLine });
+            var bcr = new Bcr(new[] { firstBcrLine, secondBcrLine, thirdBcrLine });
 
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new [] { firstBcrLine, secondBcrLine }));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new[] { firstBcrLine, secondBcrLine }));
         }
 
         [Test, TestCaseSource(nameof(CriteriaPowerset))]
         public void GivenMatchOnAtLeastOneTier_ThenTheLineShouldBeIncluded(IEnumerable<Criteria> criteria)
         {
-            var tiers = (Criteria[])Enum.GetValues(typeof(Criteria));
+            var tiers = (Criteria[]) Enum.GetValues(typeof(Criteria));
 
             var filter = tiers.Aggregate(A.BcrFilter(), (builder, t) => builder.With(t, "1")).Build();
 
             var blankLine = tiers.Aggregate(A.BcrLine(), (builder, t) => builder.With(t, "0"));
-            
+
             var bcrLine = criteria.Aggregate(blankLine, (builder, t) => builder.With(t, "1")).Build();
 
-            var bcr = new Bcr(new [] { bcrLine });
+            var bcr = new Bcr(new[] { bcrLine });
 
-            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new [] { bcrLine }));
+            Assert.That(filter.Use(bcr).Lines.ToList(), Is.EquivalentTo(new[] { bcrLine }));
         }
 
         private static IEnumerable<TestCaseData> CriteriaPowerset
@@ -76,25 +77,25 @@ namespace Unit4.Automation.Tests
             get
             {
                 return Enum.GetValues(typeof(Criteria))
-                            .Cast<Criteria>()
-                            .Powerset()
-                            .Where(x => x.Any())
-                            .Select(x => new TestCaseData(x).SetName("{M}(" + string.Join(",", x.ToArray()) + ")"));
+                    .Cast<Criteria>()
+                    .Powerset()
+                    .Where(x => x.Any())
+                    .Select(x => new TestCaseData(x).SetName("{M}(" + string.Join(",", x.ToArray()) + ")"));
             }
         }
 
         [Test]
         public void GivenMatchOnNoTier_ThenTheLineShouldNotBeIncluded()
         {
-            var allCriteria = (Criteria[])Enum.GetValues(typeof(Criteria));
+            var allCriteria = (Criteria[]) Enum.GetValues(typeof(Criteria));
 
-            var filter = 
+            var filter =
                 allCriteria.Aggregate(A.BcrFilter(), (builder, c) => builder.With(c, "1")).Build();
-            
-            var bcrLine = 
+
+            var bcrLine =
                 allCriteria.Aggregate(A.BcrLine(), (builder, c) => builder.With(c, "0")).Build();
 
-            var bcr = new Bcr(new [] { bcrLine });
+            var bcr = new Bcr(new[] { bcrLine });
 
             Assert.That(filter.Use(bcr).Lines.ToList(), Is.Empty);
         }

@@ -9,14 +9,8 @@ namespace Unit4.Automation.Model
 
         public IEnumerable<CostCentre> CostCentres
         {
-            get
-            {
-                return _costCentres == null ? Enumerable.Empty<CostCentre>() : _costCentres;
-            }
-            set
-            {
-                _costCentres = value;
-            }
+            get { return _costCentres == null ? Enumerable.Empty<CostCentre>() : _costCentres; }
+            set { _costCentres = value; }
         }
     }
 }

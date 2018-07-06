@@ -14,11 +14,14 @@ namespace Unit4.Automation.Commands
 
         public CommandParser(TextWriter output)
         {
-            _parser = new Parser(settings => {
-                settings.CaseSensitive = false;
-                settings.HelpWriter = output;
-                settings.MaximumDisplayWidth = Console.WindowWidth > 0 ? Console.WindowWidth : 80; //workaround for tests in Travis
-            });
+            _parser = new Parser(
+                settings =>
+                {
+                    settings.CaseSensitive = false;
+                    settings.HelpWriter = output;
+                    settings.MaximumDisplayWidth =
+                        Console.WindowWidth > 0 ? Console.WindowWidth : 80; //workaround for tests in Travis
+                });
         }
 
         public IOptions GetOptions(params string[] args)
@@ -26,7 +29,7 @@ namespace Unit4.Automation.Commands
             return _parser
                 .ParseArguments(args, typeof(TVerb), typeof(TVerb2))
                 .MapResult<TVerb, TVerb2, IOptions>(
-                    options => options, 
+                    options => options,
                     options => options,
                     errors => new NullOptions());
         }

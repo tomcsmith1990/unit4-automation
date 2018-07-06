@@ -5,6 +5,7 @@ namespace Unit4.Automation
     internal class NullRunner : IRunner
     {
         public void Run()
-        {}
+        {
+        }
     }
 }

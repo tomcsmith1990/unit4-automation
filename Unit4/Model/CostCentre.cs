@@ -1,6 +1,8 @@
+using System;
+
 namespace Unit4.Automation.Model
 {
-    internal class CostCentre : System.IComparable<CostCentre>
+    internal class CostCentre : IComparable<CostCentre>
     {
         public string Tier1 { get; set; }
         public string Tier2 { get; set; }
@@ -37,15 +39,15 @@ namespace Unit4.Automation.Model
             }
 
             return Tier1 == other.Tier1 &&
-                Tier2 == other.Tier2 &&
-                Tier3 == other.Tier3 &&
-                Tier4 == other.Tier4 &&
-                Code == other.Code &&
-                Tier1Name == other.Tier1Name &&
-                Tier2Name == other.Tier2Name &&
-                Tier3Name == other.Tier3Name &&
-                Tier4Name == other.Tier4Name &&
-                CostCentreName == other.CostCentreName;
+                   Tier2 == other.Tier2 &&
+                   Tier3 == other.Tier3 &&
+                   Tier4 == other.Tier4 &&
+                   Code == other.Code &&
+                   Tier1Name == other.Tier1Name &&
+                   Tier2Name == other.Tier2Name &&
+                   Tier3Name == other.Tier3Name &&
+                   Tier4Name == other.Tier4Name &&
+                   CostCentreName == other.CostCentreName;
         }
 
         public override int GetHashCode()

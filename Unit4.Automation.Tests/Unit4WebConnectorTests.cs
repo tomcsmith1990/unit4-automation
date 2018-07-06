@@ -1,10 +1,9 @@
+using System.Security;
 using NUnit.Framework;
-using Unit4.Automation.Interfaces;
-using Unit4.Automation.Model;
 using ReportEngine.Base.Data.Provider;
 using ReportEngine.Base.Security;
+using Unit4.Automation.Interfaces;
 using Unit4.Automation.ReportEngine;
-using System.Security;
 
 namespace Unit4.Automation.Tests
 {
@@ -29,7 +28,9 @@ namespace Unit4.Automation.Tests
             var connector = new Unit4WebConnector(manager, config).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(manager.Credentials.Password)));
+            Assert.That(
+                SecureStringHelper.ToString(authenticator.Password),
+                Is.EqualTo(SecureStringHelper.ToString(manager.Credentials.Password)));
         }
 
         [Test]

@@ -1,7 +1,7 @@
-using Unit4.Automation.Model;
 using NUnit.Framework;
-using Unit4.Automation.Tests.Helpers;
 using Unit4.Automation.Commands.ConfigCommand;
+using Unit4.Automation.Model;
+using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
 {
@@ -48,7 +48,7 @@ namespace Unit4.Automation.Tests
         public void GivenPriorOptionsAndNewUrl_ThenTheUnchangedOptionsShouldBePersisted()
         {
             _file.Save(new ConfigOptions(1234, "http://test.url"));
-            
+
             var loadedOptions = GetPersistedOptions(new ConfigOptions(1234, "http://some/other/test.url"));
             Assert.That(loadedOptions, Is.EqualTo(new ConfigOptions(1234, "http://some/other/test.url")));
         }

@@ -35,6 +35,10 @@ function Inspect {
     .\InspectCodeReport.html
 }
 
+function Cleanup {
+    cleanupcode.exe .\Unit4.sln --settings=.\Unit4.DotSettings --profile="Built-in: Reformat Code"
+}
+
 function Release([string] $version) {
     If (-Not ($version -Match "^[0-9]+.[0-9]+.[0-9]+$")) {
         Write-Host "Invalid version"
@@ -79,4 +83,5 @@ export-modulemember -function Installer
 export-modulemember -function Install
 export-modulemember -function Uninstall
 export-modulemember -function Inspect
+export-modulemember -function Cleanup
 export-modulemember -function Release

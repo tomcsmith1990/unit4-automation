@@ -1,6 +1,7 @@
 using System;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 using Unit4.Automation.ReportEngine;
@@ -10,18 +11,29 @@ namespace Unit4.Automation.Commands.BcrCommand
     internal class BcrReportRunner : IRunner
     {
         private readonly ILogging _log;
-        private readonly IBcrReader _reader;
         private readonly IBcrMiddleware _middleware;
-        private readonly IBcrWriter _writer;
-        private readonly TextWriter _progress;
         private readonly IPathProvider _pathProvider;
+        private readonly TextWriter _progress;
+        private readonly IBcrReader _reader;
+        private readonly IBcrWriter _writer;
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider)
+        private BcrReportRunner(
+            ILogging log,
+            IBcrReader reader,
+            IBcrMiddleware middleware,
+            IBcrWriter writer,
+            IPathProvider pathProvider)
             : this(log, reader, middleware, writer, pathProvider, Console.Out)
         {
         }
 
-        public BcrReportRunner(ILogging log, IBcrReader reader, IBcrMiddleware middleware, IBcrWriter writer, IPathProvider pathProvider, TextWriter progress)
+        public BcrReportRunner(
+            ILogging log,
+            IBcrReader reader,
+            IBcrMiddleware middleware,
+            IBcrWriter writer,
+            IPathProvider pathProvider,
+            TextWriter progress)
         {
             _log = log;
             _reader = reader;
@@ -29,7 +41,7 @@ namespace Unit4.Automation.Commands.BcrCommand
             _writer = writer;
             _progress = progress;
             _pathProvider = pathProvider;
-        } 
+        }
 
         public void Run()
         {
@@ -59,10 +71,10 @@ namespace Unit4.Automation.Commands.BcrCommand
                 _progress.WriteLine("Success - {0}", outputPath);
             }
             catch (Exception e)
-            {    
+            {
                 _log.Error(e);
                 _progress.WriteLine(e.Message);
-                _progress.WriteLine(_log.Path);        
+                _progress.WriteLine(_log.Path);
             }
             finally
             {
@@ -72,16 +84,20 @@ namespace Unit4.Automation.Commands.BcrCommand
 
         public static BcrReportRunner Create(BcrOptions options, ProgramConfig config)
         {
-            var assemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             var log = new Logging();
             var factory = new Unit4EngineFactory(config);
-            var reader = 
+            var reader =
                 new BcrReader(
-                    log, 
-                    options, 
+                    log,
+                    options,
                     new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
-                    new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache", "costCentres.json")),
+                    new JsonFile<SerializableCostCentreList>(
+                        Path.Combine(
+                            assemblyDirectory,
+                            "cache",
+                            "costCentres.json")),
                     factory,
                     new CostCentresProvider(factory));
             var filter = new BcrFilter(options);
@@ -92,16 +108,20 @@ namespace Unit4.Automation.Commands.BcrCommand
 
         private class Progress : IDisposable
         {
+            private readonly TextWriter _output;
             private readonly Stopwatch _stopwatch;
             private long _elapsed, _current;
-
-            private readonly TextWriter _output;
 
             public Progress(TextWriter output)
             {
                 _output = output;
                 _stopwatch = new Stopwatch();
                 _stopwatch.Start();
+            }
+
+            public void Dispose()
+            {
+                _output.WriteLine("Total time elapsed: {0}ms", _elapsed);
             }
 
             public void Update(string message)
@@ -114,11 +134,6 @@ namespace Unit4.Automation.Commands.BcrCommand
                 _current = _stopwatch.ElapsedMilliseconds;
                 _output.WriteLine("Elapsed: {0}ms", _current - _elapsed);
                 _elapsed = _current;
-            }
-
-            public void Dispose()
-            {
-                _output.WriteLine("Total time elapsed: {0}ms", _elapsed);
             }
         }
     }

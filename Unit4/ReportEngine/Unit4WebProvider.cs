@@ -1,6 +1,5 @@
 using System;
 using ReportEngine.Provider.WebService;
-using Unit4.Automation.Model;
 
 namespace Unit4.Automation.ReportEngine
 {
@@ -14,8 +13,8 @@ namespace Unit4.Automation.ReportEngine
             _provider = new WebProvider(connector);
         }
 
-        public WebProvider Create() => _provider;
-
         public void Dispose() => _provider.Dispose();
+
+        public WebProvider Create() => _provider;
     }
 }

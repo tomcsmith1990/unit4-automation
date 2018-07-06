@@ -1,31 +1,30 @@
-using Unit4.Automation.Model;
-using Unit4.Automation.Interfaces;
-using NUnit.Framework;
-using Moq;
 using System.IO;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
 using Unit4.Automation.Commands.BcrCommand;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Tests
 {
     [TestFixture]
     internal class BcrReportRunnerTests
     {
-        [Test]
-        public void GivenBcrFromReader_ThenThatBcrShouldBePassedToTheMiddleware()
+        private BcrReportRunner Create(
+            ILogging log = null,
+            IBcrReader reader = null,
+            IBcrMiddleware middleware = null,
+            IBcrWriter writer = null,
+            IPathProvider pathProvider = null)
         {
-            var bcr = new Bcr(Enumerable.Empty<BcrLine>());
+            log = log ?? Mock.Of<ILogging>();
+            reader = reader ?? Mock.Of<IBcrReader>();
+            middleware = middleware ?? Mock.Of<IBcrMiddleware>();
+            writer = writer ?? Mock.Of<IBcrWriter>();
+            pathProvider = pathProvider ?? Mock.Of<IPathProvider>();
 
-            var reader = new Mock<IBcrReader>();
-            reader.Setup(x => x.Read()).Returns(bcr);
-
-            var middleware = new Mock<IBcrMiddleware>();
-
-            var runner = Create(reader: reader.Object, middleware: middleware.Object);
-
-            runner.Run();
-
-            middleware.Verify(x => x.Use(bcr), Times.Once);
+            return new BcrReportRunner(log, reader, middleware, writer, pathProvider, TextWriter.Null);
         }
 
         [Test]
@@ -45,6 +44,23 @@ namespace Unit4.Automation.Tests
         }
 
         [Test]
+        public void GivenBcrFromReader_ThenThatBcrShouldBePassedToTheMiddleware()
+        {
+            var bcr = new Bcr(Enumerable.Empty<BcrLine>());
+
+            var reader = new Mock<IBcrReader>();
+            reader.Setup(x => x.Read()).Returns(bcr);
+
+            var middleware = new Mock<IBcrMiddleware>();
+
+            var runner = Create(reader: reader.Object, middleware: middleware.Object);
+
+            runner.Run();
+
+            middleware.Verify(x => x.Use(bcr), Times.Once);
+        }
+
+        [Test]
         public void GivenPathFromPathProvider_ThenThatPathShouldBePassedToTheWriter()
         {
             var path = @"C:\this\is\a\path.foo";
@@ -57,17 +73,6 @@ namespace Unit4.Automation.Tests
             runner.Run();
 
             writer.Verify(x => x.Write(path, It.IsAny<Bcr>()), Times.Once);
-        }
-
-        private BcrReportRunner Create(ILogging log = null, IBcrReader reader = null, IBcrMiddleware middleware = null, IBcrWriter writer = null, IPathProvider pathProvider = null)
-        {
-            log = log ?? Mock.Of<ILogging>();
-            reader = reader ?? Mock.Of<IBcrReader>();
-            middleware = middleware ?? Mock.Of<IBcrMiddleware>();
-            writer = writer ?? Mock.Of<IBcrWriter>();
-            pathProvider = pathProvider ?? Mock.Of<IPathProvider>();
-
-            return new BcrReportRunner(log, reader, middleware, writer, pathProvider, TextWriter.Null);
         }
     }
 }

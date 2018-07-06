@@ -1,22 +1,26 @@
 using System;
 using System.Diagnostics;
-using Log = ReportEngine.Diagnostics.Log;
 using System.IO;
-using Unit4.Automation.Interfaces;
-using ReportEngine.Diagnostics;
+using System.Reflection;
 using ReportEngine.Data.Sql;
+using ReportEngine.Diagnostics;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation.ReportEngine
 {
     internal class Logging : ILogging
     {
-        public string Path { get; }
-
         public Logging()
         {
-            var assemblyDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            Path = System.IO.Path.Combine(assemblyDirectory, "log", string.Format("{0}.log", Guid.NewGuid().ToString("N")));
+            var assemblyDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            Path = System.IO.Path.Combine(
+                assemblyDirectory,
+                "log",
+                string.Format("{0}.log", Guid.NewGuid().ToString("N")));
         }
+
+        public string Path { get; }
+
         public void Start()
         {
             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(Path));

@@ -1,9 +1,9 @@
-using Unit4.Automation.Interfaces;
-using Unit4.Automation.Model;
-using Unit4.Automation.ReportEngine;
 using System.IO;
+using System.Reflection;
 using Unit4.Automation.Commands.BcrCommand;
 using Unit4.Automation.Commands.ConfigCommand;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
@@ -13,12 +13,14 @@ namespace Unit4.Automation
 
         public ReportRunnerFactory()
         {
-            var configPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");
+            var configPath = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                "config.json");
             _file = new ConfigOptionsFile(configPath);
         }
 
         public IRunner Create(IOptions options)
-        { 
+        {
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {

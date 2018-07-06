@@ -1,9 +1,8 @@
-using ReportEngine;
-using ReportEngine.Interfaces;
 using System.Data;
-using Unit4.Automation.Interfaces;
-using Unit4.Automation.Model;
+using ReportEngine;
 using ReportEngine.Data.Sql;
+using ReportEngine.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation.ReportEngine
 {

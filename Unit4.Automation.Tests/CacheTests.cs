@@ -1,7 +1,7 @@
 using System;
+using Moq;
 using NUnit.Framework;
 using Unit4.Automation.Interfaces;
-using Moq;
 
 namespace Unit4.Automation.Tests
 {

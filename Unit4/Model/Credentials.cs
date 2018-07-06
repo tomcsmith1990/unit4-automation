@@ -11,7 +11,7 @@ namespace Unit4.Automation.Model
             Password = password ?? new SecureString();
         }
 
-        public string Username { get; } 
+        public string Username { get; }
 
         public SecureString Password { get; }
     }

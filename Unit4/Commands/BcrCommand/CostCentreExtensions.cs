@@ -1,6 +1,6 @@
-using Unit4.Automation.Model;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {
@@ -8,7 +8,11 @@ namespace Unit4.Automation.Commands.BcrCommand
     {
         public static bool Matches(this CostCentre costCentre, BcrOptions options)
         {
-            if (!HasOption(options.Tier1) && !HasOption(options.Tier2) && !HasOption(options.Tier3) && !HasOption(options.Tier4) && !HasOption(options.CostCentre))
+            if (!HasOption(options.Tier1) &&
+                !HasOption(options.Tier2) &&
+                !HasOption(options.Tier3) &&
+                !HasOption(options.Tier4) &&
+                !HasOption(options.CostCentre))
             {
                 return true;
             }

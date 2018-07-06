@@ -1,7 +1,7 @@
 using System;
+using CredentialManagement;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
-using CredentialManagement;
 
 namespace Unit4.Automation
 {

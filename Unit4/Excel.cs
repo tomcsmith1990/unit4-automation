@@ -1,9 +1,9 @@
 using System;
-using MSExcel = Microsoft.Office.Interop.Excel;
-using System.Threading.Tasks;
 using System.Linq;
-using Unit4.Automation.Model;
+using System.Threading.Tasks;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
+using MSExcel = Microsoft.Office.Interop.Excel;
 
 namespace Unit4.Automation
 {
@@ -24,13 +24,18 @@ namespace Unit4.Automation
 
             var data = bcr.Lines.ToList();
 
-            Parallel.For(0, data.Count, new ParallelOptions { MaxDegreeOfParallelism = 3 }, i =>
-            {
-                var rowNumber = i + rowToStartData;
-                AddRow(sheet, rowNumber, data.ElementAt(i));
-            });
+            Parallel.For(
+                0,
+                data.Count,
+                new ParallelOptions { MaxDegreeOfParallelism = 3 },
+                i =>
+                {
+                    var rowNumber = i + rowToStartData;
+                    AddRow(sheet, rowNumber, data.ElementAt(i));
+                });
 
-            SetNumberFormat(sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count - 1, 18]]);
+            SetNumberFormat(
+                sheet.Range[sheet.Cells[rowToStartData, 13], sheet.Cells[rowToStartData + data.Count - 1, 18]]);
 
             var lastRow = rowToStartData + data.Count - 1;
             AutoFilter(sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[lastRow, 18]]);
@@ -46,12 +51,12 @@ namespace Unit4.Automation
 
         private void AddSubtotals(MSExcel.Worksheet sheet, int totalRow, int startRow, int endRow)
         {
-            ((MSExcel.Range)sheet.Cells[totalRow, 13]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
-            ((MSExcel.Range)sheet.Cells[totalRow, 14]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
-            ((MSExcel.Range)sheet.Cells[totalRow, 15]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
-            ((MSExcel.Range)sheet.Cells[totalRow, 16]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
-            ((MSExcel.Range)sheet.Cells[totalRow, 17]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
-            ((MSExcel.Range)sheet.Cells[totalRow, 18]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 13]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 14]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 15]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 16]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 17]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
+            ((MSExcel.Range) sheet.Cells[totalRow, 18]).FormulaR1C1 = $"=SUBTOTAL(109, R{startRow}C:R{endRow}C";
 
             SetNumberFormat(sheet.Range[sheet.Cells[totalRow, 13], sheet.Cells[totalRow, 18]]);
         }
@@ -77,7 +82,8 @@ namespace Unit4.Automation
             sheet.Cells[headerRow, 17] = "Forecast";
             sheet.Cells[headerRow, 18] = "Outturn Variance";
 
-            sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Interior.Color = MSExcel.XlRgbColor.rgbCornflowerBlue;
+            sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Interior.Color =
+                MSExcel.XlRgbColor.rgbCornflowerBlue;
             sheet.Range[sheet.Cells[headerRow, 1], sheet.Cells[headerRow, 18]].Font.Bold = true;
         }
 

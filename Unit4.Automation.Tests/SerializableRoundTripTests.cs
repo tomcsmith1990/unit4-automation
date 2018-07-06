@@ -1,7 +1,7 @@
+using System.Linq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using Newtonsoft.Json;
-using System.Linq;
 
 namespace Unit4.Automation.Tests
 {

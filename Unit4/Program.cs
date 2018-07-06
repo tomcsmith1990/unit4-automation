@@ -1,6 +1,6 @@
 ﻿using System;
-using Unit4.Automation.Model;
 using Unit4.Automation.Commands;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {

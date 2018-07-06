@@ -1,6 +1,6 @@
 using System.IO;
-using Unit4.Automation.Interfaces;
 using Newtonsoft.Json;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation
 {

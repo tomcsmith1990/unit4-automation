@@ -1,6 +1,6 @@
+using System.Linq;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using System.Linq;
 using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
