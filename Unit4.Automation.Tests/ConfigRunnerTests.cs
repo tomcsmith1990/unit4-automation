@@ -1,7 +1,8 @@
-using Unit4.Automation.Model;
+using System.IO;
 using NUnit.Framework;
-using Unit4.Automation.Tests.Helpers;
 using Unit4.Automation.Commands.ConfigCommand;
+using Unit4.Automation.Model;
+using Unit4.Automation.Tests.Helpers;
 
 namespace Unit4.Automation.Tests
 {

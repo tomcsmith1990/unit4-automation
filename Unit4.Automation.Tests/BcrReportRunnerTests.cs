@@ -1,10 +1,10 @@
-using Unit4.Automation.Model;
-using Unit4.Automation.Interfaces;
-using NUnit.Framework;
-using Moq;
 using System.IO;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
 using Unit4.Automation.Commands.BcrCommand;
+using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Tests
 {

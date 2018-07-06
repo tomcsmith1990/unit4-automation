@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 
@@ -11,11 +11,16 @@ namespace Unit4.Automation.Commands.BcrCommand
 {
     internal class BcrReport
     {
-        public enum Tier { Tier3, Tier4, CostCentre };
+        public enum Tier
+        {
+            Tier3,
+            Tier4,
+            CostCentre
+        };
 
         private readonly BcrLineBuilder _builder = new BcrLineBuilder();
-        private readonly ILogging _log;
         private readonly IUnit4EngineFactory _factory;
+        private readonly ILogging _log;
 
         public BcrReport(IUnit4EngineFactory factory, ILogging log)
         {
@@ -26,7 +31,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         public Bcr RunBcr(IEnumerable<IGrouping<string, CostCentre>> hierarchy)
         {
             var reportsToRun = hierarchy.Select(x => new Report(Tier.Tier3, x));
-            
+
             return new Bcr(RunBcr(reportsToRun).ToList());
         }
 
@@ -36,26 +41,36 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             var extraReportsToRun = new ConcurrentBag<Report>();
 
-            Parallel.ForEach(reports, new ParallelOptions { MaxDegreeOfParallelism = 3 }, t =>
-            {
-                try
+            Parallel.ForEach(
+                reports,
+                new ParallelOptions {MaxDegreeOfParallelism = 3},
+                t =>
                 {
-                    var bcrLines = RunBcr(t);
-                    foreach (var line in bcrLines)
+                    try
                     {
-                        bag.Add(line);
+                        var bcrLines = RunBcr(t);
+                        foreach (var line in bcrLines)
+                        {
+                            bag.Add(line);
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    if (t.ShouldFallBack)
+                    catch (Exception)
                     {
-                        var fallbackReports = t.FallbackReports().ToList();
-                        _log.Info(string.Format("Error getting BCR for {0}. Will fallback to {1}:{2}", t.Parameter, string.Join(Environment.NewLine, fallbackReports.Select(x => x.Parameter).ToArray()), Environment.NewLine));
-                        fallbackReports.ForEach(r => extraReportsToRun.Add(r));
+                        if (t.ShouldFallBack)
+                        {
+                            var fallbackReports = t.FallbackReports().ToList();
+                            _log.Info(
+                                string.Format(
+                                    "Error getting BCR for {0}. Will fallback to {1}:{2}",
+                                    t.Parameter,
+                                    string.Join(
+                                        Environment.NewLine,
+                                        fallbackReports.Select(x => x.Parameter).ToArray()),
+                                    Environment.NewLine));
+                            fallbackReports.ForEach(r => extraReportsToRun.Add(r));
+                        }
                     }
-                }
-            });
+                });
 
             if (extraReportsToRun.Any())
             {
@@ -99,7 +114,7 @@ namespace Unit4.Automation.Commands.BcrCommand
                     resql = Resql.Bcr(costCentre: value);
                     break;
                 default:
-                    throw new InvalidOperationException("Cannot run a report for this tier") ;
+                    throw new InvalidOperationException("Cannot run a report for this tier");
             }
 
             return RunReport(resql);

@@ -1,6 +1,6 @@
-using NUnit.Framework;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 
 namespace Unit4.Automation.Tests.Helpers
 {

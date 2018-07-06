@@ -1,27 +1,20 @@
-using NUnit.Framework;
 using System.IO;
-using Unit4.Automation.Model;
+using NUnit.Framework;
 using Unit4.Automation.Commands;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Tests.Parser
 {
     [TestFixture]
     internal class ConfigCommandParserTests
     {
-        private CommandParser<BcrOptions, ConfigOptions> _parser;
-
         [SetUp]
         public void Setup()
         {
             _parser = new CommandParser<BcrOptions, ConfigOptions>(TextWriter.Null);
         }
 
-        [Test]
-        public void GivenTheConfigCommandInAnyCase_ThenTheCommandShouldBeConfig(
-            [Values("config", "CONFIG", "cOnFiG", "Config")] string command)
-        {
-            Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(ConfigOptions)));
-        }
+        private CommandParser<BcrOptions, ConfigOptions> _parser;
 
         [Test]
         public void GivenTheConfigCommand_ThenTheClientOptionShouldBeRecognised()
@@ -37,6 +30,14 @@ namespace Unit4.Automation.Tests.Parser
             var options = _parser.GetOptions("config", "--url=http://foo.bar/Service/x.asmx") as ConfigOptions;
 
             Assert.That(options.Url, Is.EqualTo("http://foo.bar/Service/x.asmx"));
+        }
+
+        [Test]
+        public void GivenTheConfigCommandInAnyCase_ThenTheCommandShouldBeConfig(
+            [Values("config", "CONFIG", "cOnFiG", "Config")]
+            string command)
+        {
+            Assert.That(_parser.GetOptions(command), Is.TypeOf(typeof(ConfigOptions)));
         }
     }
 }

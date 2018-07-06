@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests
 {

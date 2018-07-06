@@ -13,12 +13,14 @@ namespace Unit4.Automation
 
         public ReportRunnerFactory()
         {
-            var configPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "config.json");
+            var configPath = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                "config.json");
             _file = new ConfigOptionsFile(configPath);
         }
 
         public IRunner Create(IOptions options)
-        { 
+        {
             var bcrOptions = options as BcrOptions;
             if (bcrOptions != null)
             {

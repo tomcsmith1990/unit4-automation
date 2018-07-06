@@ -84,8 +84,11 @@ namespace Unit4.Automation.Commands.BcrCommand
                     log,
                     options,
                     new JsonFile<Bcr>(Path.Combine(assemblyDirectory, "cache", "bcr.json")),
-                    new JsonFile<SerializableCostCentreList>(Path.Combine(assemblyDirectory, "cache",
-                        "costCentres.json")),
+                    new JsonFile<SerializableCostCentreList>(
+                        Path.Combine(
+                            assemblyDirectory,
+                            "cache",
+                            "costCentres.json")),
                     factory,
                     new CostCentresProvider(factory));
             var filter = new BcrFilter(options);
