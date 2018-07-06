@@ -26,12 +26,19 @@ namespace Unit4.Automation.Commands
 
         public IOptions GetOptions(params string[] args)
         {
-            return _parser
-                .ParseArguments(args, typeof(TVerb), typeof(TVerb2))
-                .MapResult<TVerb, TVerb2, IOptions>(
-                    options => options,
-                    options => options,
-                    errors => new NullOptions());
+            var result = _parser.ParseArguments(args, typeof(TVerb), typeof(TVerb2));
+
+            if (result is NotParsed<object>)
+            {
+                return new NullOptions();
+            }
+
+            if (result is Parsed<object>)
+            {
+                return (result as Parsed<object>).Value as IOptions;
+            }
+            
+            throw new System.Exception();
         }
     }
 }
