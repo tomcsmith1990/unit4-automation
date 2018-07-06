@@ -1,4 +1,3 @@
-using System.IO;
 using NUnit.Framework;
 using Unit4.Automation.Commands.ConfigCommand;
 using Unit4.Automation.Model;
