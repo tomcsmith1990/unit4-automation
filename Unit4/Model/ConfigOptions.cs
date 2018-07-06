@@ -1,6 +1,7 @@
 using CommandLine;
 using Unit4.Automation.Interfaces;
 using System.ComponentModel.Composition;
+using Newtonsoft.Json;
 
 namespace Unit4.Automation.Model
 {
@@ -8,8 +9,12 @@ namespace Unit4.Automation.Model
     [Verb("config", HelpText = "Configure the Unit4 connection details.")]
     internal class ConfigOptions : IOptions
     {
-        [ImportingConstructor]
-        public ConfigOptions(int client = 0, string url = null)
+        public ConfigOptions() : this(0, null)
+        {
+        }
+
+        [JsonConstructor]
+        public ConfigOptions(int client, string url)
         {
             Client = client;
             Url = url;
