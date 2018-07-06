@@ -28,7 +28,9 @@ namespace Unit4.Automation.Tests
             var connector = new Unit4WebConnector(manager, config).Create();
             var authenticator = connector.Authenticator as AgressoAuthenticator;
 
-            Assert.That(SecureStringHelper.ToString(authenticator.Password), Is.EqualTo(SecureStringHelper.ToString(manager.Credentials.Password)));
+            Assert.That(
+                SecureStringHelper.ToString(authenticator.Password),
+                Is.EqualTo(SecureStringHelper.ToString(manager.Credentials.Password)));
         }
 
         [Test]
