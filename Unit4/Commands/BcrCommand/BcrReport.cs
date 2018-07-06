@@ -86,13 +86,13 @@ namespace Unit4.Automation.Commands.BcrCommand
             try
             {
                 var bcr = RunReport(report.Tier, value);
-                _log.Info(string.Format("Got BCR for {0}, contains {1} rows", value, bcr.Tables[0].Rows.Count));
+                _log.Info($"Got BCR for {value}, contains {bcr.Tables[0].Rows.Count} rows");
 
                 return _builder.Build(bcr).ToList();
             }
             catch (Exception e)
             {
-                _log.Error(string.Format("Error getting BCR for {0}", value));
+                _log.Error("Error getting BCR for {value}");
                 _log.Error(e);
 
                 throw;
