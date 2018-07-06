@@ -3,16 +3,16 @@ using System.IO;
 using CommandLine;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
+using System.Linq;
 
 namespace Unit4.Automation.Commands
 {
-    internal class CommandParser<TVerb, TVerb2>
-        where TVerb : IOptions
-        where TVerb2 : IOptions
+    internal class CommandParser
     {
         private readonly Parser _parser;
+        private readonly Type[] _types;
 
-        public CommandParser(TextWriter output)
+        public CommandParser(TextWriter output, params Type[] types)
         {
             _parser = new Parser(
                 settings =>
@@ -22,11 +22,18 @@ namespace Unit4.Automation.Commands
                     settings.MaximumDisplayWidth =
                         Console.WindowWidth > 0 ? Console.WindowWidth : 80; //workaround for tests in Travis
                 });
+
+            _types = types;
         }
 
         public IOptions GetOptions(params string[] args)
         {
-            var result = _parser.ParseArguments(args, typeof(TVerb), typeof(TVerb2));
+            if (!_types.Any())
+            {
+                throw new System.Exception();
+            }
+
+            var result = _parser.ParseArguments(args, _types);
 
             if (result is NotParsed<object>)
             {
@@ -37,7 +44,7 @@ namespace Unit4.Automation.Commands
             {
                 return (result as Parsed<object>).Value as IOptions;
             }
-            
+
             throw new System.Exception();
         }
     }

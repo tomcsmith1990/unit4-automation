@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using CommandLine;
 using Unit4.Automation.Interfaces;
+using System.ComponentModel.Composition;
 
 namespace Unit4.Automation.Model
 {
+    [Export(typeof(IOptions))]
     [Verb("bcr", HelpText = "Produce a BCR.")]
     internal class BcrOptions : IOptions
     {
