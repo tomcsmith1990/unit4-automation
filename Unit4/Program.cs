@@ -14,7 +14,7 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var provider = new OptionsProvider();
+            var provider = new OptionsProvider(typeof(Program).Assembly);
             var options = new CommandParser(Console.Out, provider.Types.ToArray()).GetOptions(args);
 
             var runner = new ReportRunnerFactory().Create(options);

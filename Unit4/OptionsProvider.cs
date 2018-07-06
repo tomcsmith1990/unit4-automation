@@ -12,13 +12,12 @@ namespace Unit4.Automation
 {
     internal class OptionsProvider
     {
-        [ImportMany(typeof(IOptions))]
-        private IEnumerable<IOptions> _options;
+        [ImportMany(typeof(IOptions))] private IEnumerable<IOptions> _options;
 
-        public OptionsProvider()
+        public OptionsProvider(System.Reflection.Assembly assembly)
         {
             var catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(assembly));
             var container = new CompositionContainer(catalog);
 
             try
