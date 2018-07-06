@@ -1,12 +1,19 @@
 using System;
-using Unit4.Automation.Model;
 using System.Collections.Generic;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Tests.Helpers
 {
     internal static class A
     {
-        public enum Criteria { Tier1, Tier2, Tier3, Tier4, CostCentre }
+        public enum Criteria
+        {
+            Tier1,
+            Tier2,
+            Tier3,
+            Tier4,
+            CostCentre
+        }
 
         public static BcrLineBuilder BcrLine() => new BcrLineBuilder();
 

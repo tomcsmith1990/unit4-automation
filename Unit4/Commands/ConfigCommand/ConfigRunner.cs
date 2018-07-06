@@ -5,8 +5,8 @@ namespace Unit4.Automation.Commands.ConfigCommand
 {
     internal class ConfigRunner : IRunner
     {
-        private readonly ConfigOptions _options;
         private readonly ConfigOptionsFile _file;
+        private readonly ConfigOptions _options;
 
         public ConfigRunner(ConfigOptions options, ConfigOptionsFile file)
         {

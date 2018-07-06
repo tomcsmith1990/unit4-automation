@@ -1,6 +1,6 @@
+using System.IO;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using System.IO;
 
 namespace Unit4.Automation.Tests
 {

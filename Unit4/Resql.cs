@@ -1,4 +1,3 @@
-
 namespace Unit4.Automation
 {
     internal static class Resql

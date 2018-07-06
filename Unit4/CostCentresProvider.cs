@@ -1,7 +1,7 @@
 using System.Data;
 using System.Linq;
-using Unit4.Automation.Model;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
@@ -14,16 +14,19 @@ namespace Unit4.Automation
             _factory = factory;
         }
 
+        public SerializableCostCentreList GetCostCentres()
+        {
+            var data = RunReport(Resql.GetCostCentreList);
+            return new SerializableCostCentreList()
+            {
+                CostCentres = data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre)
+            };
+        }
+
         private DataSet RunReport(string resql)
         {
             var engine = _factory.Create();
             return engine.RunReport(resql);
-        }
-
-        public SerializableCostCentreList GetCostCentres()
-        {
-            var data = RunReport(Resql.GetCostCentreList);
-            return new SerializableCostCentreList() { CostCentres = data.Tables[0].Rows.Cast<DataRow>().Select(CreateCostCentre) };
         }
 
         private CostCentre CreateCostCentre(DataRow row)

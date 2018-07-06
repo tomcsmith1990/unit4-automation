@@ -1,7 +1,7 @@
+using System.Linq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Unit4.Automation.Model;
-using Newtonsoft.Json;
-using System.Linq;
 
 namespace Unit4.Automation.Tests
 {
@@ -11,7 +11,7 @@ namespace Unit4.Automation.Tests
         [Test]
         public void CanSerializeThenDeserializeType()
         {
-            var obj = new SerializableCostCentreList() { CostCentres = new CostCentre[0] };
+            var obj = new SerializableCostCentreList() {CostCentres = new CostCentre[0]};
 
             var json = JsonConvert.SerializeObject(obj);
 

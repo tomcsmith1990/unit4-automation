@@ -1,7 +1,7 @@
 using System;
+using CredentialManagement;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
-using CredentialManagement;
 
 namespace Unit4.Automation
 {
@@ -13,7 +13,7 @@ namespace Unit4.Automation
         {
             get
             {
-                using (var credential = new Credential() { Target = _credentialName })
+                using (var credential = new Credential() {Target = _credentialName})
                 {
                     if (credential.Load())
                     {

@@ -1,12 +1,13 @@
-using Unit4.Automation.Model;
+using System.IO;
 using Unit4.Automation.Interfaces;
+using Unit4.Automation.Model;
 
 namespace Unit4.Automation
 {
     internal class ConfigOptionsFile
     {
         private readonly IFile<ConfigOptions> _file;
-        
+
         public ConfigOptionsFile(string path)
         {
             _file = new JsonFile<ConfigOptions>(path);
@@ -21,7 +22,7 @@ namespace Unit4.Automation
                 return _file.Read();
             }
 
-            throw new System.IO.FileNotFoundException("Could not load config from file");
+            throw new FileNotFoundException("Could not load config from file");
         }
 
         public bool Exists() => _file.Exists();

@@ -1,9 +1,8 @@
-using ReportEngine;
-using ReportEngine.Interfaces;
 using System.Data;
-using Unit4.Automation.Interfaces;
-using Unit4.Automation.Model;
+using ReportEngine;
 using ReportEngine.Data.Sql;
+using ReportEngine.Interfaces;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation.ReportEngine
 {
@@ -20,7 +19,7 @@ namespace Unit4.Automation.ReportEngine
         {
             using (var webProvider = new Unit4WebProvider(_config).Create())
             {
-                var engine = new Engine(webProvider, ClientType.External) { InProcess = true };
+                var engine = new Engine(webProvider, ClientType.External) {InProcess = true};
 
                 using (engine)
                 {

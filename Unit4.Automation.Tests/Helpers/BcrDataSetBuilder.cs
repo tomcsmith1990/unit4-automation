@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using System.Data;
 using Unit4.Automation.Model;
-using System.Collections.Generic;
 
 namespace Unit4.Automation.Tests.Helpers
 {
@@ -33,8 +33,12 @@ namespace Unit4.Automation.Tests.Helpers
             {
                 var row = table.NewRow();
                 var code = line.CostCentre;
-                table.Rows.Add(code.Tier1, code.Tier2, code.Tier3, code.Tier4, code.Code, code.Tier1Name, code.Tier2Name, code.Tier3Name, code.Tier4Name, code.CostCentreName, line.Account, line.AccountName, line.Budget, line.Profile, line.Actuals, line.Variance, line.Forecast, line.OutturnVariance);
+                table.Rows.Add(code.Tier1, code.Tier2, code.Tier3, code.Tier4, code.Code, code.Tier1Name,
+                    code.Tier2Name,
+                    code.Tier3Name, code.Tier4Name, code.CostCentreName, line.Account, line.AccountName, line.Budget,
+                    line.Profile, line.Actuals, line.Variance, line.Forecast, line.OutturnVariance);
             }
+
             return dataset;
         }
     }

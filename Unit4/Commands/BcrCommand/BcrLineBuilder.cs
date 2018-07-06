@@ -1,5 +1,5 @@
-using System.Data;
 using System.Collections.Generic;
+using System.Data;
 using Unit4.Automation.Model;
 
 namespace Unit4.Automation.Commands.BcrCommand
@@ -10,7 +10,7 @@ namespace Unit4.Automation.Commands.BcrCommand
         {
             foreach (DataRow row in data.Tables[0].Rows)
             {
-                yield return new BcrLine() 
+                yield return new BcrLine()
                 {
                     CostCentre = new CostCentre()
                     {
@@ -25,17 +25,17 @@ namespace Unit4.Automation.Commands.BcrCommand
                         Tier3Name = row["xr0r3dim2"] as string,
                         Tier4Name = row["xr3dim2"] as string,
                         CostCentreName = row["xdim2"] as string
-                    },         
+                    },
 
                     Account = row["dim1"] as string,
                     AccountName = row["xdim1"] as string,
 
-                    Budget = (double) row["plb_amount"] ,
-                    Profile = (double) row["f0_budget_to_da13"] ,
-                    Actuals = (double) row["f1_total_exp_to16"] ,
-                    Variance = (double) row["f3_variance_to_15"] ,
-                    Forecast = (double) row["plf_amount"] ,
-                    OutturnVariance = (double) row["f2_outturn_vari18"] 
+                    Budget = (double) row["plb_amount"],
+                    Profile = (double) row["f0_budget_to_da13"],
+                    Actuals = (double) row["f1_total_exp_to16"],
+                    Variance = (double) row["f3_variance_to_15"],
+                    Forecast = (double) row["plf_amount"],
+                    OutturnVariance = (double) row["f2_outturn_vari18"]
                 };
             }
         }

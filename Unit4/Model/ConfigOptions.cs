@@ -1,6 +1,5 @@
-using Unit4.Automation.Interfaces;
 using CommandLine;
-using System;
+using Unit4.Automation.Interfaces;
 
 namespace Unit4.Automation.Model
 {
@@ -21,10 +20,7 @@ namespace Unit4.Automation.Model
         [Option(HelpText = "Set the Unit4 SOAP service URL.")]
         public string Url
         {
-            get
-            {
-                return _url;
-            }
+            get { return _url; }
         }
 
         public override bool Equals(object o)

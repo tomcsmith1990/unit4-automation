@@ -1,9 +1,11 @@
+using System;
+
 namespace Unit4.Automation.Model
 {
-    internal class BcrLine : System.IComparable<BcrLine>
+    internal class BcrLine : IComparable<BcrLine>
     {
         public CostCentre CostCentre { get; set; }
-        
+
         public string Account { get; set; }
         public string AccountName { get; set; }
 
@@ -34,14 +36,14 @@ namespace Unit4.Automation.Model
             }
 
             return CostCentre.Equals(other.CostCentre) &&
-                Account == other.Account &&
-                AccountName == other.AccountName &&
-                Budget == other.Budget &&
-                Profile == other.Profile &&
-                Actuals == other.Actuals &&
-                Variance == other.Variance &&
-                Forecast == other.Forecast &&
-                OutturnVariance == other.OutturnVariance;
+                   Account == other.Account &&
+                   AccountName == other.AccountName &&
+                   Budget == other.Budget &&
+                   Profile == other.Profile &&
+                   Actuals == other.Actuals &&
+                   Variance == other.Variance &&
+                   Forecast == other.Forecast &&
+                   OutturnVariance == other.OutturnVariance;
         }
 
         public override int GetHashCode()
