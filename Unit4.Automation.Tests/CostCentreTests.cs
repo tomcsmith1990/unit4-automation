@@ -7,28 +7,6 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     internal class CostCentreTests
     {
-        [Test]
-        public void GivenNullValue_ThenTheCostCentreShouldBeGreater()
-        {
-            var costCentre1 = new CostCentre() { Tier1 = "1" };
-            var result = costCentre1.CompareTo(null) > 0;
-
-            Assert.That(result, Is.True);
-        }
-
-        [Test]
-        public void GivenCostCentresWithNullValues_ThenTheyAreEqual()
-        {
-            var costCentre1 = new CostCentre();
-            Assert.That(new CostCentre(), Is.Not.LessThan(costCentre1).And.Not.GreaterThan(costCentre1));
-        }
-
-        [Test, TestCaseSource(nameof(Comparisons))]
-        public void CostCentreComparisonShouldUseTier1Comparison(CostCentre first, CostCentre second)
-        {
-            Assert.That(first, Is.LessThan(second));
-        }
-
         private static IEnumerable<TestCaseData> Comparisons
         {
             get
@@ -52,6 +30,28 @@ namespace Unit4.Automation.Tests
                         new CostCentre() { Tier1 = "1", Tier2 = "1", Tier3 = "1", Tier4 = "1", Code = "2" })
                     .SetName("GivenEqualTier4_ThenLesserCostCentreShouldBeUsed");
             }
+        }
+
+        [Test, TestCaseSource(nameof(Comparisons))]
+        public void CostCentreComparisonShouldUseTier1Comparison(CostCentre first, CostCentre second)
+        {
+            Assert.That(first, Is.LessThan(second));
+        }
+
+        [Test]
+        public void GivenCostCentresWithNullValues_ThenTheyAreEqual()
+        {
+            var costCentre1 = new CostCentre();
+            Assert.That(new CostCentre(), Is.Not.LessThan(costCentre1).And.Not.GreaterThan(costCentre1));
+        }
+
+        [Test]
+        public void GivenNullValue_ThenTheCostCentreShouldBeGreater()
+        {
+            var costCentre1 = new CostCentre() { Tier1 = "1" };
+            var result = costCentre1.CompareTo(null) > 0;
+
+            Assert.That(result, Is.True);
         }
     }
 }

@@ -7,21 +7,6 @@ namespace Unit4.Automation.Tests
     [TestFixture]
     internal class BcrLineTests
     {
-        [Test]
-        public void GivenNullValue_ThenTheObjectShouldBeGreater()
-        {
-            var line = new BcrLine();
-            var result = line.CompareTo(null) > 0;
-
-            Assert.That(result, Is.True);
-        }
-
-        [Test, TestCaseSource(nameof(Comparisons))]
-        public void TestBcrLineCompareTo(BcrLine first, BcrLine second)
-        {
-            Assert.That(first, Is.LessThan(second));
-        }
-
         private static IEnumerable<TestCaseData> Comparisons
         {
             get
@@ -35,6 +20,21 @@ namespace Unit4.Automation.Tests
                         new BcrLine() { CostCentre = new CostCentre() { Tier1 = "1" }, Account = "2" })
                     .SetName("GivenEqualCostCentre_ThenTheLesserAccountShouldBeUsed");
             }
+        }
+
+        [Test]
+        public void GivenNullValue_ThenTheObjectShouldBeGreater()
+        {
+            var line = new BcrLine();
+            var result = line.CompareTo(null) > 0;
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test, TestCaseSource(nameof(Comparisons))]
+        public void TestBcrLineCompareTo(BcrLine first, BcrLine second)
+        {
+            Assert.That(first, Is.LessThan(second));
         }
     }
 }
