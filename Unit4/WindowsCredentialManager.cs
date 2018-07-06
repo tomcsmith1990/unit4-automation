@@ -13,7 +13,7 @@ namespace Unit4.Automation
         {
             get
             {
-                using (var credential = new Credential() {Target = _credentialName})
+                using (var credential = new Credential() { Target = _credentialName })
                 {
                     if (credential.Load())
                     {

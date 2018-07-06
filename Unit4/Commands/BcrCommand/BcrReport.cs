@@ -43,7 +43,7 @@ namespace Unit4.Automation.Commands.BcrCommand
 
             Parallel.ForEach(
                 reports,
-                new ParallelOptions {MaxDegreeOfParallelism = 3},
+                new ParallelOptions { MaxDegreeOfParallelism = 3 },
                 t =>
                 {
                     try

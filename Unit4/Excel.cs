@@ -27,7 +27,7 @@ namespace Unit4.Automation
             Parallel.For(
                 0,
                 data.Count,
-                new ParallelOptions {MaxDegreeOfParallelism = 3},
+                new ParallelOptions { MaxDegreeOfParallelism = 3 },
                 i =>
                 {
                     var rowNumber = i + rowToStartData;
