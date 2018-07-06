@@ -1,6 +1,12 @@
 ﻿using System;
 using Unit4.Automation.Commands;
 using Unit4.Automation.Model;
+using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.Collections.Generic;
+using Unit4.Automation.Interfaces;
+using System.Linq;
 
 namespace Unit4.Automation
 {
@@ -8,7 +14,8 @@ namespace Unit4.Automation
     {
         static void Main(string[] args)
         {
-            var options = new CommandParser<BcrOptions, ConfigOptions>(Console.Out).GetOptions(args);
+            var provider = new OptionsProvider(typeof(Program).Assembly);
+            var options = new CommandParser(Console.Out, provider.Types.ToArray()).GetOptions(args);
 
             var runner = new ReportRunnerFactory().Create(options);
 

@@ -41,6 +41,8 @@
     <Reference Include="System.Runtime" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="ReportEngine.Base">
       <HintPath>..\lib\ReportEngine.Base.dll</HintPath>
     </Reference>
@@ -104,6 +106,7 @@
     <Compile Include="Parser\CommandParserTests.cs" />
     <Compile Include="SerializableRoundTripTests.cs" />
     <Compile Include="CacheTests.cs" />
+    <Compile Include="OptionsProviderTests.cs" />
     <Compile Include="ReportRunnerFactoryTests.cs" />
     <Compile Include="PathProviderTests.cs" />
     <Compile Include="BcrReportRunnerTests.cs" />
