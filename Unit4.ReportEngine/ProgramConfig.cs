@@ -2,7 +2,7 @@ using System;
 
 namespace Unit4.Automation
 {
-    internal class ProgramConfig
+    public class ProgramConfig
     {
         private readonly Func<int> _client;
         private readonly Func<string> _url;

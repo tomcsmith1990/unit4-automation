@@ -5,6 +5,8 @@ Project("{65aa5f49-50c5-47cb-a64f-259c436f015f}") = "Unit4", "Unit4\Unit4.csproj
 EndProject
 Project("{4e61f52d-3352-4efb-9698-2c7d7a3c13b7}") = "Unit4.Automation.Tests", "Unit4.Automation.Tests\Unit4.Automation.Tests.csproj", "{0d2afd1a-ff03-452b-b822-c30a04468505}"
 EndProject
+Project("{69D4E6E5-ED48-4112-A219-FE53706B1A76}") = "Unit4.ReportEngine", "Unit4.ReportEngine\Unit4.ReportEngine.csproj", "{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{0d2afd1a-ff03-452b-b822-c30a04468505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0d2afd1a-ff03-452b-b822-c30a04468505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0d2afd1a-ff03-452b-b822-c30a04468505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

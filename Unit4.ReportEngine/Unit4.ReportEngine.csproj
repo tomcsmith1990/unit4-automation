@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{4ef7f564-2a65-4222-81d6-26fce555f301}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{119B56E1-5505-4F55-B2AD-7A96A13ABBA3}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Unit4.Automation</RootNamespace>
-    <AssemblyName>unit4-automation</AssemblyName>
+    <RootNamespace>Unit4.ReportEngine</RootNamespace>
+    <AssemblyName>Unit4.ReportEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,8 +41,6 @@
     <Reference Include="System.Runtime" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.ComponentModel" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="ReportEngine.Base">
       <HintPath>..\lib\ReportEngine.Base.dll</HintPath>
     </Reference>
@@ -60,63 +58,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Unit4.ReportEngine\Unit4.ReportEngine.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel">
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
-    <Reference Include="CommandLine">
-      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net40\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="CredentialManagement">
       <HintPath>..\packages\CredentialManagement.1.0.2\lib\net35\CredentialManagement.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Model\BcrLine.cs" />
-    <Compile Include="ReportEngine\Logging.cs" />
-    <Compile Include="CostCentresProvider.cs" />
-    <Compile Include="Commands\BcrCommand\CostCentreHierarchy.cs" />
-    <Compile Include="Model\CostCentre.cs" />
-    <Compile Include="Model\Bcr.cs" />
-    <Compile Include="Model\SerializableCostCentreList.cs" />
-    <Compile Include="Model\NullOptions.cs" />
-    <Compile Include="Model\BcrOptions.cs" />
-    <Compile Include="Model\ConfigOptions.cs" />
-    <Compile Include="Model\ObjectExtensions.cs" />
-    <Compile Include="NullRunner.cs" />
-    <Compile Include="Commands\ConfigCommand\ConfigRunner.cs" />
-    <Compile Include="ConfigOptionsFile.cs" />
-    <Compile Include="Commands\BcrCommand\BcrLineBuilder.cs" />
-    <Compile Include="Commands\BcrCommand\BcrFilter.cs" />
-    <Compile Include="Commands\BcrCommand\BcrReader.cs" />
-    <Compile Include="Commands\BcrCommand\BcrReport.cs" />
-    <Compile Include="Commands\BcrCommand\BcrReportRunner.cs" />
-    <Compile Include="Commands\BcrCommand\Report.cs" />
-    <Compile Include="Commands\BcrCommand\CostCentreExtensions.cs" />
-    <Compile Include="ReportRunnerFactory.cs" />
-    <Compile Include="OptionsProvider.cs" />
-    <Compile Include="Cache.cs" />
-    <Compile Include="JsonFile.cs" />
-    <Compile Include="Excel.cs" />
-    <Compile Include="Resql.cs" />
-    <Compile Include="Commands\CommandParser.cs" />
-    <Compile Include="PathProvider.cs" />
-    <Compile Include="Interfaces\ICostCentresProvider.cs" />
-    <Compile Include="Interfaces\ILogging.cs" />
-    <Compile Include="Interfaces\ICache.cs" />
-    <Compile Include="Interfaces\IFile.cs" />
-    <Compile Include="Interfaces\IOptions.cs" />
-    <Compile Include="Interfaces\IRunner.cs" />
-    <Compile Include="Interfaces\IBcrReader.cs" />
-    <Compile Include="Interfaces\IBcrWriter.cs" />
-    <Compile Include="Interfaces\IBcrMiddleware.cs" />
-    <Compile Include="Interfaces\IPathProvider.cs" />
+    <Compile Include="Unit4Engine.cs" />
+    <Compile Include="Unit4EngineFactory.cs" />
+    <Compile Include="Unit4WebProvider.cs" />
+    <Compile Include="Unit4WebConnector.cs" />
+    <Compile Include="ProgramConfig.cs" />
+    <Compile Include="WindowsCredentialManager.cs" />
+    <Compile Include="Credentials.cs" />
+    <Compile Include="ICredentials.cs" />
+    <Compile Include="IUnit4Engine.cs" />
+    <Compile Include="IUnit4EngineFactory.cs" />
+    <Compile Include="ICredentialManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

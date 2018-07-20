@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Unit4\Unit4.csproj" />
+    <ProjectReference Include="..\Unit4.ReportEngine\Unit4.ReportEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
