@@ -27,6 +27,7 @@
                 <Directory Id="INSTALLDIR" Name="Unit4 Automation">
                     <Component Id="MainExecutable" Guid="D8CBE087-769C-40D6-AACE-9C08DC53770B">
                         <File Id="Unit4AutomationExe" Name="unit4-automation.exe" DiskId="1" Source="./Unit4/bin/Debug/unit4-automation.exe" />
+                        <File Id="Unit4ReportEngine" Name="Unit4.ReportEngine.dll" DiskId="1" Source="./Unit4/bin/Debug/Unit4.ReportEngine.dll" />
                         <File Id="CommandLineParser" Name="CommandLine.dll" DiskId="1" Source="./Unit4/bin/Debug/CommandLine.dll" />
                         <File Id="NewtonsoftJson" Name="Newtonsoft.Json.dll" DiskId="1" Source="./Unit4/bin/Debug/Newtonsoft.Json.dll" />
                         <File Id="ReportEngineBase" Name="ReportEngine.Base.dll" DiskId="1" Source="./Unit4/bin/Debug/ReportEngine.Base.dll" />
