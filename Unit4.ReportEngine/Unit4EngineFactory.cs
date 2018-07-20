@@ -1,6 +1,4 @@
-using Unit4.Automation.Interfaces;
-
-namespace Unit4.Automation.ReportEngine
+namespace Unit4.ReportEngine
 {
     public class Unit4EngineFactory : IUnit4EngineFactory
     {

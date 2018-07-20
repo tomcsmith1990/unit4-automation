@@ -7,6 +7,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Collections.Generic;
 using Unit4.Automation.Interfaces;
 using System.Linq;
+using Unit4.ReportEngine;
 
 namespace Unit4.Automation
 {

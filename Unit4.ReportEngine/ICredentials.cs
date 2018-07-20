@@ -1,6 +1,6 @@
 using System.Security;
 
-namespace Unit4.Automation.Interfaces
+namespace Unit4.ReportEngine
 {
     internal interface ICredentials
     {

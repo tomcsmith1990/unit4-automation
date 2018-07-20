@@ -1,9 +1,7 @@
 using System;
 using CredentialManagement;
-using Unit4.Automation.Interfaces;
-using Unit4.Automation.Model;
 
-namespace Unit4.Automation
+namespace Unit4.ReportEngine
 {
     internal class WindowsCredentialManager : ICredentialManager
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Unit4.Automation
+namespace Unit4.ReportEngine
 {
     public class ProgramConfig
     {

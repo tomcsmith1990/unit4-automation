@@ -5,6 +5,7 @@ using System.Reflection;
 using Unit4.Automation.Interfaces;
 using Unit4.Automation.Model;
 using Unit4.Automation.ReportEngine;
+using Unit4.ReportEngine;
 
 namespace Unit4.Automation.Commands.BcrCommand
 {

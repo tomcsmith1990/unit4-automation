@@ -1,4 +1,4 @@
-namespace Unit4.Automation.Interfaces
+namespace Unit4.ReportEngine
 {
     public interface IUnit4EngineFactory
     {

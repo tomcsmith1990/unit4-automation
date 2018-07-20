@@ -1,7 +1,6 @@
 using System.Security;
-using Unit4.Automation.Interfaces;
 
-namespace Unit4.Automation.Model
+namespace Unit4.ReportEngine
 {
     internal class Credentials : ICredentials
     {

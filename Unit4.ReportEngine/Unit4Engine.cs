@@ -2,9 +2,8 @@ using System.Data;
 using ReportEngine;
 using ReportEngine.Data.Sql;
 using ReportEngine.Interfaces;
-using Unit4.Automation.Interfaces;
 
-namespace Unit4.Automation.ReportEngine
+namespace Unit4.ReportEngine
 {
     internal class Unit4Engine : IUnit4Engine
     {
